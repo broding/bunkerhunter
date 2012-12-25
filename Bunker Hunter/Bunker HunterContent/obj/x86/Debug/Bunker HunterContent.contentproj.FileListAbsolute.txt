@@ -1,0 +1,3 @@
+c:\users\bas\documents\visual studio 2010\Projects\Bunker Hunter\Bunker Hunter\Bunker HunterContent\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker HunterContent\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Bas\My Documents\bunkerhunter-master\Bunker Hunter\Bunker HunterContent\obj\x86\Debug\ResolveAssemblyReference.cache

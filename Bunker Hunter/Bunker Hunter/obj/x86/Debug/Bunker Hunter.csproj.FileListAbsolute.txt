@@ -1,0 +1,39 @@
+c:\users\bas\documents\visual studio 2010\Projects\Bunker Hunter\Bunker Hunter\Bunker Hunter\obj\x86\Debug\ResolveAssemblyReference.cache
+c:\users\bas\documents\visual studio 2010\Projects\Bunker Hunter\Bunker Hunter\Bunker Hunter\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+c:\users\bas\documents\visual studio 2010\Projects\Bunker Hunter\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Bunker Hunter.exe
+c:\users\bas\documents\visual studio 2010\Projects\Bunker Hunter\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Bunker Hunter.pdb
+c:\users\bas\documents\visual studio 2010\Projects\Bunker Hunter\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Flakcore.dll
+c:\users\bas\documents\visual studio 2010\Projects\Bunker Hunter\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Flakcore.pdb
+c:\users\bas\documents\visual studio 2010\Projects\Bunker Hunter\Bunker Hunter\Bunker Hunter\obj\x86\Debug\Bunker Hunter.exe
+c:\users\bas\documents\visual studio 2010\Projects\Bunker Hunter\Bunker Hunter\Bunker Hunter\obj\x86\Debug\Bunker Hunter.pdb
+c:\users\bas\documents\visual studio 2010\Projects\Bunker Hunter\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\fontDefault.xnb
+c:\users\bas\documents\visual studio 2010\Projects\Bunker Hunter\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\fontDefault.spritefont
+c:\users\bas\documents\visual studio 2010\Projects\Bunker Hunter\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\font.xnb
+c:\users\bas\documents\visual studio 2010\Projects\Bunker Hunter\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\background.xnb
+c:\users\bas\documents\visual studio 2010\Projects\Bunker Hunter\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\bullet.xnb
+c:\users\bas\documents\visual studio 2010\Projects\Bunker Hunter\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\npc.xnb
+c:\users\bas\documents\visual studio 2010\Projects\Bunker Hunter\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\pan.xnb
+c:\users\bas\documents\visual studio 2010\Projects\Bunker Hunter\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\poppetje.xnb
+c:\users\bas\documents\visual studio 2010\Projects\Bunker Hunter\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\tilemap.xnb
+c:\users\bas\documents\visual studio 2010\Projects\Bunker Hunter\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\map2.tmx
+C:\Documents and Settings\Bas\My Documents\bunkerhunter-master\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\fontDefault.xnb
+C:\Documents and Settings\Bas\My Documents\bunkerhunter-master\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\font.xnb
+C:\Documents and Settings\Bas\My Documents\bunkerhunter-master\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\background.xnb
+C:\Documents and Settings\Bas\My Documents\bunkerhunter-master\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\bullet.xnb
+C:\Documents and Settings\Bas\My Documents\bunkerhunter-master\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\npc.xnb
+C:\Documents and Settings\Bas\My Documents\bunkerhunter-master\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\pan.xnb
+C:\Documents and Settings\Bas\My Documents\bunkerhunter-master\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\poppetje.xnb
+C:\Documents and Settings\Bas\My Documents\bunkerhunter-master\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\tilemap.xnb
+C:\Documents and Settings\Bas\My Documents\bunkerhunter-master\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\Cloud001.xnb
+C:\Documents and Settings\Bas\My Documents\bunkerhunter-master\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\fontDefault.spritefont
+C:\Documents and Settings\Bas\My Documents\bunkerhunter-master\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\map2.tmx
+C:\Documents and Settings\Bas\My Documents\bunkerhunter-master\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Bunker Hunter.exe
+C:\Documents and Settings\Bas\My Documents\bunkerhunter-master\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Bunker Hunter.pdb
+C:\Documents and Settings\Bas\My Documents\bunkerhunter-master\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Flakcore.dll
+C:\Documents and Settings\Bas\My Documents\bunkerhunter-master\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Flakcore.pdb
+C:\Documents and Settings\Bas\My Documents\bunkerhunter-master\Bunker Hunter\Bunker Hunter\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Bas\My Documents\bunkerhunter-master\Bunker Hunter\Bunker Hunter\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Documents and Settings\Bas\My Documents\bunkerhunter-master\Bunker Hunter\Bunker Hunter\obj\x86\Debug\Bunker Hunter.exe
+C:\Documents and Settings\Bas\My Documents\bunkerhunter-master\Bunker Hunter\Bunker Hunter\obj\x86\Debug\Bunker Hunter.pdb
+C:\Documents and Settings\Bas\My Documents\bunkerhunter-master\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\FlowerBurst.xnb
+C:\Documents and Settings\Bas\My Documents\bunkerhunter-master\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\LensFlare.xnb
