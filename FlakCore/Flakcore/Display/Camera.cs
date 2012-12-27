@@ -48,8 +48,8 @@ namespace Flakcore.Display
         {
             if (followNode != null)
             {
-                position.Y = followNode.position.Y + followNode.Height / 2;
-                position.X = followNode.position.X + followNode.Width / 2;
+                position.Y = followNode.Position.Y + followNode.Height / 2;
+                position.X = followNode.Position.X + followNode.Width / 2;
             }
 
             position.X = Math.Max(GameManager.screenSize.X / 2, position.X);

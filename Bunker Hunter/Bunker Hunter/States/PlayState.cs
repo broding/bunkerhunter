@@ -12,6 +12,7 @@ using Flakcore.Display.ParticleEngine;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Flakcore.Display.ParticleEngine.Modifiers;
+using Bunker_Hunker.GameObjects;
 
 namespace Bunker_Hunter.States
 {
@@ -22,14 +23,17 @@ namespace Bunker_Hunter.States
         {
             this.BackgroundColor = Color.SandyBrown;
 
+            Node bulletNode = new Node();
+
             Tilemap tilemap = new Tilemap();
             tilemap.loadMap(@"Content/map2.tmx", 32, 32);
             this.addChild(tilemap);
 
-            Player player = new Player();
+            Player player = new Player(bulletNode);
+            player.Position = new Vector2(160 , 160);
             this.addChild(player);
 
-            GameManager.currentDrawCamera.followNode = player;
+            //GameManager.currentDrawCamera.followNode = player;
 
             // effect test
             ParticleEffect effect = new ParticleEffect();
@@ -38,16 +42,19 @@ namespace Bunker_Hunter.States
             effect.Modifiers.Add(new RotationRate(5f));
             effect.Modifiers.Add(new LinearAlpha(0));
 
+            this.addChild(bulletNode);
+
             this.Engine = new ParticleEngine(effect);
-            this.Engine.position = new Vector2(400, 400);
+            this.Engine.Position = new Vector2(400, 400);
             this.addChild(this.Engine);
+
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
 
-            this.Engine.position = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
+            this.Engine.Position = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
         }
     }
 }

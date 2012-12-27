@@ -6,29 +6,40 @@ using Flakcore.Display;
 using Flakcore;
 using Microsoft.Xna.Framework;
 using Flakcore.Utils;
+using Bunker_Hunter.GameObjects;
 
 namespace CallOfHonour.GameObjects
 {
     public class Bullet : Sprite
     {
-        protected float _restitution;
-        protected float _speed;
-        protected bool _ignoreGravity;
+        public BulletType BulletType { get; private set; }
 
         public Bullet()
         {
-            _restitution = 0;
-            _ignoreGravity = true;
-            _speed = ConvertUnits.ToSimUnits(50);
-            LoadTexture("bullet");
-            Visable = false;
-
+            this.LoadTexture("bullet");
             this.addCollisionGroup("bullet");
+            this.BulletType = new BulletType();
+            this.Kill();
         }
 
-        public virtual void activate(Vector2 shooterPosition, Vector2 direction)
+        public void Fire(Vector2 position, Facing facing)
         {
-            Visable = true;
+            this.Position = position;
+            this.Facing = facing;
+            this.Revive();
+            this.Velocity.X = Util.FacingToVelocity(facing) * this.BulletType.Speed;
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+
+            GameManager.collide(this, "tilemap", this.TilemapCollision);
+        }
+
+        private bool TilemapCollision(Node bullet, Node tilemap)
+        {
+            return true;
         }
     }
 }

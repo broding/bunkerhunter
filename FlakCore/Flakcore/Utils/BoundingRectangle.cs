@@ -19,8 +19,8 @@ namespace Flakcore.Utils
 
         public float Left { get { return this.Min.X; } }
         public float Right { get { return this.Max.X; } }
-        public float Top { get { return this.Max.Y; } }
-        public float Bottom { get { return this.Min.Y; } }
+        public float Top { get { return this.Min.Y; } }
+        public float Bottom { get { return this.Max.Y; } }
 
         public float X { get { return this.Min.X; } }
         public float Y { get { return this.Min.Y; } }

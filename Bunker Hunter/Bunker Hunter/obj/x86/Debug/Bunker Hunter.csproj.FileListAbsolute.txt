@@ -37,3 +37,6 @@ C:\Documents and Settings\Bas\My Documents\bunkerhunter-master\Bunker Hunter\Bun
 C:\Documents and Settings\Bas\My Documents\bunkerhunter-master\Bunker Hunter\Bunker Hunter\obj\x86\Debug\Bunker Hunter.pdb
 C:\Documents and Settings\Bas\My Documents\bunkerhunter-master\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\FlowerBurst.xnb
 C:\Documents and Settings\Bas\My Documents\bunkerhunter-master\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\LensFlare.xnb
+C:\Documents and Settings\Bas\My Documents\bunkerhunter-master\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\player.xnb
+C:\Documents and Settings\Bas\My Documents\bunkerhunter-master\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Indiefreaks.AOP.Profiler.dll
+C:\Documents and Settings\Bas\My Documents\bunkerhunter-master\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Indiefreaks.Xna.Profiler.dll

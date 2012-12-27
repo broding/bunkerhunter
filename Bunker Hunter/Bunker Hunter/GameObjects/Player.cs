@@ -9,13 +9,16 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Flakcore.Utils;
 using Flakcore.Physics;
-namespace CallOfHonour
+using CallOfHonour;
+using Bunker_Hunter.GameObjects;
+
+namespace Bunker_Hunker.GameObjects
 {
     public class Player : Character
     {
-        public Player() : base()
+        public Player(Node bulletNode) : base(bulletNode)
         {
-            this.LoadTexture(GameManager.content.Load<Texture2D>("poppetje"), 16, 32);
+            this.LoadTexture(GameManager.content.Load<Texture2D>("player"), 32, 48);
         }
 
         public override void Update(GameTime gameTime)
@@ -39,24 +42,33 @@ namespace CallOfHonour
 
         private void updateInput()
         {
-            GamePadState padState = GamePad.GetState(PlayerIndex.One);
+            InputState state = GameManager.input.GetInputState(PlayerIndex.One);
 
-            if (GameManager.input.justPressed(PlayerIndex.One, Buttons.A))
+            if (state.Jump)
                 jump();
-            else if (padState.ThumbSticks.Left.X != 0)
-                run((int)(padState.ThumbSticks.Left.X * 100));
-            else
-                stop();
 
-            if (GameManager.input.justPressed(PlayerIndex.One, Buttons.B))
-                shoot();
+            if (state.Fire)
+                Fire();
 
-            this.Velocity.X = padState.ThumbSticks.Left.X * 100;
+            this.Velocity.X = state.X * 100;
+        }
+
+        private void Fire()
+        {
+            if (this.Weapon != null)
+            {
+                this.Weapon.Fire(this.Position, this.Facing);
+            }
         }
 
         private bool npcCollide(Node player, Node tilemap)
         {
             return true;
+        }
+
+        protected override void DrawCall(SpriteBatch spriteBatch, Vector2 position, Vector2 scale, float rotation, SpriteEffects spriteEffect)
+        {
+            base.DrawCall(spriteBatch, position, scale, rotation, spriteEffect);
         }
     }
 }

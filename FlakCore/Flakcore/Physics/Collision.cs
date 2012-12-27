@@ -9,23 +9,6 @@ using Display.Tilemap;
 
 namespace Flakcore.Physics
 {
-    public class CollisionSide
-    {
-        public static uint UP = 0x0001;
-        public static uint DOWN = 0x0010;
-        public static uint LEFT = 0x0100;
-        public static uint RIGHT = 0x1000;
-        public static uint NONE = 0;
-        public static uint ANY = LEFT | RIGHT | UP | DOWN;
-
-    }
-
-    public enum Direction
-    {
-        X,
-        Y
-    }
-
     class Collision
     {
         public Node node1 { get; private set; }
@@ -61,59 +44,64 @@ namespace Flakcore.Physics
             Node dirtyNode1 = (Node)this.node1.Clone();
             Node dirtyNode2 = (Node)this.node2.Clone();
 
-            dirtyNode1.position.X += dirtyNode1.Velocity.X * deltaTime;
-            dirtyNode2.position.X += dirtyNode2.Velocity.X * deltaTime;
+            dirtyNode1.Position.X += dirtyNode1.Velocity.X * deltaTime;
+            dirtyNode2.Position.X += dirtyNode2.Velocity.X * deltaTime;
 
             dirtyNode1.RoundPosition();
             dirtyNode2.RoundPosition();
 
-            float intersectionDepth = RectangleExtensions.GetIntersectionDepth(dirtyNode1.getBoundingBox(), dirtyNode2.getBoundingBox()).X;
+            float intersectionDepth = RectangleExtensions.GetIntersectionDepth(dirtyNode1.GetBoundingBox(), dirtyNode2.GetBoundingBox()).X;
             if (intersectionDepth != 0)
                 overlapX(intersectionDepth);
 
             dirtyNode1 = (Node)this.node1.Clone();
             dirtyNode2 = (Node)this.node2.Clone();
 
-            dirtyNode1.position.Y += dirtyNode1.Velocity.Y * deltaTime;
-            dirtyNode2.position.Y += dirtyNode2.Velocity.Y * deltaTime;
+            dirtyNode1.Position.Y += dirtyNode1.Velocity.Y * deltaTime;
+            dirtyNode2.Position.Y += dirtyNode2.Velocity.Y * deltaTime;
 
             dirtyNode1.RoundPosition();
             dirtyNode2.RoundPosition();
 
-            intersectionDepth = RectangleExtensions.GetIntersectionDepth(dirtyNode1.getBoundingBox(), dirtyNode2.getBoundingBox()).Y;
+            BoundingRectangle box1 = dirtyNode1.GetBoundingBox();
+            BoundingRectangle box2 = dirtyNode2.GetBoundingBox();
+            intersectionDepth = RectangleExtensions.GetIntersectionDepth(dirtyNode1.GetBoundingBox(), dirtyNode2.GetBoundingBox()).Y;
             if (intersectionDepth != 0)
                 overlapY(intersectionDepth);
 
             this.CorrectNodes(deltaTime);
+
+            this.node1.RoundPosition();
+            this.node2.RoundPosition();
         }
 
         private void CorrectNodes(float deltaTime)
         {
             if (node1PositionDiff.X != 0)
             {
-                this.node1.position.X += this.node1.Velocity.X * deltaTime;
-                this.node1.position.X += node1PositionDiff.X;
+                this.node1.Position.X += this.node1.Velocity.X * deltaTime;
+                this.node1.Position.X += node1PositionDiff.X;
                 this.node1.Velocity.X += node1VelocityDiff.X;
             }
 
             if (node1PositionDiff.Y != 0)
             {
-                this.node1.position.Y += this.node1.Velocity.Y * deltaTime;
-                this.node1.position.Y += node1PositionDiff.Y;
+                this.node1.Position.Y += this.node1.Velocity.Y * deltaTime;
+                this.node1.Position.Y += node1PositionDiff.Y;
                 this.node1.Velocity.Y += node1VelocityDiff.Y;
             }
 
             if (node2PositionDiff.X != 0)
             {
-                this.node2.position.X += this.node2.Velocity.X * deltaTime;
-                this.node2.position.X += node2PositionDiff.X;
+                this.node2.Position.X += this.node2.Velocity.X * deltaTime;
+                this.node2.Position.X += node2PositionDiff.X;
                 this.node2.Velocity.X += node2VelocityDiff.X;
             }
 
             if (node2PositionDiff.Y != 0)
             {
-                this.node2.position.Y += this.node2.Velocity.Y * deltaTime;
-                this.node2.position.Y += node2PositionDiff.Y;
+                this.node2.Position.Y += this.node2.Velocity.Y * deltaTime;
+                this.node2.Position.Y += node2PositionDiff.Y;
                 this.node2.Velocity.Y += node2VelocityDiff.Y;
             }
         }
@@ -175,7 +163,6 @@ namespace Flakcore.Physics
             {
                 this.node1PositionDiff.Y += overlap;
                 this.node1VelocityDiff.Y -= node1.Velocity.Y;
-                Console.Write("");
             }
             else if (!node2.Immovable)
             {
@@ -193,8 +180,6 @@ namespace Flakcore.Physics
             {
                 this.node1PositionDiff.X += overlap;
                 this.node1VelocityDiff.X -= node1.Velocity.X;
-                this.node1VelocityDiff.Y -= node1.Velocity.Y;
-                Console.Write("");
             }
             else if (!node2.Immovable)
             {

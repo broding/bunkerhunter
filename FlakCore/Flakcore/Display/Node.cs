@@ -15,7 +15,7 @@ namespace Flakcore.Display
 
         public Node Parent;
 
-        public Vector2 position = Vector2.Zero;
+        public Vector2 Position = Vector2.Zero;
         public Vector2 previousPosition { get; protected set; }
         public Vector2 Velocity = Vector2.Zero;
         public Vector2 previousVelocity { get; protected set; }
@@ -41,12 +41,12 @@ namespace Flakcore.Display
         public bool Immovable;
         public bool Dead { get; protected set; }
 
-        private List<string> _collisionGroup;
+        private List<string> CollisionGroup;
 
         public Node()
         {
             Children = new List<Node>();
-            _collisionGroup = new List<string>();
+            CollisionGroup = new List<string>();
             this.Touching = new Sides();
             this.WasTouching = new Sides();
             Visable = true;
@@ -84,10 +84,7 @@ namespace Flakcore.Display
             if (!Immovable)
             {
                 this.Rotation += RotationVelocity;
-                this.position += this.Velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-                //his.RoundPosition();
-                //this.RoundVelocity();
+                this.Position += this.Velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
         }
 
@@ -119,7 +116,7 @@ namespace Flakcore.Display
             Children = new List<Node>();
         }
 
-        public virtual BoundingRectangle getBoundingBox()
+        public virtual BoundingRectangle GetBoundingBox()
         {
             Vector2 worldPosition = this.getWorldPosition();
 
@@ -129,9 +126,9 @@ namespace Flakcore.Display
         public Vector2 getWorldPosition()
         {
             if (Parent == null)
-                return position;
+                return Position;
             else
-                return Parent.getWorldPosition() + position;
+                return Parent.getWorldPosition() + Position;
         }
 
         public virtual void Kill()
@@ -152,7 +149,7 @@ namespace Flakcore.Display
             return Matrix.CreateTranslation(-Origin.X, -Origin.Y, 0f) *
             //Matrix.CreateScale(Scale.X, Scale.Y, 1f) *
             //Matrix.CreateRotationZ(Rotation) *   
-            Matrix.CreateTranslation(position.X, position.Y, 0f);
+            Matrix.CreateTranslation(Position.X, Position.Y, 0f);
         }
 
         public static void decomposeMatrix(ref Matrix matrix, out Vector2 position, out float rotation, out Vector2 scale)
@@ -185,8 +182,8 @@ namespace Flakcore.Display
 
         public void RoundPosition()
         {
-            this.position.X = (float)Math.Round(this.position.X);
-            this.position.Y = (float)Math.Round(this.position.Y);
+            this.Position.X = (float)Math.Round(this.Position.X);
+            this.Position.Y = (float)Math.Round(this.Position.Y);
         }
 
         public void RoundVelocity()
@@ -197,29 +194,29 @@ namespace Flakcore.Display
 
         public void addCollisionGroup(string groupName)
         {
-            this._collisionGroup.Add(groupName);
+            this.CollisionGroup.Add(groupName);
         }
 
         public void removeCollisionGroup(string groupName)
         {
-            this._collisionGroup.Remove(groupName);
+            this.CollisionGroup.Remove(groupName);
         }
 
         public bool isMemberOfCollisionGroup(string groupName)
         {
-            return this._collisionGroup.Contains(groupName);
+            return this.CollisionGroup.Contains(groupName);
         }
 
-        public bool hasCollisionGroup()
+        public bool hasCollisionGroups()
         {
-            return this._collisionGroup.Count > 0;
+            return this.CollisionGroup.Count > 0;
         }
 
 
         public object Clone()
         {
             Node clone = new Node();
-            clone.position = new Vector2(position.X, position.Y);
+            clone.Position = new Vector2(Position.X, Position.Y);
             clone.Velocity = new Vector2(Velocity.X, Velocity.Y);
             clone.Width = Width;
             clone.Height = Height;

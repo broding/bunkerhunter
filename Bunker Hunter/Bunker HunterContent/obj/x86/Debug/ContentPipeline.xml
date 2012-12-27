@@ -100,6 +100,15 @@
       <Output>C:\Documents and Settings\Bas\My Documents\bunkerhunter-master\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\LensFlare.xnb</Output>
       <Time>2012-12-25T21:48:30.0866018+01:00</Time>
     </Item>
+    <Item>
+      <Source>player.png</Source>
+      <Name>player</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\Bas\My Documents\bunkerhunter-master\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\player.xnb</Output>
+      <Time>2012-12-25T22:13:52.5039201+01:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>
@@ -135,6 +144,14 @@
       <Assembly>
         <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.AudioImporters.dll</Key>
         <Value>2010-08-23T21:41:18+02:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Documents and Settings\Bas\My Documents\bunkerhunter-master\Libraries\Indiefreaks.Xna.Profiler.dll</Key>
+        <Value>2011-07-19T00:30:02+02:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Documents and Settings\Bas\My Documents\bunkerhunter-master\Libraries\Indiefreaks.AOP.Profiler.dll</Key>
+        <Value>2011-07-19T00:30:04+02:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\WINDOWS\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>

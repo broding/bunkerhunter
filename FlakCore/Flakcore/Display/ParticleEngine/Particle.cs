@@ -58,7 +58,7 @@ namespace Flakcore.Display.ParticleEngine
         public void Fire(Vector2 position)
         {
             this.Revive();
-            this.position = position;
+            this.Position = position;
             this.InitializeEffect();
         }
 
@@ -82,7 +82,7 @@ namespace Flakcore.Display.ParticleEngine
         {
             spriteBatch.Draw(
                 this.Effect.BaseTexture,
-                new Vector2(this.position.X * ScrollFactor.X, this.position.Y * ScrollFactor.Y),
+                new Vector2(this.Position.X * ScrollFactor.X, this.Position.Y * ScrollFactor.Y),
                 new Rectangle(0, 0, this.Effect.BaseTexture.Width, this.Effect.BaseTexture.Height),
                 this.Color * this.Alpha,
                 0,

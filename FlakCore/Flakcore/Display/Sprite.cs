@@ -69,8 +69,6 @@ namespace Flakcore.Display
                     return;
                 }
             }
-
-            System.Diagnostics.Debug.WriteLine("Could not load animation name: " + name);
         }
 
         public override void Update(GameTime gameTime)
@@ -119,7 +117,8 @@ namespace Flakcore.Display
         {
 
             if (Animating)
-                spriteBatch.Draw(Texture, new Vector2(position.X * ScrollFactor.X, position.Y * ScrollFactor.Y),
+                spriteBatch.Draw(Texture,
+                    new Vector2(position.X * ScrollFactor.X, position.Y * ScrollFactor.Y),
                     new Rectangle(CurrentAnimation.frames[CurrentFrame] * Width, 0, Width, Height),
                     this.Color * this.Alpha,
                     rotation,

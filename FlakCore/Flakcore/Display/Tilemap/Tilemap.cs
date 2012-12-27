@@ -10,23 +10,27 @@ using Microsoft.Xna.Framework;
 using Flakcore.Display;
 using Flakcore;
 using Flakcore.Utils;
+using Flakcore.Physics;
 
 namespace Display.Tilemap
 {
     public class Tilemap : Node
     {
-        private int _width;
-        private int _height;
         public static int tileWidth { get; private set; }
         public static int tileHeight { get; private set; }
 
-        private List<Layer> _layers;
-        private List<Tileset> _tilesets;
+        private HashSet<string> CollisionGroups;
+
+        private List<Layer> Layers;
+        private List<Tileset> Tilesets;
 
         public Tilemap()
         {
-            _layers = new List<Layer>();
-            _tilesets = new List<Tileset>();
+            this.Layers = new List<Layer>();
+            this.Tilesets = new List<Tileset>();
+            this.CollisionGroups = new HashSet<string>();
+
+            CollisionSolver.Tilemaps.Add(this);
         }
 
         public void loadMap(string path, int tileWidth, int tileHeight)
@@ -36,8 +40,8 @@ namespace Display.Tilemap
 
             XDocument doc = XDocument.Load(path);
 
-            _width = Convert.ToInt32(doc.Element("map").Attribute("width").Value);
-            _height = Convert.ToInt32(doc.Element("map").Attribute("width").Value);
+            Width = Convert.ToInt32(doc.Element("map").Attribute("width").Value);
+            Height = Convert.ToInt32(doc.Element("map").Attribute("width").Value);
 
             // load all tilesets
             foreach (XElement element in doc.Descendants("tileset"))
@@ -52,12 +56,18 @@ namespace Display.Tilemap
                 foreach (XElement tile in element.Descendants("tile"))
                 {
                     if (tile.Descendants("property").First().Attribute("name").Value == "collisionGroups")
-                        tileCollisionGroups[(int)tile.Attribute("id")] = tile.Descendants("property").First().Attribute("value").Value;
+                    {
+                        int index = (int)tile.Attribute("id");
+                        string groupName = tile.Descendants("property").First().Attribute("value").Value;
+
+                        tileCollisionGroups[index] = groupName;
+                        this.CollisionGroups.Add(groupName);
+                    }
                 }
 
                 Tileset tileset = new Tileset(Convert.ToInt32(element.Attribute("firstgid").Value), element.Attribute("name").Value, Convert.ToInt32(element.Element("image").Attribute("width").Value), Convert.ToInt32(element.Element("image").Attribute("height").Value), GameManager.content.Load<Texture2D>(assetName), tileCollisionGroups);
 
-                _tilesets.Add(tileset);
+                Tilesets.Add(tileset);
             }
 
             // load all layers
@@ -93,7 +103,7 @@ namespace Display.Tilemap
                 }
 
 
-                _layers.Add(layer);
+                Layers.Add(layer);
             }
         }
 
@@ -101,7 +111,7 @@ namespace Display.Tilemap
         {
             Tileset best = null;
 
-            foreach (Tileset tileset in _tilesets)
+            foreach (Tileset tileset in Tilesets)
             {
                 if (best == null)
                     best = tileset;
@@ -118,7 +128,7 @@ namespace Display.Tilemap
         public override void Draw(SpriteBatch spriteBatch, Matrix parentTransform)
         {
             // loop through all layers to draw them
-            foreach (Layer layer in _layers)
+            foreach (Layer layer in Layers)
             {
                 layer.Draw(spriteBatch, Matrix.Identity);
             }
@@ -126,12 +136,25 @@ namespace Display.Tilemap
 
         public override List<Node> getAllChildren(List<Node> nodes)
         {
-            foreach (Layer layer in _layers)
+            foreach (Layer layer in Layers)
             {
                 layer.getAllChildren(nodes);
             }
 
             return nodes;
+        }
+
+        internal bool HasTileCollisionGroup(string groupName)
+        {
+            return this.CollisionGroups.Contains(groupName);
+        }
+
+        internal void GetCollidedTiles(Node node, List<Node> collidedNodes)
+        {
+            foreach (Layer layer in this.Layers)
+            {
+                layer.GetCollidedTiles(node, collidedNodes);
+            }
         }
     }
 }

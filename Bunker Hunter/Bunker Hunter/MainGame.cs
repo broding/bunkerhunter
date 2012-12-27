@@ -10,6 +10,8 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Flakcore;
 using Bunker_Hunter.States;
+using Indiefreaks.Xna.Profiler;
+using Indiefreaks.AOP.Profiler;
 
 namespace Bunker_Hunter
 {
@@ -22,6 +24,7 @@ namespace Bunker_Hunter
         SpriteBatch spriteBatch;
 
         private Core Core;
+        private ProfilerGameComponent profilerGameComponent;
 
         public MainGame()
         {

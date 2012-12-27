@@ -10,7 +10,7 @@ namespace Flakcore.Physics
 {
     public class QuadTree
     {
-        public const int MAX_OBJECTS = 200;
+        public const int MAX_OBJECTS = 4;
         public const int MAX_LEVELS  = 35;
 
         private int level;
@@ -52,7 +52,7 @@ namespace Flakcore.Physics
 
         private int getIndex(Node node)
         {
-            BoundingRectangle nodeRect = node.getBoundingBox();
+            BoundingRectangle nodeRect = node.GetBoundingBox();
             int index = -1;
 
             float verticleMidPoint = bounds.X + (bounds.Width / 2);
@@ -80,10 +80,10 @@ namespace Flakcore.Physics
 
         public void insert(Node node)
         {
-            if (!node.hasCollisionGroup())
+            if (!node.hasCollisionGroups() || node.Dead)
                 return;
 
-            if(!node.getBoundingBox().Intersects(this.bounds))
+            if(!node.GetBoundingBox().Intersects(this.bounds))
                 return;
 
             if(nodes[0] != null)

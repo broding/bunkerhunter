@@ -2,19 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Flakcore.Display;
 
 namespace Flakcore.Utils
 {
-    class Util
+    public class Util
     {
         public static int RandomPositiveNegative()
         {
             int number = new Random().Next(0, 2);
-            Console.Write(number);
-            if (number == 1)
-                return 1;
-            else
-                return -1;
+
+            return number == 1 ? 1 : -1;
+        }
+
+        public static int FacingToVelocity(Facing facing)
+        {
+            return facing == Facing.Left ? -1 : 1;
         }
     }
 }

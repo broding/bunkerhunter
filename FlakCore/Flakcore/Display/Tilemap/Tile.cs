@@ -18,8 +18,8 @@ namespace Display.Tilemap
 
         public Tile(int x, int y, int gid, Rectangle sourceRect, Tileset tileset, string[] collisionGroups)
         {
-            this.position = new Vector2(x*Tilemap.tileWidth, y*Tilemap.tileHeight);
-            this.previousPosition = position;
+            this.Position = new Vector2(x*Tilemap.tileWidth, y*Tilemap.tileHeight);
+            this.previousPosition = Position;
             this.gid = gid;
             this.sourceRect = sourceRect;
             this.tileset = tileset;
@@ -27,14 +27,14 @@ namespace Display.Tilemap
             this.Width = Tilemap.tileWidth;
             this.Height = Tilemap.tileHeight;
 
-            for (int i = 0; collisionGroups.Length > i; i++)
-                this.addCollisionGroup(collisionGroups[i]);
+            //for (int i = 0; collisionGroups.Length > i; i++)
+                //this.addCollisionGroup(collisionGroups[i]);
 
         }
 
-        public override BoundingRectangle getBoundingBox()
+        public override BoundingRectangle GetBoundingBox()
         {
-            return new BoundingRectangle(position.X, position.Y, Tilemap.tileWidth, Tilemap.tileHeight);
+            return new BoundingRectangle(Position.X, Position.Y, Tilemap.tileWidth, Tilemap.tileHeight);
         }
     }
 }

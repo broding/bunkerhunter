@@ -10,31 +10,32 @@ using Microsoft.Xna.Framework.Input;
 using Flakcore.Utils;
 using CallOfHonour.GameObjects;
 using Flakcore.Physics;
+using Bunker_Hunter.GameObjects;
 
-namespace CallOfHonour
+namespace Bunker_Hunker.GameObjects
 {
     public abstract class Character : Sprite
     {
-        protected bool _jumpAvailable;
+        protected Weapon Weapon;
+        protected Node BulletNode;
+        protected bool JumpAvailable;
 
-        public Character()
+        public Character(Node bulletNode)
         {
-            _jumpAvailable = false;
+            this.BulletNode = bulletNode;
+            this.JumpAvailable = false;
+            this.Weapon = new Weapon(bulletNode);
 
-            this.AddAnimation("run", new int[8] { 0, 1, 2, 3, 4, 5, 6, 7 }, 0.08f);
-            this.AddAnimation("still", new int[1] { 0 }, 10f);
-            this.AddAnimation("hanging", new int[1] { 8 }, 10f);
-            this.AddAnimation("jump", new int[10] { 11, 12, 13, 14, 15, 14, 15, 14, 15, 14 }, 0.08f);
-            this.AddAnimation("airing", new int[2] { 14, 15 }, 0.1f);
-            this.AddAnimation("bump", new int[1] { 16 }, 0.1f);
-            this.PlayAnimation("run");
+            this.addChild(this.Weapon);
+
+            //this.AddAnimation("run", new int[8] { 0, 1, 2, 3, 4, 5, 6, 7 }, 0.08f);
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
 
-            Velocity.Y += 10;
+            //Velocity.Y += 10;
 
             updateAnimations();
 
@@ -52,7 +53,7 @@ namespace CallOfHonour
         private bool tilemapCollide(Node player, Node tilemap)
         {
             if (this.Touching.Bottom)
-                _jumpAvailable = true;
+                JumpAvailable = true;
 
             return true;
         }
@@ -83,11 +84,11 @@ namespace CallOfHonour
 
         protected void jump()
         {
-            if (this._jumpAvailable) 
+            if (this.JumpAvailable) 
             {
                 this.PlayAnimation("airing");
                 this.Velocity.Y = -220;
-                this._jumpAvailable = false;
+                this.JumpAvailable = false;
             }
         }
 

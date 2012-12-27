@@ -63,7 +63,6 @@ namespace Display.Tilemap
 
                 Node.decomposeMatrix(ref globalTransform, out position, out rotation, out scale);
 
-                //spriteBatch.Draw(tile.tileset.graphic, position, tile.sourceRect, Color.White);
                 spriteBatch.Draw(tile.tileset.graphic, new Vector2(position.X * ScrollFactor.X, position.Y * ScrollFactor.Y), tile.sourceRect, Color.White, 0, Vector2.Zero, scale, new SpriteEffects(), 1);
             }
         }
@@ -74,6 +73,28 @@ namespace Display.Tilemap
                 nodes.Add(tile);
 
             return nodes;
+        }
+
+        internal void GetCollidedTiles(Node node, List<Node> collidedNodes)
+        {
+            int xMin = (int)Math.Floor(node.Position.X / Tilemap.tileWidth);
+            int xMax = (int)Math.Ceiling((node.Position.X + node.Width) / Tilemap.tileWidth);
+            int yMin = (int)Math.Floor(node.Position.Y / Tilemap.tileHeight);
+            int yMax = (int)Math.Ceiling((node.Position.Y + node.Height) / Tilemap.tileHeight);
+
+            xMin = Math.Max(0, xMin);
+            xMax = Math.Min(Width, xMax);
+            yMin = Math.Max(0, yMin);
+            yMax = Math.Min(Height, yMax);
+
+            for (var x = xMin; x < xMax; x++)
+            {
+                for (var y = yMin; y < yMax; y++)
+                {
+                    if(this._map[x,y] != null)
+                        collidedNodes.Add(this._map[x, y]);
+                }
+            }
         }
     }
 }
