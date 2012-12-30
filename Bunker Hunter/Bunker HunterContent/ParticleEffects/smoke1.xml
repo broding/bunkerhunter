@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<XnaContent xmlns:EmitterData="Flakcore.Display.ParticleEngine.EmitterData" xmlns:Modifiers="Flakcore.Display.ParticleEngine.Modifiers">
+  <Asset Type="Flakcore.Display.ParticleEngine.ParticleEffect">
+    <EmitterData>
+      <Item Type="EmitterData:BasicEmitterData">
+        
+        <Name>smoke1</Name>
+        <TextureName>Cloud001</TextureName>
+        <TotalParticles>50</TotalParticles>
+        <Lifetime>500</Lifetime>
+
+        <ReleaseQuantity>1</ReleaseQuantity>
+        <ReleaseSpeed>1</ReleaseSpeed>
+        <ReleaseSpeedVariation>1</ReleaseSpeedVariation>
+    
+        <ReleaseVelocity>10 10</ReleaseVelocity>
+        <ReleaseVelocityVariantion>10 10</ReleaseVelocityVariantion>
+
+        <ReleaseColor>00000000</ReleaseColor>
+        <ReleaseColorVariation>FFFFFFFF</ReleaseColorVariation>
+
+        <ReleaseAlpha>0.3</ReleaseAlpha>
+        <ReleaseAlphaVariation>0</ReleaseAlphaVariation>
+
+        <ReleaseRotation>1</ReleaseRotation>
+        <ReleaseRotationVariation>1</ReleaseRotationVariation>
+
+        <ReleaseScale>0.05 0.05</ReleaseScale>
+        <ReleaseScaleVariation>0 0</ReleaseScaleVariation>
+
+        <Modifiers>
+          <Item Type="Modifiers:LinearAlpha">
+              <FinalAlpha>0</FinalAlpha>
+          </Item>
+      
+          <Item Type="Modifiers:LinearGravity">
+            <Gravity>1 0</Gravity>
+          </Item>
+
+          <Item Type="Modifiers:LinearScale">
+            <FinalScale>1 1</FinalScale>
+          </Item>
+        
+        </Modifiers>
+      </Item>
+    </EmitterData>
+    
+  </Asset>
+</XnaContent>

@@ -9,7 +9,7 @@ using Flakcore;
 
 namespace Display.Tilemap
 {
-    public class Layer : Node
+    internal class Layer : Node
     {
         public string name;
 
@@ -82,10 +82,10 @@ namespace Display.Tilemap
             int yMin = (int)Math.Floor(node.Position.Y / Tilemap.tileHeight);
             int yMax = (int)Math.Ceiling((node.Position.Y + node.Height) / Tilemap.tileHeight);
 
-            xMin = Math.Max(0, xMin);
-            xMax = Math.Min(Width, xMax);
-            yMin = Math.Max(0, yMin);
-            yMax = Math.Min(Height, yMax);
+            xMin = Math.Max(0, xMin - 1);
+            xMax = Math.Min(Width, xMax + 1);
+            yMin = Math.Max(0, yMin - 1);
+            yMax = Math.Min(Height, yMax + 1);
 
             for (var x = xMin; x < xMax; x++)
             {

@@ -4,15 +4,20 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using RC_Management_Game.Activities;
+using Microsoft.Xna.Framework.Content;
 
 namespace Flakcore.Display.ParticleEngine.Modifiers
 {
     public class LinearAlpha : IParticleModifier
     {
-        private Particle Target;
-        private float FinalAlpha;
+        public float FinalAlpha;
 
         private float Time;
+        private Particle Target;
+
+        public LinearAlpha()
+        {
+        }
 
         public LinearAlpha(float finalAlpha)
         {
@@ -27,7 +32,7 @@ namespace Flakcore.Display.ParticleEngine.Modifiers
         public void Apply()
         {
             this.Time = 0;
-            this.Target.Alpha = this.Target.Effect.ReleaseAlpha;
+            this.Target.Alpha = this.Target.Emitter.Data.ReleaseAlpha;
         }
 
         public void Update(GameTime gameTime)
@@ -36,9 +41,9 @@ namespace Flakcore.Display.ParticleEngine.Modifiers
 
             this.Target.Alpha = Easing.Linear(
                 this.Time,
-                this.Target.Effect.ReleaseAlpha,
-                this.FinalAlpha - this.Target.Effect.ReleaseAlpha,
-                this.Target.Effect.Lifetime
+                this.Target.Emitter.Data.ReleaseAlpha,
+                this.FinalAlpha - this.Target.Emitter.Data.ReleaseAlpha,
+                this.Target.Emitter.Data.Lifetime
                 );
         }
 

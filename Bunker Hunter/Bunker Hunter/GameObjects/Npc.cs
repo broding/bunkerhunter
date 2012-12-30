@@ -10,9 +10,10 @@ namespace Bunker_Hunker.GameObjects
 {
     class Npc : Character
     {
-        public Npc(Node bulletNode) : base(bulletNode)
+        public Npc(Layer bulletLayer)
+            : base(bulletLayer, CharacterTypes.ENEMY)
         {
-            this.LoadTexture(GameManager.content.Load<Texture2D>("npc"), 32, 48);
+            this.LoadTexture(GameManager.Content.Load<Texture2D>("player"), 32, 48);
             this.addCollisionGroup("npc");
         }
     }

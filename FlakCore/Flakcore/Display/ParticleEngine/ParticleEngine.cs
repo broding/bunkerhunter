@@ -4,37 +4,34 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using Flakcore.Display.ParticleEngine.EmitterData;
 
 namespace Flakcore.Display.ParticleEngine
 {
     public class ParticleEngine : Node
     {
         public Vector2 EmitterPosition = Vector2.Zero;
-        private ParticleEffect Effect;
-        private List<Particle> Particles;
-        private List<Particle> DeadParticles;
 
-        private int ReleaseTimer;
+        private ParticleEffect Effect;
+        private BasicEmitter[] Emitters;
+        private bool Started;
 
         public ParticleEngine(ParticleEffect Effect)
         {
             this.Effect = Effect;
-            this.Particles = new List<Particle>();
-            this.DeadParticles = new List<Particle>();
-            this.ReleaseTimer = 0;
-
-            this.InitParticles();
+            this.SetupEmitters();
+            this.Started = false;
         }
 
-        private void InitParticles()
+        private void SetupEmitters()
         {
-            int amount = this.Effect.TotalParticles;
+            // For each emitterData in our effect, get the Emitter and add it to our variable
+            this.Emitters = new BasicEmitter[this.Effect.EmitterData.Length];
 
-            for (int i = 0; i < amount; i++)
+            for (int i = 0; i < this.Effect.EmitterData.Length; i++)
             {
-                Particle particle = new Particle(this.KillParticle, this.Effect);
-                this.DeadParticles.Add(particle);
-                this.addChild(particle);
+                this.Emitters[i] = this.Effect.EmitterData[i].SetupEmitter();
+                this.addChild(this.Emitters[i]);
             }
         }
 
@@ -42,35 +39,54 @@ namespace Flakcore.Display.ParticleEngine
         {
             base.Update(gameTime);
 
-            this.ReleaseTimer += (int)gameTime.ElapsedGameTime.TotalMilliseconds;
+            if (!this.Started)
+                return;
 
-            if (this.ReleaseTimer > this.Effect.ReleaseSpeed)
-            {
-                this.ReleaseTimer = 0;
-                this.Emit(this.Effect.ReleaseQuantity);
-            }
+            this.UpdateEmitterPositions();
         }
 
-        private void Emit(int quanitity)
+        public void Start()
         {
-            if (this.DeadParticles.Count < quanitity)
-                quanitity = this.DeadParticles.Count;
-
-            for (int i = 0; i < quanitity; i++)
-            {
-                int lastIndex = this.DeadParticles.Count-1;
-                Particle particle = this.DeadParticles[lastIndex];
-                particle.Fire(this.getWorldPosition());
-                this.Particles.Add(particle);
-                this.DeadParticles.RemoveAt(lastIndex);
-            }
+            this.Started = true;
+            this.UpdateEmitterPositions();
+            this.StartEmitters();
         }
 
-        internal void KillParticle(Particle particle)
+        public void Stop()
         {
-            this.Particles.Remove(particle);
-            particle.Kill();
-            this.DeadParticles.Add(particle);
+            this.Started = false;
+            this.StopEmitters();
+        }
+
+        public void Explode()
+        {
+            this.UpdateEmitterPositions();
+            this.ExplodeEmitters();
+        }
+
+        private void StartEmitters()
+        {
+            foreach (BasicEmitter emitter in this.Emitters)
+                emitter.Start();
+        }
+
+        private void StopEmitters()
+        {
+            foreach (BasicEmitter emitter in this.Emitters)
+                emitter.Stop();
+        }
+
+        private void ExplodeEmitters()
+        {
+            foreach (BasicEmitter emitter in this.Emitters)
+                emitter.Explode();
+        }
+
+        private void UpdateEmitterPositions()
+        {
+            foreach (BasicEmitter emitter in this.Emitters)
+                emitter.Position = this.getWorldPosition();
         }
     }
+
 }

@@ -40,3 +40,29 @@ C:\Documents and Settings\Bas\My Documents\bunkerhunter-master\Bunker Hunter\Bun
 C:\Documents and Settings\Bas\My Documents\bunkerhunter-master\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\player.xnb
 C:\Documents and Settings\Bas\My Documents\bunkerhunter-master\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Indiefreaks.AOP.Profiler.dll
 C:\Documents and Settings\Bas\My Documents\bunkerhunter-master\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Indiefreaks.Xna.Profiler.dll
+C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\fontDefault.xnb
+C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\font.xnb
+C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\background.xnb
+C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\bullet.xnb
+C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\npc.xnb
+C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\pan.xnb
+C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\poppetje.xnb
+C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\tilemap.xnb
+C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\Cloud001.xnb
+C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\FlowerBurst.xnb
+C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\LensFlare.xnb
+C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\player.xnb
+C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\fontDefault.spritefont
+C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\map2.tmx
+C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Bunker Hunter.exe
+C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Bunker Hunter.pdb
+C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Flakcore.dll
+C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Indiefreaks.AOP.Profiler.dll
+C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Indiefreaks.Xna.Profiler.dll
+C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Flakcore.pdb
+C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\obj\x86\Debug\Bunker Hunter.exe
+C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\obj\x86\Debug\Bunker Hunter.pdb
+C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\ParticleEffects\smoke1.xnb
+C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\ParticleEffects\smokePuff.xnb

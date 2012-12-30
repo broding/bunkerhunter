@@ -8,8 +8,14 @@ namespace Flakcore.Display.ParticleEngine.Modifiers
 {
     public class LinearGravity : IParticleModifier
     {
+        public Vector2 Gravity;
+
         private Particle Target;
-        private Vector2 Gravity;
+
+        public LinearGravity()
+        {
+
+        }
 
         public LinearGravity(Vector2 gravity)
         {

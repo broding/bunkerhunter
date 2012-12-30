@@ -6,55 +6,47 @@ using Flakcore.Display;
 using Microsoft.Xna.Framework;
 using CallOfHonour;
 using Flakcore;
-using Display.Tilemap;
 using CallOfHonour.GameObjects;
 using Flakcore.Display.ParticleEngine;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Flakcore.Display.ParticleEngine.Modifiers;
 using Bunker_Hunker.GameObjects;
+using Display.Tilemap;
 
 namespace Bunker_Hunter.States
 {
     class PlayState : State
     {
-        ParticleEngine Engine;
         public PlayState()
         {
             this.BackgroundColor = Color.SandyBrown;
 
-            Node bulletNode = new Node();
+            Layer bulletLayer = new Layer();
 
             Tilemap tilemap = new Tilemap();
             tilemap.loadMap(@"Content/map2.tmx", 32, 32);
             this.addChild(tilemap);
 
-            Player player = new Player(bulletNode);
+            Player player = new Player(bulletLayer);
             player.Position = new Vector2(160 , 160);
             this.addChild(player);
+
+            Npc npc1 = new Npc(bulletLayer);
+            npc1.Position = new Vector2(380, 160);
+            this.addChild(npc1);
 
             //GameManager.currentDrawCamera.followNode = player;
 
             // effect test
-            ParticleEffect effect = new ParticleEffect();
 
-            effect.BaseTexture = GameManager.content.Load<Texture2D>("LensFlare");
-            effect.Modifiers.Add(new RotationRate(5f));
-            effect.Modifiers.Add(new LinearAlpha(0));
-
-            this.addChild(bulletNode);
-
-            this.Engine = new ParticleEngine(effect);
-            this.Engine.Position = new Vector2(400, 400);
-            this.addChild(this.Engine);
+            this.addChild(bulletLayer);
 
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-
-            this.Engine.Position = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
         }
     }
 }

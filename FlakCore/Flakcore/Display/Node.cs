@@ -20,6 +20,7 @@ namespace Flakcore.Display
         public Vector2 Velocity = Vector2.Zero;
         public Vector2 previousVelocity { get; protected set; }
         public Vector2 Acceleration = Vector2.Zero;
+        public float Mass = 0;
 
         public int Width;
         public int Height;
@@ -37,8 +38,9 @@ namespace Flakcore.Display
 
         public Vector2 MaxVelocity = Vector2.Zero;
         public float Elasticity = 0f;
-        public bool Visable;
-        public bool Immovable;
+        public bool Visable = true;
+        public bool Immovable = false;
+        public bool Collidable = true;
         public bool Dead { get; protected set; }
 
         private List<string> CollisionGroup;
@@ -49,7 +51,6 @@ namespace Flakcore.Display
             CollisionGroup = new List<string>();
             this.Touching = new Sides();
             this.WasTouching = new Sides();
-            Visable = true;
         }
 
         public void addChild(Node child)
@@ -71,6 +72,8 @@ namespace Flakcore.Display
 
             foreach (Node child in Children.ToList<Node>())
                 child.Update(gameTime);
+
+            this.Velocity.Y += this.Mass * GameManager.Gravity;
 
             WasTouching = Touching;
             Touching = new Sides();

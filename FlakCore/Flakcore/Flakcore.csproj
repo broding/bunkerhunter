@@ -98,8 +98,10 @@
     <Compile Include="Core.cs" />
     <Compile Include="Display\Animation.cs" />
     <Compile Include="Display\Camera.cs" />
+    <Compile Include="Display\Layer.cs" />
     <Compile Include="Display\Node.cs" />
-    <Compile Include="Display\ParticleEngine\Emitter.cs" />
+    <Compile Include="Display\ParticleEngine\EmitterData\BasicEmitterData.cs" />
+    <Compile Include="Display\ParticleEngine\Emitters\BasicEmitter.cs" />
     <Compile Include="Display\ParticleEngine\IParticleModifier.cs" />
     <Compile Include="Display\ParticleEngine\Modifiers\LinearAlpha.cs" />
     <Compile Include="Display\ParticleEngine\Modifiers\LinearGravity.cs" />
@@ -135,6 +137,7 @@
       <XnaReferenceType>Content</XnaReferenceType>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <!--

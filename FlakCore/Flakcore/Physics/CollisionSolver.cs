@@ -23,7 +23,7 @@ namespace Flakcore.Physics
             this.QuadTree = quadTree;
         }
 
-        public void addCollision(Node node, string collideGroup, Func<Node, Node, bool> callback)
+        public void addCollision(Node node, string collideGroup, Action<Node, Node> callback)
         {
             List<Node> collidedNodes = new List<Node>();
 
@@ -75,7 +75,7 @@ namespace Flakcore.Physics
             Collisions.Clear();
         }
 
-        private void addCollision(Node node1, Node node2, Func<Node, Node, bool> callback)
+        private void addCollision(Node node1, Node node2, Action<Node, Node> callback)
         {
             if (!isAlreadyInCollisionList(node1, node2) && node1 != node2)
                 Collisions.Add(new Collision(node1, node2, callback));

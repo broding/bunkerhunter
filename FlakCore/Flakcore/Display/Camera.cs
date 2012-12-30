@@ -52,8 +52,8 @@ namespace Flakcore.Display
                 position.X = followNode.Position.X + followNode.Width / 2;
             }
 
-            position.X = Math.Max(GameManager.screenSize.X / 2, position.X);
-            position.Y = Math.Max(GameManager.screenSize.Y / 2, position.Y);
+            position.X = Math.Max(GameManager.ScreenSize.X / 2, position.X);
+            position.Y = Math.Max(GameManager.ScreenSize.Y / 2, position.Y);
         }
     }
 }

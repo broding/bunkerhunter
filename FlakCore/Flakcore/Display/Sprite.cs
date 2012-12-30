@@ -30,7 +30,7 @@ namespace Flakcore.Display
 
         public void LoadTexture(string assetName)
         {
-            this.LoadTexture(GameManager.content.Load<Texture2D>(assetName));
+            this.LoadTexture(GameManager.Content.Load<Texture2D>(assetName));
         }
 
         public void LoadTexture(Texture2D texture)
@@ -104,6 +104,9 @@ namespace Flakcore.Display
             Node.decomposeMatrix(ref globalTransform, out position, out rotation, out scale);
 
             SpriteEffects spriteEffect = new SpriteEffects();
+
+            position.X = (float)Math.Round(position.X);
+            position.Y = (float)Math.Round(position.Y);
 
             if(Facing == Facing.Left)
                  spriteEffect = SpriteEffects.FlipHorizontally;

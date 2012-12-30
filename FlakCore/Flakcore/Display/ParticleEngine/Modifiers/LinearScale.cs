@@ -9,10 +9,14 @@ namespace Flakcore.Display.ParticleEngine.Modifiers
 {
     public class LinearScale : IParticleModifier
     {
-        private Particle Target;
-        private Vector2 FinalScale;
+        public Vector2 FinalScale;
 
+        private Particle Target;
         private float Time;
+
+        public LinearScale()
+        {
+        }
 
         public LinearScale(Vector2 finalScale)
         {
@@ -27,7 +31,7 @@ namespace Flakcore.Display.ParticleEngine.Modifiers
         public void Apply()
         {
             this.Time = 0;
-            this.Target.Scale = this.Target.Effect.ReleaseScale;
+            this.Target.Scale = this.Target.Emitter.Data.ReleaseScale;
         }
 
         public void Update(GameTime gameTime)
@@ -36,16 +40,16 @@ namespace Flakcore.Display.ParticleEngine.Modifiers
 
             this.Target.Scale.X = Easing.Linear(
                 this.Time,
-                this.Target.Effect.ReleaseScale.X,
-                this.FinalScale.X - this.Target.Effect.ReleaseScale.X,
-                this.Target.Effect.Lifetime
+                this.Target.Emitter.Data.ReleaseScale.X,
+                this.FinalScale.X - this.Target.Emitter.Data.ReleaseScale.X,
+                this.Target.Emitter.Data.Lifetime
                 );
 
             this.Target.Scale.Y = Easing.Linear(
                 this.Time,
-                this.Target.Effect.ReleaseScale.Y,
-                this.FinalScale.Y - this.Target.Effect.ReleaseScale.Y,
-                this.Target.Effect.Lifetime
+                this.Target.Emitter.Data.ReleaseScale.Y,
+                this.FinalScale.Y - this.Target.Emitter.Data.ReleaseScale.Y,
+                this.Target.Emitter.Data.Lifetime
                 );
         }
 

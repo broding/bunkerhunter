@@ -46,7 +46,7 @@ namespace Flakcore
             this.CollisionSolver.resolveCollisions(gameTime);
             this.CurrentState.PostUpdate(gameTime);
 
-            GameManager.input.update();
+            GameManager.Input.update();
 
             foreach (Camera camera in Cameras)
                 camera.update(gameTime);
@@ -55,17 +55,17 @@ namespace Flakcore
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            GameManager.graphics.GraphicsDevice.Clear(CurrentState.BackgroundColor);
+            GameManager.Graphics.GraphicsDevice.Clear(CurrentState.BackgroundColor);
 
             foreach (Camera camera in Cameras)
             {
                 GameManager.currentDrawCamera = camera;
-                GameManager.graphics.GraphicsDevice.Viewport = camera.viewport;
-                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, null, null);
+                GameManager.Graphics.GraphicsDevice.Viewport = camera.viewport;
+                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, null, null);
                 this.CurrentState.draw(spriteBatch);
                 spriteBatch.End();
 
-                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, camera.getTransformMatrix());
+                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, null, null, null, camera.getTransformMatrix());
                 drawCollisionQuad(spriteBatch);
                 spriteBatch.End();
 
@@ -97,7 +97,7 @@ namespace Flakcore
 
         private void drawCollisionQuad(SpriteBatch spriteBatch)
         {
-            Texture2D blank = new Texture2D(GameManager.graphics.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
+            Texture2D blank = new Texture2D(GameManager.Graphics.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
             blank.SetData(new[]{Color.White});
 
             List<BoundingRectangle> quads = CollisionQuad.getAllQuads(new List<BoundingRectangle>());

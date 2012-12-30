@@ -24,11 +24,12 @@ namespace Display.Tilemap
             this.sourceRect = sourceRect;
             this.tileset = tileset;
             this.Immovable = true;
+            this.Collidable = false;
             this.Width = Tilemap.tileWidth;
             this.Height = Tilemap.tileHeight;
 
-            //for (int i = 0; collisionGroups.Length > i; i++)
-                //this.addCollisionGroup(collisionGroups[i]);
+            for (int i = 0; collisionGroups.Length > i; i++)
+                this.addCollisionGroup(collisionGroups[i]);
 
         }
 

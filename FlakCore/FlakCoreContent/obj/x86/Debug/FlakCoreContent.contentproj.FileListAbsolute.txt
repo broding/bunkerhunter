@@ -1,5 +1,5 @@
 C:\Users\Bas\documents\visual studio 2010\Projects\BasCore\Content1\obj\x86\Debug\ResolveAssemblyReference.cache
 C:\Users\Bas\Documents\Visual Studio 2010\Projects\FlakCore\FlakCoreContent\obj\x86\Debug\ResolveAssemblyReference.cache
 C:\Users\Bas\Documents\Visual Studio 2010\Projects\Bunker Hunter\FlakCore\FlakCoreContent\obj\x86\Debug\ResolveAssemblyReference.cache
-C:\Users\Bas\Git Repositories\bunkerhunter\FlakCore\FlakCoreContent\obj\x86\Debug\ResolveAssemblyReference.cache
 C:\Documents and Settings\Bas\My Documents\bunkerhunter-master\FlakCore\FlakCoreContent\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Bas\Git Repositories\bunkerhunter\FlakCore\FlakCoreContent\obj\x86\Debug\ResolveAssemblyReference.cache

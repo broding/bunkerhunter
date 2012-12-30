@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual C# Express 2010
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bunker Hunter", "Bunker Hunter\Bunker Hunter\Bunker Hunter.csproj", "{775439BA-7E96-4D8B-AD94-4E936CDB3E62}"
 EndProject
-Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "Bunker HunterContent", "Bunker Hunter\Bunker HunterContent\Bunker HunterContent.contentproj", "{4E0A6036-BBCC-48A3-B2D5-2127CA805226}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bunker HunterContent", "Bunker Hunter\Bunker HunterContent\Bunker HunterContent.contentproj", "{4E0A6036-BBCC-48A3-B2D5-2127CA805226}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flakcore", "FlakCore\Flakcore\Flakcore.csproj", "{929E3745-98E6-4EF2-9B1B-10B749D67FD3}"
 EndProject

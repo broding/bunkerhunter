@@ -13,7 +13,7 @@ namespace Flakcore.Physics
     {
         public Node node1 { get; private set; }
         public Node node2 { get; private set; }
-        public Func<Node, Node, bool> callback { get; private set; }
+        public Action<Node, Node> callback { get; private set; }
 
         private Vector2 node1VelocityDiff;
         private Vector2 node2VelocityDiff;
@@ -21,7 +21,7 @@ namespace Flakcore.Physics
         private Vector2 node1PositionDiff;
         private Vector2 node2PositionDiff;
 
-        public Collision(Node node1, Node node2, Func<Node, Node, bool> callback)
+        public Collision(Node node1, Node node2, Action<Node, Node> callback)
         {
             this.node1 = node1;
             this.node2 = node2;
@@ -36,43 +36,59 @@ namespace Flakcore.Physics
 
         public void resolve(GameTime gameTime)
         {
-            if (!callback.Invoke(node1, node2))
-                return;
-
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
+            if (this.IsCollision(deltaTime))
+            {
+                Node dirtyNode1 = (Node)this.node1.Clone();
+                Node dirtyNode2 = (Node)this.node2.Clone();
+
+                dirtyNode1.Position.X += dirtyNode1.Velocity.X * deltaTime;
+                dirtyNode2.Position.X += dirtyNode2.Velocity.X * deltaTime;
+
+                dirtyNode1.RoundPosition();
+                dirtyNode2.RoundPosition();
+
+                float intersectionDepth = RectangleExtensions.GetIntersectionDepth(dirtyNode1.GetBoundingBox(), dirtyNode2.GetBoundingBox()).X;
+                if (intersectionDepth != 0)
+                    overlapX(intersectionDepth);
+
+                dirtyNode1 = (Node)this.node1.Clone();
+                dirtyNode2 = (Node)this.node2.Clone();
+
+                dirtyNode1.Position.Y += dirtyNode1.Velocity.Y * deltaTime;
+                dirtyNode2.Position.Y += dirtyNode2.Velocity.Y * deltaTime;
+
+                dirtyNode1.RoundPosition();
+                dirtyNode2.RoundPosition();
+
+                BoundingRectangle box1 = dirtyNode1.GetBoundingBox();
+                BoundingRectangle box2 = dirtyNode2.GetBoundingBox();
+                intersectionDepth = RectangleExtensions.GetIntersectionDepth(dirtyNode1.GetBoundingBox(), dirtyNode2.GetBoundingBox()).Y;
+                if (intersectionDepth != 0)
+                    overlapY(intersectionDepth);
+
+                this.CorrectNodes(deltaTime);
+
+                this.node1.RoundPosition();
+                this.node2.RoundPosition();
+
+                this.callback(node1, node2);
+            }
+        }
+
+        private bool IsCollision(float deltaTime)
+        {
             Node dirtyNode1 = (Node)this.node1.Clone();
             Node dirtyNode2 = (Node)this.node2.Clone();
 
-            dirtyNode1.Position.X += dirtyNode1.Velocity.X * deltaTime;
-            dirtyNode2.Position.X += dirtyNode2.Velocity.X * deltaTime;
+            dirtyNode1.Position += dirtyNode1.Velocity * deltaTime;
+            dirtyNode2.Position += dirtyNode2.Velocity * deltaTime;
 
             dirtyNode1.RoundPosition();
             dirtyNode2.RoundPosition();
 
-            float intersectionDepth = RectangleExtensions.GetIntersectionDepth(dirtyNode1.GetBoundingBox(), dirtyNode2.GetBoundingBox()).X;
-            if (intersectionDepth != 0)
-                overlapX(intersectionDepth);
-
-            dirtyNode1 = (Node)this.node1.Clone();
-            dirtyNode2 = (Node)this.node2.Clone();
-
-            dirtyNode1.Position.Y += dirtyNode1.Velocity.Y * deltaTime;
-            dirtyNode2.Position.Y += dirtyNode2.Velocity.Y * deltaTime;
-
-            dirtyNode1.RoundPosition();
-            dirtyNode2.RoundPosition();
-
-            BoundingRectangle box1 = dirtyNode1.GetBoundingBox();
-            BoundingRectangle box2 = dirtyNode2.GetBoundingBox();
-            intersectionDepth = RectangleExtensions.GetIntersectionDepth(dirtyNode1.GetBoundingBox(), dirtyNode2.GetBoundingBox()).Y;
-            if (intersectionDepth != 0)
-                overlapY(intersectionDepth);
-
-            this.CorrectNodes(deltaTime);
-
-            this.node1.RoundPosition();
-            this.node2.RoundPosition();
+            return dirtyNode1.GetBoundingBox().Intersects(dirtyNode2.GetBoundingBox());
         }
 
         private void CorrectNodes(float deltaTime)

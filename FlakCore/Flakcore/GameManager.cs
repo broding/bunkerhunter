@@ -12,18 +12,20 @@ namespace Flakcore
 {
     public class GameManager
     {
-        public static Input input { get; private set; }
-        public static GraphicsDeviceManager graphics { get; private set; }
-        public static ContentManager content { get; private set; }
-        public static Vector2 screenSize { get; private set; }
-        private static Core core;
+        public static float Gravity { get; set; }
+        public static Input Input { get; private set; }
+        public static GraphicsDeviceManager Graphics { get; private set; }
+        public static ContentManager Content { get; private set; }
+        public static Vector2 ScreenSize { get; private set; }
+
+        private static Core Core;
         private static Rectangle _worldBounds;
         public static Rectangle worldBounds 
         { 
             get { return _worldBounds; }
             set { 
                 _worldBounds = value;  
-                core.setupQuadTree(); 
+                Core.setupQuadTree(); 
             } 
         }
         public static Camera currentDrawCamera;
@@ -32,11 +34,12 @@ namespace Flakcore
 
         public static void initialize(Vector2 screenSize, GraphicsDeviceManager graphics, ContentManager content, Core core)
         {
-            GameManager.graphics = graphics;
-            GameManager.content = content;
-            GameManager.input = new Input();
-            GameManager.screenSize = screenSize;
-            GameManager.core = core;
+            GameManager.Gravity = 10;
+            GameManager.Graphics = graphics;
+            GameManager.Content = content;
+            GameManager.Input = new Input();
+            GameManager.ScreenSize = screenSize;
+            GameManager.Core = core;
             GameManager.worldBounds = Rectangle.Empty;
 
             //TODO (BR): needs to be done more nice
@@ -50,47 +53,47 @@ namespace Flakcore
         /// <param name="state"></param>
         public static void switchState(State state)
         {
-            core.switchState(state);
+            Core.switchState(state);
         }
 
         public static void addCamera()
         {
-            core.Cameras.Add(new Camera(0, 0, (int)screenSize.X, (int)screenSize.Y));
+            Core.Cameras.Add(new Camera(0, 0, (int)ScreenSize.X, (int)ScreenSize.Y));
 
             recalculateCameras();
         }
 
         public static Camera getCamera(int index)
         {
-            return core.Cameras.ElementAt(index);
+            return Core.Cameras.ElementAt(index);
         }
 
         private static void recalculateCameras()
         {
-            int cameraWidth = (int)screenSize.X / core.Cameras.Count;
+            int cameraWidth = (int)ScreenSize.X / Core.Cameras.Count;
 
-            for (int i = 0; i < core.Cameras.Count; i++)
+            for (int i = 0; i < Core.Cameras.Count; i++)
             {
-                core.Cameras.ElementAt(i).resetViewport(cameraWidth * i, 0, cameraWidth, (int)screenSize.Y);
+                Core.Cameras.ElementAt(i).resetViewport(cameraWidth * i, 0, cameraWidth, (int)ScreenSize.Y);
             }
         }
 
         public int totalCameras()
         {
-            return core.Cameras.Count;
+            return Core.Cameras.Count;
         }
 
         public static void collide(Node node, string collideGroup)
         {
-            core.CollisionSolver.addCollision(node, collideGroup, null);
+            Core.CollisionSolver.addCollision(node, collideGroup, null);
         }
 
-        public static void collide(Node node, string collideGroup, Func<Node, Node, bool> callback)
+        public static void collide(Node node, string collideGroup, Action<Node, Node> callback)
         {
             if (node.Dead)
                 return;
 
-            core.CollisionSolver.addCollision(node, collideGroup, callback);
+            Core.CollisionSolver.addCollision(node, collideGroup, callback);
         }
     }
 }

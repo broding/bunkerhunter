@@ -16,9 +16,10 @@ namespace Bunker_Hunker.GameObjects
 {
     public class Player : Character
     {
-        public Player(Node bulletNode) : base(bulletNode)
+        public Player(Layer bulletLayer)
+            : base(bulletLayer, CharacterTypes.PLAYER)
         {
-            this.LoadTexture(GameManager.content.Load<Texture2D>("player"), 32, 48);
+            this.LoadTexture(GameManager.Content.Load<Texture2D>("player"), 32, 48);
         }
 
         public override void Update(GameTime gameTime)
@@ -42,7 +43,7 @@ namespace Bunker_Hunker.GameObjects
 
         private void updateInput()
         {
-            InputState state = GameManager.input.GetInputState(PlayerIndex.One);
+            InputState state = GameManager.Input.GetInputState(PlayerIndex.One);
 
             if (state.Jump)
                 jump();
@@ -50,20 +51,19 @@ namespace Bunker_Hunker.GameObjects
             if (state.Fire)
                 Fire();
 
-            this.Velocity.X = state.X * 100;
+            this.Velocity.X = state.X * 166;
         }
 
         private void Fire()
         {
             if (this.Weapon != null)
             {
-                this.Weapon.Fire(this.Position, this.Facing);
+                this.Weapon.Fire(this.Position, this.Facing, this);
             }
         }
 
-        private bool npcCollide(Node player, Node tilemap)
+        private void npcCollide(Node player, Node tilemap)
         {
-            return true;
         }
 
         protected override void DrawCall(SpriteBatch spriteBatch, Vector2 position, Vector2 scale, float rotation, SpriteEffects spriteEffect)

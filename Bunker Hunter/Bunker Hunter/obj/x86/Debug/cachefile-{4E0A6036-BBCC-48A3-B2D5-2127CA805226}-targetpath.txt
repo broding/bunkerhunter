@@ -10,5 +10,7 @@ Content\Cloud001.xnb
 Content\FlowerBurst.xnb
 Content\LensFlare.xnb
 Content\player.xnb
+Content\ParticleEffects\smoke1.xnb
+Content\ParticleEffects\smokePuff.xnb
 Content\fontDefault.spritefont
 Content\map2.tmx

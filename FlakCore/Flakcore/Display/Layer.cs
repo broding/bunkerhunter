@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Flakcore.Display.ParticleEngine
+namespace Flakcore.Display
 {
-    public class Emitter
+    public class Layer : Node
     {
     }
 }
