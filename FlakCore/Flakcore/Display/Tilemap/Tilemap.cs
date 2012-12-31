@@ -21,19 +21,19 @@ namespace Display.Tilemap
 
         private HashSet<string> CollisionGroups;
 
-        private List<Layer> Layers;
+        private List<TileLayer> Layers;
         private List<Tileset> Tilesets;
 
         public Tilemap()
         {
-            this.Layers = new List<Layer>();
+            this.Layers = new List<TileLayer>();
             this.Tilesets = new List<Tileset>();
             this.CollisionGroups = new HashSet<string>();
 
-            CollisionSolver.Tilemaps.Add(this);
+            //CollisionSolver.Tilemaps.Add(this);
         }
 
-        public void loadMap(string path, int tileWidth, int tileHeight)
+        public void LoadMap(string path, int tileWidth, int tileHeight)
         {
             Tilemap.tileWidth = tileWidth;
             Tilemap.tileHeight = tileHeight;
@@ -41,7 +41,7 @@ namespace Display.Tilemap
             XDocument doc = XDocument.Load(path);
 
             Width = Convert.ToInt32(doc.Element("map").Attribute("width").Value);
-            Height = Convert.ToInt32(doc.Element("map").Attribute("width").Value);
+            Height = Convert.ToInt32(doc.Element("map").Attribute("height").Value);
 
             // load all tilesets
             foreach (XElement element in doc.Descendants("tileset"))
@@ -73,7 +73,7 @@ namespace Display.Tilemap
             // load all layers
             foreach (XElement element in doc.Descendants("layer"))
             {
-                Layer layer = new Layer(element.Attribute("name").Value, Convert.ToInt32(element.Attribute("width").Value), Convert.ToInt32(element.Attribute("height").Value), this);
+                TileLayer layer = new TileLayer(element.Attribute("name").Value, Convert.ToInt32(element.Attribute("width").Value), Convert.ToInt32(element.Attribute("height").Value), this);
 
                 int x = 0;
                 int y = 0;
@@ -128,7 +128,7 @@ namespace Display.Tilemap
         public override void Draw(SpriteBatch spriteBatch, Matrix parentTransform)
         {
             // loop through all layers to draw them
-            foreach (Layer layer in Layers)
+            foreach (TileLayer layer in Layers)
             {
                 layer.Draw(spriteBatch, Matrix.Identity);
             }
@@ -136,12 +136,23 @@ namespace Display.Tilemap
 
         public override List<Node> getAllChildren(List<Node> nodes)
         {
-            foreach (Layer layer in Layers)
+            foreach (TileLayer layer in Layers)
             {
                 layer.getAllChildren(nodes);
             }
 
             return nodes;
+        }
+
+        public TileLayer GetLayer(string name)
+        {
+            foreach (TileLayer layer in this.Layers)
+            {
+                if (layer.name == name)
+                    return layer;
+            }
+
+            throw new Exception("Could not find layer with name");
         }
 
         internal bool HasTileCollisionGroup(string groupName)
@@ -151,7 +162,7 @@ namespace Display.Tilemap
 
         internal void GetCollidedTiles(Node node, List<Node> collidedNodes)
         {
-            foreach (Layer layer in this.Layers)
+            foreach (TileLayer layer in this.Layers)
             {
                 layer.GetCollidedTiles(node, collidedNodes);
             }

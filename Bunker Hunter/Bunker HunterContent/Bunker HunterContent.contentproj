@@ -99,6 +99,10 @@
       <Name>map2</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="rooms\simple.tmx">
+      <Name>simple</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cloud001.png">

@@ -85,7 +85,15 @@ namespace Flakcore
 
         public static void collide(Node node, string collideGroup)
         {
-            Core.CollisionSolver.addCollision(node, collideGroup, null);
+            Core.CollisionSolver.addCollision(node, collideGroup, null, null);
+        }
+
+        public static void collide(Node node, string collideGroup, Action<Node, Node> callback, Func<Node, Node, bool> checker)
+        {
+            if (node.Dead)
+                return;
+
+            Core.CollisionSolver.addCollision(node, collideGroup, callback, checker);
         }
 
         public static void collide(Node node, string collideGroup, Action<Node, Node> callback)
@@ -93,7 +101,8 @@ namespace Flakcore
             if (node.Dead)
                 return;
 
-            Core.CollisionSolver.addCollision(node, collideGroup, callback);
+            Core.CollisionSolver.addCollision(node, collideGroup, callback, null);
         }
+
     }
 }

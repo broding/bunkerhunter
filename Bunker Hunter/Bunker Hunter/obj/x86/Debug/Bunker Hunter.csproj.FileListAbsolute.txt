@@ -66,3 +66,4 @@ C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\obj\x86\D
 C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\obj\x86\Debug\Bunker Hunter.pdb
 C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\ParticleEffects\smoke1.xnb
 C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\ParticleEffects\smokePuff.xnb
+C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\rooms\simple.tmx

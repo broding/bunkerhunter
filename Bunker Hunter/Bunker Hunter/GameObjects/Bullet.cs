@@ -31,7 +31,7 @@ namespace CallOfHonour.GameObjects
 
             ParticleEffect effect2 = GameManager.Content.Load<ParticleEffect>(@"ParticleEffects/smokePuff");
             this.ExplosionParticles = new ParticleEngine(effect2);
-            bulletLayer.addChild(this.ExplosionParticles);
+            bulletLayer.AddChild(this.ExplosionParticles);
 
             this.LoadTexture(this.BulletType.TextureName);
             this.addCollisionGroup("bullet");

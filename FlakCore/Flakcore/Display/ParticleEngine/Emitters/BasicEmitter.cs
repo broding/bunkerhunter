@@ -35,7 +35,7 @@ namespace Flakcore.Display.ParticleEngine
             {
                 Particle particle = new Particle(this.KillParticle, this);
                 this.DeadParticles.Add(particle);
-                this.addChild(particle);
+                this.AddChild(particle);
             }
         }
 

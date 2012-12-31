@@ -53,13 +53,13 @@ namespace Flakcore.Display
             this.WasTouching = new Sides();
         }
 
-        public void addChild(Node child)
+        public void AddChild(Node child)
         {
             Children.Add(child);
             child.Parent = this;
         }
 
-        public void removeChild(Node child)
+        public void RemoveChild(Node child)
         {
             if (!Children.Remove(child))
                 throw new Exception("Tried to remove child but gave an error");
@@ -71,12 +71,21 @@ namespace Flakcore.Display
                 return;
 
             foreach (Node child in Children.ToList<Node>())
+            {
                 child.Update(gameTime);
+                child.PreCollisionUpdate(gameTime);
+            }
 
             this.Velocity.Y += this.Mass * GameManager.Gravity;
 
             WasTouching = Touching;
             Touching = new Sides();
+        }
+
+
+        public virtual void PreCollisionUpdate(GameTime gameTime)
+        {
+
         }
 
         public virtual void PostUpdate(GameTime gameTime)

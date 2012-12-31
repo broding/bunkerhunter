@@ -22,7 +22,7 @@ namespace Flakcore.Display
         public Camera(int x, int y, int width, int height)
         {
             position = Vector2.Zero;
-            zoom = 1f;
+            zoom = 0.4f;
             rotation = 0;
             viewport = new Viewport(x, y, width, height);
         }

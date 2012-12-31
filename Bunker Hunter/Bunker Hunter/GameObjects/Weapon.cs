@@ -43,7 +43,7 @@ namespace Bunker_Hunter.GameObjects
             {
                 Bullet bullet = new Bullet(this.BulletLayer, new BulletType());
                 this.Bullets.Add(bullet);
-                this.BulletLayer.addChild(bullet);
+                this.BulletLayer.AddChild(bullet);
             }
         }
 

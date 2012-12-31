@@ -5,29 +5,28 @@ using System.Text;
 using Flakcore.Display;
 using Microsoft.Xna.Framework;
 using Display.Tilemap;
+using Bunker_Hunter.GameObjects.Level;
 
 namespace Flakcore.Physics
 {
     public class CollisionSolver
     {
-        public static List<Tilemap> Tilemaps { get; private set; }
+        public static Level Level;
 
         private List<Collision> Collisions;
         private QuadTree QuadTree;
 
         public CollisionSolver(QuadTree quadTree)
         {
-            Tilemaps = new List<Tilemap>();
-
             this.Collisions = new List<Collision>();
             this.QuadTree = quadTree;
         }
 
-        public void addCollision(Node node, string collideGroup, Action<Node, Node> callback)
+        public void addCollision(Node node, string collideGroup, Action<Node, Node> callback, Func<Node, Node, bool> checker)
         {
             List<Node> collidedNodes = new List<Node>();
 
-            if (this.IsTilemapCollision(collideGroup))
+            if (this.IsLevelCollision(collideGroup))
             {
                 this.GetCollidedTiles(node, collidedNodes);
             }
@@ -40,29 +39,20 @@ namespace Flakcore.Physics
             foreach (Node collideNode in collidedNodes)
             {
                 if (collideNode.isMemberOfCollisionGroup(collideGroup))
-                    this.addCollision(node, collideNode, callback);
+                    this.addCollision(node, collideNode, callback, checker);
             }
 
             
         }
 
-        private bool IsTilemapCollision(string collideGroup)
+        private bool IsLevelCollision(string collideGroup)
         {
-            foreach (Tilemap tilemap in Tilemaps)
-            {
-                if(tilemap.HasTileCollisionGroup(collideGroup))
-                    return true;
-            }
-
-            return false;
+            return CollisionSolver.Level.HasBlockCollisionGroup(collideGroup);
         }
 
         private void GetCollidedTiles(Node node, List<Node> collidedNodes)
         {
-            foreach (Tilemap tilemap in Tilemaps)
-            {
-                tilemap.GetCollidedTiles(node, collidedNodes);
-            }
+            CollisionSolver.Level.GetCollidedTiles(node, collidedNodes);
         }
 
         public void resolveCollisions(GameTime gameTime)
@@ -75,17 +65,17 @@ namespace Flakcore.Physics
             Collisions.Clear();
         }
 
-        private void addCollision(Node node1, Node node2, Action<Node, Node> callback)
+        private void addCollision(Node node1, Node node2, Action<Node, Node> callback, Func<Node, Node, bool> checker)
         {
             if (!isAlreadyInCollisionList(node1, node2) && node1 != node2)
-                Collisions.Add(new Collision(node1, node2, callback));
+                Collisions.Add(new Collision(node1, node2, callback, checker));
         }
 
         private bool isAlreadyInCollisionList(Node node1, Node node2)
         {
             foreach(Collision collision in Collisions)
             {
-                if ((collision.node2 == node1 && collision.node1 == node2) || (collision.node1 == node1 && collision.node2 == node2))
+                if ((collision.Node2 == node1 && collision.Node1 == node2) || (collision.Node1 == node1 && collision.Node2 == node2))
                         return true;
             }
 

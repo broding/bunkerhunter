@@ -11,9 +11,10 @@ namespace Flakcore.Physics
 {
     class Collision
     {
-        public Node node1 { get; private set; }
-        public Node node2 { get; private set; }
-        public Action<Node, Node> callback { get; private set; }
+        public Node Node1 { get; private set; }
+        public Node Node2 { get; private set; }
+        public Action<Node, Node> Callback { get; private set; }
+        public Func<Node, Node, bool> Checker { get; private set; }
 
         private Vector2 node1VelocityDiff;
         private Vector2 node2VelocityDiff;
@@ -21,11 +22,12 @@ namespace Flakcore.Physics
         private Vector2 node1PositionDiff;
         private Vector2 node2PositionDiff;
 
-        public Collision(Node node1, Node node2, Action<Node, Node> callback)
+        public Collision(Node node1, Node node2, Action<Node, Node> callback, Func<Node, Node, bool> checker)
         {
-            this.node1 = node1;
-            this.node2 = node2;
-            this.callback = callback;
+            this.Node1 = node1;
+            this.Node2 = node2;
+            this.Callback = callback;
+            this.Checker = checker;
 
             this.node1PositionDiff = Vector2.Zero;
             this.node2PositionDiff = Vector2.Zero;
@@ -40,8 +42,12 @@ namespace Flakcore.Physics
 
             if (this.IsCollision(deltaTime))
             {
-                Node dirtyNode1 = (Node)this.node1.Clone();
-                Node dirtyNode2 = (Node)this.node2.Clone();
+                if(this.Checker != null)
+                    if(!this.Checker(this.Node1, this.Node2))
+                        return;
+
+                Node dirtyNode1 = (Node)this.Node1.Clone();
+                Node dirtyNode2 = (Node)this.Node2.Clone();
 
                 dirtyNode1.Position.X += dirtyNode1.Velocity.X * deltaTime;
                 dirtyNode2.Position.X += dirtyNode2.Velocity.X * deltaTime;
@@ -53,8 +59,8 @@ namespace Flakcore.Physics
                 if (intersectionDepth != 0)
                     overlapX(intersectionDepth);
 
-                dirtyNode1 = (Node)this.node1.Clone();
-                dirtyNode2 = (Node)this.node2.Clone();
+                dirtyNode1 = (Node)this.Node1.Clone();
+                dirtyNode2 = (Node)this.Node2.Clone();
 
                 dirtyNode1.Position.Y += dirtyNode1.Velocity.Y * deltaTime;
                 dirtyNode2.Position.Y += dirtyNode2.Velocity.Y * deltaTime;
@@ -70,17 +76,18 @@ namespace Flakcore.Physics
 
                 this.CorrectNodes(deltaTime);
 
-                this.node1.RoundPosition();
-                this.node2.RoundPosition();
+                this.Node1.RoundPosition();
+                this.Node2.RoundPosition();
 
-                this.callback(node1, node2);
+                if(this.Callback != null)
+                    this.Callback(Node1, Node2);
             }
         }
 
         private bool IsCollision(float deltaTime)
         {
-            Node dirtyNode1 = (Node)this.node1.Clone();
-            Node dirtyNode2 = (Node)this.node2.Clone();
+            Node dirtyNode1 = (Node)this.Node1.Clone();
+            Node dirtyNode2 = (Node)this.Node2.Clone();
 
             dirtyNode1.Position += dirtyNode1.Velocity * deltaTime;
             dirtyNode2.Position += dirtyNode2.Velocity * deltaTime;
@@ -95,30 +102,30 @@ namespace Flakcore.Physics
         {
             if (node1PositionDiff.X != 0)
             {
-                this.node1.Position.X += this.node1.Velocity.X * deltaTime;
-                this.node1.Position.X += node1PositionDiff.X;
-                this.node1.Velocity.X += node1VelocityDiff.X;
+                this.Node1.Position.X += this.Node1.Velocity.X * deltaTime;
+                this.Node1.Position.X += node1PositionDiff.X;
+                this.Node1.Velocity.X += node1VelocityDiff.X;
             }
 
             if (node1PositionDiff.Y != 0)
             {
-                this.node1.Position.Y += this.node1.Velocity.Y * deltaTime;
-                this.node1.Position.Y += node1PositionDiff.Y;
-                this.node1.Velocity.Y += node1VelocityDiff.Y;
+                this.Node1.Position.Y += this.Node1.Velocity.Y * deltaTime;
+                this.Node1.Position.Y += node1PositionDiff.Y;
+                this.Node1.Velocity.Y += node1VelocityDiff.Y;
             }
 
             if (node2PositionDiff.X != 0)
             {
-                this.node2.Position.X += this.node2.Velocity.X * deltaTime;
-                this.node2.Position.X += node2PositionDiff.X;
-                this.node2.Velocity.X += node2VelocityDiff.X;
+                this.Node2.Position.X += this.Node2.Velocity.X * deltaTime;
+                this.Node2.Position.X += node2PositionDiff.X;
+                this.Node2.Velocity.X += node2VelocityDiff.X;
             }
 
             if (node2PositionDiff.Y != 0)
             {
-                this.node2.Position.Y += this.node2.Velocity.Y * deltaTime;
-                this.node2.Position.Y += node2PositionDiff.Y;
-                this.node2.Velocity.Y += node2VelocityDiff.Y;
+                this.Node2.Position.Y += this.Node2.Velocity.Y * deltaTime;
+                this.Node2.Position.Y += node2PositionDiff.Y;
+                this.Node2.Velocity.Y += node2VelocityDiff.Y;
             }
         }
 
@@ -127,19 +134,19 @@ namespace Flakcore.Physics
             if (overlap == 0)
                 return;
 
-            if (node1.Velocity.X != node2.Velocity.X)
+            if (Node1.Velocity.X != Node2.Velocity.X)
             {
-                if (node1.Velocity.X > node2.Velocity.X)
+                if (Node1.Velocity.X > Node2.Velocity.X)
                 {
-                    node1.Touching.Right = true;
-                    node2.Touching.Left = true;
+                    Node1.Touching.Right = true;
+                    Node2.Touching.Left = true;
 
                     separateX(overlap);
                 }
-                else if (node1.Velocity.X < node2.Velocity.X)
+                else if (Node1.Velocity.X < Node2.Velocity.X)
                 {
-                    node1.Touching.Left = true;
-                    node2.Touching.Right = true;
+                    Node1.Touching.Left = true;
+                    Node2.Touching.Right = true;
 
                     separateX(overlap);
                 }
@@ -151,19 +158,19 @@ namespace Flakcore.Physics
             if (overlap == 0)
                 return;
 
-            if (node1.Velocity.Y != node2.Velocity.Y)
+            if (Node1.Velocity.Y != Node2.Velocity.Y)
             {
-                if (node1.Velocity.Y > node2.Velocity.Y)
+                if (Node1.Velocity.Y > Node2.Velocity.Y)
                 {
-                    node1.Touching.Bottom = true;
-                    node2.Touching.Top = true;
+                    Node1.Touching.Bottom = true;
+                    Node2.Touching.Top = true;
 
                     separateY(overlap);
                 }
-                else if(node1.Velocity.Y < node2.Velocity.Y)
+                else if(Node1.Velocity.Y < Node2.Velocity.Y)
                 {
-                    node1.Touching.Top = true;
-                    node2.Touching.Bottom = true;
+                    Node1.Touching.Top = true;
+                    Node2.Touching.Bottom = true;
 
                     separateY(overlap);
                 }
@@ -172,35 +179,35 @@ namespace Flakcore.Physics
 
         private void separateY(float overlap)
         {
-            if (!node1.Immovable && !node2.Immovable)
+            if (!Node1.Immovable && !Node2.Immovable)
             {
             }
-            else if (!node1.Immovable)
+            else if (!Node1.Immovable)
             {
                 this.node1PositionDiff.Y += overlap;
-                this.node1VelocityDiff.Y -= node1.Velocity.Y;
+                this.node1VelocityDiff.Y -= Node1.Velocity.Y;
             }
-            else if (!node2.Immovable)
+            else if (!Node2.Immovable)
             {
                 this.node2PositionDiff.Y += overlap;
-                this.node2VelocityDiff.Y -= node2.Velocity.Y;
+                this.node2VelocityDiff.Y -= Node2.Velocity.Y;
             }
         }
 
         private void separateX(float overlap)
         {
-            if (!node1.Immovable && !node2.Immovable)
+            if (!Node1.Immovable && !Node2.Immovable)
             {
             }
-            else if (!node1.Immovable)
+            else if (!Node1.Immovable)
             {
                 this.node1PositionDiff.X += overlap;
-                this.node1VelocityDiff.X -= node1.Velocity.X;
+                this.node1VelocityDiff.X -= Node1.Velocity.X;
             }
-            else if (!node2.Immovable)
+            else if (!Node2.Immovable)
             {
                 this.node2PositionDiff.X += overlap;
-                this.node2VelocityDiff.X -= node2.Velocity.X;
+                this.node2VelocityDiff.X -= Node2.Velocity.X;
             }
         }
     }

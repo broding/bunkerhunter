@@ -24,11 +24,9 @@ namespace Bunker_Hunker.GameObjects
 
         public override void Update(GameTime gameTime)
         {
-            updateInput();
-
-            GameManager.collide(this, "npc", npcCollide);
-
             base.Update(gameTime);
+
+            this.UpdateInput(GameManager.Input.GetInputState(PlayerIndex.One));
         }
 
         public override void PostUpdate(GameTime gameTime)
@@ -39,31 +37,6 @@ namespace Bunker_Hunker.GameObjects
         public override void Draw(SpriteBatch spriteBatch, Matrix parentTransform)
         {
             base.Draw(spriteBatch, parentTransform);
-        }
-
-        private void updateInput()
-        {
-            InputState state = GameManager.Input.GetInputState(PlayerIndex.One);
-
-            if (state.Jump)
-                jump();
-
-            if (state.Fire)
-                Fire();
-
-            this.Velocity.X = state.X * 166;
-        }
-
-        private void Fire()
-        {
-            if (this.Weapon != null)
-            {
-                this.Weapon.Fire(this.Position, this.Facing, this);
-            }
-        }
-
-        private void npcCollide(Node player, Node tilemap)
-        {
         }
 
         protected override void DrawCall(SpriteBatch spriteBatch, Vector2 position, Vector2 scale, float rotation, SpriteEffects spriteEffect)

@@ -9,13 +9,13 @@ using Flakcore;
 
 namespace Display.Tilemap
 {
-    internal class Layer : Node
+    public class TileLayer : Node
     {
         public string name;
+        public List<Tile> Tiles;
 
         private Tilemap _tilemap;
 
-        private List<Tile> _tiles;
         private Tile[,] _map;
 
         public Tile[,] map
@@ -26,7 +26,7 @@ namespace Display.Tilemap
             }
         }
 
-        public Layer(string name, int width, int height, Tilemap tilemap)
+        public TileLayer(string name, int width, int height, Tilemap tilemap)
         {
             this.name = name;
             this.Width = width;
@@ -34,7 +34,7 @@ namespace Display.Tilemap
             this._tilemap = tilemap;
 
             _map = new Tile[width, height];
-            _tiles = new List<Tile>();
+            Tiles = new List<Tile>();
         }
 
         public void addTile(int gid, int x, int y, Tileset tileset)
@@ -49,12 +49,12 @@ namespace Display.Tilemap
             Rectangle sourceRect = new Rectangle(gid * Tilemap.tileWidth - ((sourceY / Tilemap.tileHeight) * tileset.width), sourceY, Tilemap.tileWidth, Tilemap.tileHeight);
 
             map[x, y] = new Tile(x, y, gid, sourceRect, tileset, collisionGroups);
-            _tiles.Add(map[x, y]);
+            Tiles.Add(map[x, y]);
         }
 
         public override void Draw(SpriteBatch spriteBatch, Matrix parentTransform)
         {
-            foreach (Tile tile in _tiles)
+            foreach (Tile tile in Tiles)
             {
                 Matrix globalTransform = tile.getLocalTransform() * GameManager.currentDrawCamera.getTransformMatrix();
 
@@ -69,7 +69,7 @@ namespace Display.Tilemap
 
         public override List<Node> getAllChildren(List<Node> nodes)
         {
-            foreach (Tile tile in _tiles)
+            foreach (Tile tile in Tiles)
                 nodes.Add(tile);
 
             return nodes;

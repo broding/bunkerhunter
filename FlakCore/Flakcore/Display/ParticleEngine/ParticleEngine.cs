@@ -31,7 +31,7 @@ namespace Flakcore.Display.ParticleEngine
             for (int i = 0; i < this.Effect.EmitterData.Length; i++)
             {
                 this.Emitters[i] = this.Effect.EmitterData[i].SetupEmitter();
-                this.addChild(this.Emitters[i]);
+                this.AddChild(this.Emitters[i]);
             }
         }
 
