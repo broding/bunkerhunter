@@ -130,17 +130,9 @@ namespace Flakcore.Display
 
         public virtual BoundingRectangle GetBoundingBox()
         {
-            Vector2 worldPosition = this.getWorldPosition();
+            Vector2 worldPosition = this.WorldPosition;
 
             return new BoundingRectangle(worldPosition.X, worldPosition.Y, Width, Height);
-        }
-
-        public Vector2 getWorldPosition()
-        {
-            if (Parent == null)
-                return Position;
-            else
-                return Parent.getWorldPosition() + Position;
         }
 
         public virtual void Kill()
@@ -224,6 +216,25 @@ namespace Flakcore.Display
             return this.CollisionGroup.Count > 0;
         }
 
+        public Vector2 ScreenPosition
+        {
+            get
+            {
+                return GameManager.currentDrawCamera.TransformPosition(this.WorldPosition);
+            }
+        }
+
+        public Vector2 WorldPosition
+        {
+            get
+            {
+                if (Parent == null)
+                    return this.Position;
+                else
+                    return Parent.WorldPosition + Position;
+            }
+        }
+
 
         public object Clone()
         {
@@ -232,6 +243,7 @@ namespace Flakcore.Display
             clone.Velocity = new Vector2(Velocity.X, Velocity.Y);
             clone.Width = Width;
             clone.Height = Height;
+            clone.Parent = Parent;
 
             return clone;
         }

@@ -7,15 +7,15 @@
       <TargetProfile>HiDef</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>C:\Users\Bas\Git Repositories\bunkerhunter\FlakCore\FlakCoreContent\</RootDirectory>
-      <LoggerRootDirectory>C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\</LoggerRootDirectory>
-      <IntermediateDirectory>C:\Users\Bas\Git Repositories\bunkerhunter\FlakCore\FlakCoreContent\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Debug\FlakCoreContent\</OutputDirectory>
+      <RootDirectory>C:\Documents and Settings\Bas\My Documents\bunkerhunter-master\FlakCore\FlakCoreContent\</RootDirectory>
+      <LoggerRootDirectory>C:\Documents and Settings\Bas\My Documents\bunkerhunter-master\Bunker Hunter\Bunker Hunter\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Documents and Settings\Bas\My Documents\bunkerhunter-master\FlakCore\FlakCoreContent\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Documents and Settings\Bas\My Documents\bunkerhunter-master\Bunker Hunter\Bunker Hunter\bin\x86\Debug\FlakCoreContent\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>
-        <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
-        <Value>2011-06-06T20:12:47.9440875+02:00</Value>
+        <Key>C:\WINDOWS\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
+        <Value>2011-09-12T18:14:30.671625+02:00</Value>
       </Assembly>
     </Assemblies>
   </Asset>

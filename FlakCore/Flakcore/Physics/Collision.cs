@@ -95,6 +95,9 @@ namespace Flakcore.Physics
             dirtyNode1.RoundPosition();
             dirtyNode2.RoundPosition();
 
+            BoundingRectangle box1 = dirtyNode1.GetBoundingBox();
+            BoundingRectangle box2 = dirtyNode2.GetBoundingBox();
+
             return dirtyNode1.GetBoundingBox().Intersects(dirtyNode2.GetBoundingBox());
         }
 

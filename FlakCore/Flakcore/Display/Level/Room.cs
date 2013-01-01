@@ -52,18 +52,20 @@ namespace Bunker_Hunter.GameObjects.Level
 
         internal void GetCollidedBlocks(Node node, List<Node> collidedNodes)
         {
-            int xMin = (int)Math.Floor((node.getWorldPosition().X - this.getWorldPosition().X) / Level.BLOCK_WIDTH);
-            int xMax = (int)Math.Ceiling(((node.getWorldPosition().X - this.getWorldPosition().X) + node.Width) / Level.BLOCK_WIDTH);
-            int yMin = (int)Math.Floor((node.Position.Y - this.getWorldPosition().Y) / Level.BLOCK_HEIGHT);
-            int yMax = (int)Math.Ceiling(((node.getWorldPosition().Y - this.getWorldPosition().Y) + node.Height) / Level.BLOCK_HEIGHT);
+            Vector2 nodeRoomPosition = node.Position - this.Position;
+
+            int xMin = (int)Math.Floor(nodeRoomPosition.X / Level.BLOCK_WIDTH);
+            int xMax = (int)Math.Ceiling((nodeRoomPosition.X + node.Width) / Level.BLOCK_WIDTH);
+            int yMin = (int)Math.Floor(nodeRoomPosition.Y / Level.BLOCK_HEIGHT);
+            int yMax = (int)Math.Ceiling((nodeRoomPosition.Y + node.Height) / Level.BLOCK_HEIGHT);
 
             xMin = Math.Max(0, xMin - 1);
             xMax = Math.Min(Width, xMax + 1);
             yMin = Math.Max(0, yMin - 1);
             yMax = Math.Min(Height, yMax + 1);
 
-            xMax = Math.Min(xMax, Level.ROOM_WIDTH-1);
-            yMax = Math.Min(yMax, Level.ROOM_HEIGHT-1);
+            xMax = Math.Min(xMax, Level.ROOM_WIDTH);
+            yMax = Math.Min(yMax, Level.ROOM_HEIGHT);
 
             for (var x = xMin; x < xMax; x++)
             {
