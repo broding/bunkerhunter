@@ -47,12 +47,9 @@ namespace Display.Tilemap
             Height = Convert.ToInt32(doc.Element("map").Attribute("height").Value);
 
             // load all properties
-            foreach (XElement element in doc.Element("properties").Elements)
+            foreach (XElement propElement in doc.Element("map").Element("properties").Elements())
             {
-                foreach (XElement propElement in element.Elements())
-                {
-                    this.Properties.Add(propElement.Attribute("name").Value, propElement.Attribute("value").Value);
-                }
+                this.Properties.Add(propElement.Attribute("name").Value, propElement.Attribute("value").Value);
             }
 
             // load all tilesets
@@ -79,8 +76,9 @@ namespace Display.Tilemap
                         this.CollisionGroups.Add(groupName);
                     }
 
-                    foreach (XElement tileElements in element.Elements())
+                    foreach (XElement tileElements in element.Element("properties").Elements())
                     {
+                        properties[index] = new Dictionary<string, string>();
                         properties[index].Add(tileElements.Attribute("name").Value, tileElements.Attribute("value").Value);
                     }
                 }
