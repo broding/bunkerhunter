@@ -21,6 +21,8 @@ namespace Display.Tilemap
 
         private HashSet<string> CollisionGroups;
 
+        public Dictionary<string, string> Properties;
+
         private List<TileLayer> Layers;
         private List<Tileset> Tilesets;
 
@@ -29,6 +31,7 @@ namespace Display.Tilemap
             this.Layers = new List<TileLayer>();
             this.Tilesets = new List<Tileset>();
             this.CollisionGroups = new HashSet<string>();
+            this.Properties = new Dictionary<string, string>();
 
             //CollisionSolver.Tilemaps.Add(this);
         }
@@ -43,6 +46,15 @@ namespace Display.Tilemap
             Width = Convert.ToInt32(doc.Element("map").Attribute("width").Value);
             Height = Convert.ToInt32(doc.Element("map").Attribute("height").Value);
 
+            // load all properties
+            foreach (XElement element in doc.Element("properties").Elements)
+            {
+                foreach (XElement propElement in element.Elements())
+                {
+                    this.Properties.Add(propElement.Attribute("name").Value, propElement.Attribute("value").Value);
+                }
+            }
+
             // load all tilesets
             foreach (XElement element in doc.Descendants("tileset"))
             {
@@ -51,17 +63,25 @@ namespace Display.Tilemap
 
                 // load all collisionGroups from this tileset ('collisionGroups' from different tiles)
                 string[] tileCollisionGroups = new string[100];
+                Dictionary<string, string>[] properties = new Dictionary<string, string>[100];
 
 
                 foreach (XElement tile in element.Descendants("tile"))
                 {
+                    int index = (int)tile.Attribute("id");
+
                     if (tile.Descendants("property").First().Attribute("name").Value == "collisionGroups")
                     {
-                        int index = (int)tile.Attribute("id");
+                       
                         string groupName = tile.Descendants("property").First().Attribute("value").Value;
 
                         tileCollisionGroups[index] = groupName;
                         this.CollisionGroups.Add(groupName);
+                    }
+
+                    foreach (XElement tileElements in element.Elements())
+                    {
+                        properties[index].Add(tileElements.Attribute("name").Value, tileElements.Attribute("value").Value);
                     }
                 }
 

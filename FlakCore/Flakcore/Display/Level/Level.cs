@@ -15,10 +15,10 @@ namespace Bunker_Hunter.GameObjects.Level
     {
         internal const int BLOCK_WIDTH = 32;
         internal const int BLOCK_HEIGHT = 32;
-        internal const int ROOM_WIDTH = 25;
-        internal const int ROOM_HEIGHT = 15;
-        internal const int LEVEL_WIDTH = 2;
-        internal const int LEVEL_HEIGHT = 2;
+        internal const int ROOM_WIDTH = 24;
+        internal const int ROOM_HEIGHT = 16;
+        internal const int LEVEL_WIDTH = 4;
+        internal const int LEVEL_HEIGHT = 4;
 
         private static Random Random = new Random();
 
@@ -32,8 +32,23 @@ namespace Bunker_Hunter.GameObjects.Level
             Block.Graphic = GameManager.Content.Load<Texture2D>("tilemap");
 
             this.Rooms = new List<Room>();
+            this.InitializeBackground();
             this.LoadRooms();
             this.BuildLevel();
+        }
+
+        private void InitializeBackground()
+        {
+            TiledSprite borderBackground = new TiledSprite(LEVEL_WIDTH * ROOM_WIDTH * BLOCK_WIDTH * 2, LEVEL_HEIGHT * ROOM_HEIGHT * BLOCK_HEIGHT * 2);
+            borderBackground.LoadTexture("level/borderTile");
+            borderBackground.Position = new Vector2(-GameManager.LevelBorderSize.X, -GameManager.LevelBorderSize.Y);
+
+            this.AddChild(borderBackground);
+
+            TiledSprite levelBackground = new TiledSprite(LEVEL_WIDTH * ROOM_WIDTH * BLOCK_WIDTH, LEVEL_HEIGHT * ROOM_HEIGHT * BLOCK_HEIGHT);
+            levelBackground.LoadTexture("level/levelTile");
+
+            this.AddChild(levelBackground);
         }
 
         private void LoadRooms()

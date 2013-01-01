@@ -66,9 +66,9 @@ namespace CallOfHonour.GameObjects
         private void TilemapCollision(Node bullet, Node tile)
         {
             if (this.Facing == Facing.Left)
-                this.ExplosionParticles.Position = new Vector2(tile.Position.X + tile.Width, this.Position.Y);
+                this.ExplosionParticles.Position = new Vector2(tile.ScreenPosition.X + tile.Width, this.ScreenPosition.Y);
             else
-                this.ExplosionParticles.Position = new Vector2(tile.Position.X, this.Position.Y);
+                this.ExplosionParticles.Position = new Vector2(tile.ScreenPosition.X, this.ScreenPosition.Y);
 
             this.ExplosionParticles.Explode();
 

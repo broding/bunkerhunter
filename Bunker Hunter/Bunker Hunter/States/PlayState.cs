@@ -35,7 +35,7 @@ namespace Bunker_Hunter.States
             this.AddChild(level);
 
             Player player = new Player(bulletLayer);
-            player.Position = new Vector2(0, 480);
+            player.Position = new Vector2(32, 0);
             this.AddChild(player);
 
             //Npc npc1 = new Npc(bulletLayer);

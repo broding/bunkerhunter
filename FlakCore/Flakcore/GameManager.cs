@@ -17,6 +17,7 @@ namespace Flakcore
         public static GraphicsDeviceManager Graphics { get; private set; }
         public static ContentManager Content { get; private set; }
         public static Vector2 ScreenSize { get; private set; }
+        public static Vector2 LevelBorderSize { get; private set; }
 
         private static Core Core;
         private static Rectangle _worldBounds;
@@ -41,6 +42,7 @@ namespace Flakcore
             GameManager.ScreenSize = screenSize;
             GameManager.Core = core;
             GameManager.worldBounds = Rectangle.Empty;
+            GameManager.LevelBorderSize = new Vector2(250, 250);
 
             //TODO (BR): needs to be done more nice
             fontDefault = content.Load<SpriteFont>("fontDefault");

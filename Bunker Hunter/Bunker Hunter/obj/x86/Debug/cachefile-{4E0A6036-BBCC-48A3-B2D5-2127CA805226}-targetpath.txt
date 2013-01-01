@@ -10,6 +10,8 @@ Content\Cloud001.xnb
 Content\FlowerBurst.xnb
 Content\LensFlare.xnb
 Content\player.xnb
+Content\level\borderTile.xnb
+Content\level\levelTile.xnb
 Content\ParticleEffects\smoke1.xnb
 Content\ParticleEffects\smokePuff.xnb
 Content\fontDefault.spritefont

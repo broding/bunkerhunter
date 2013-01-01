@@ -101,6 +101,7 @@
     <Compile Include="Display\Layer.cs" />
     <Compile Include="Display\Level\Block.cs" />
     <Compile Include="Display\Level\Level.cs" />
+    <Compile Include="Display\Level\LevelBackground.cs" />
     <Compile Include="Display\Level\Room.cs" />
     <Compile Include="Display\Level\RoomType.cs" />
     <Compile Include="Display\Node.cs" />
@@ -116,6 +117,7 @@
     <Compile Include="Display\ParticleEngine\ParticleEngine.cs" />
     <Compile Include="Display\Sprite.cs" />
     <Compile Include="Display\State.cs" />
+    <Compile Include="Display\TiledSprite.cs" />
     <Compile Include="Display\Tilemap\TileLayer.cs" />
     <Compile Include="Display\Tilemap\Tile.cs" />
     <Compile Include="Display\Tilemap\Tilemap.cs" />
