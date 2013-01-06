@@ -6,7 +6,7 @@ using Display.Tilemap;
 using Microsoft.Xna.Framework;
 using Flakcore.Physics;
 
-namespace Bunker_Hunter.GameObjects.Level
+namespace Flakcore.Display.Level
 {
     class RoomType
     {
@@ -51,7 +51,11 @@ namespace Bunker_Hunter.GameObjects.Level
 
             foreach (Tile tile in structureLayer.Tiles)
             {
-                room.AddBlock((int)tile.Position.X, (int)tile.Position.Y);
+                if (tile.tileset.GetPropertiesOfGid(tile.gid) != null)
+                {
+                    BlockType type = Block.GetBlockTypeFromString(tile.tileset.GetPropertiesOfGid(tile.gid)["type"]);
+                    room.AddBlock((int)tile.Position.X, (int)tile.Position.Y, type);
+                }
             }
 
             return room;
@@ -64,5 +68,13 @@ namespace Bunker_Hunter.GameObjects.Level
                 return new Vector2(this.Tilemap.Width / Level.ROOM_WIDTH, this.Tilemap.Height / Level.ROOM_HEIGHT);
             }
         }
+    }
+
+    public enum RoomTypes
+    {
+        START,
+        END,
+        ROUTE,
+        DEADEND
     }
 }

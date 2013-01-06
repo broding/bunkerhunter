@@ -13,7 +13,7 @@ using Microsoft.Xna.Framework.Input;
 using Flakcore.Display.ParticleEngine.Modifiers;
 using Bunker_Hunker.GameObjects;
 using Display.Tilemap;
-using Bunker_Hunter.GameObjects.Level;
+using Flakcore.Display.Level;
 
 namespace Bunker_Hunter.States
 {
@@ -24,28 +24,23 @@ namespace Bunker_Hunter.States
             this.BackgroundColor = Color.SandyBrown;
 
             Layer bulletLayer = new Layer();
-
-            /*
-            Tilemap tilemap = new Tilemap();
-            tilemap.loadMap(@"Content/map2.tmx", 32, 32);
-            this.addChild(tilemap);
-            */
+            //bulletLayer.Depth = 0.3f;
 
             Level level = new Level();
             this.AddChild(level);
 
             Player player = new Player(bulletLayer);
             player.Position = new Vector2(32, 0);
-            this.AddChild(player);
 
             //Npc npc1 = new Npc(bulletLayer);
            // npc1.Position = new Vector2(380, 160);
             //this.AddChild(npc1);
 
-            //GameManager.currentDrawCamera.followNode = player;
+            GameManager.currentDrawCamera.followNode = player;
 
             // effect test
 
+            this.AddChild(player);
             this.AddChild(bulletLayer);
 
         }

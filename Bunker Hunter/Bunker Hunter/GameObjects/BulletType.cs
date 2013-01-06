@@ -16,9 +16,9 @@ namespace Bunker_Hunter.GameObjects
         public BulletType()
         {
             this.TextureName = "bullet";
-            this.Speed = new Vector2(100, -100);
-            this.SpeedChange = new Vector2(1.05f, 0.95f);
-            this.Mass = 0.5f;
+            this.Speed = new Vector2(1000, -100);
+            this.SpeedChange = new Vector2(1.00f, 0f);
+            this.Mass = 0.0f;
         }
     }
 }

@@ -11,6 +11,8 @@ namespace Flakcore.Display
 {
     public class Node : ICloneable
     {
+        private static float DrawDepth = 0;
+
         public List<Node> Children { get; protected set; }
 
         public Node Parent;
@@ -21,6 +23,7 @@ namespace Flakcore.Display
         public Vector2 previousVelocity { get; protected set; }
         public Vector2 Acceleration = Vector2.Zero;
         public float Mass = 0;
+        public float Depth = 0;
 
         public int Width;
         public int Height;
@@ -41,6 +44,7 @@ namespace Flakcore.Display
         public bool Visable = true;
         public bool Immovable = false;
         public bool Collidable = true;
+        public Sides CollidableSides;
         public bool Dead { get; protected set; }
 
         private List<string> CollisionGroup;
@@ -51,6 +55,14 @@ namespace Flakcore.Display
             CollisionGroup = new List<string>();
             this.Touching = new Sides();
             this.WasTouching = new Sides();
+            this.CollidableSides = new Sides();
+            this.CollidableSides.SetAllTrue();
+        }
+
+        public static float GetDrawDepth(float depth)
+        {
+            Node.DrawDepth += 0.00001f;
+            return depth + Node.DrawDepth;
         }
 
         public void AddChild(Node child)
@@ -130,9 +142,7 @@ namespace Flakcore.Display
 
         public virtual BoundingRectangle GetBoundingBox()
         {
-            Vector2 worldPosition = this.WorldPosition;
-
-            return new BoundingRectangle(worldPosition.X, worldPosition.Y, Width, Height);
+            return new BoundingRectangle(this.WorldPosition.X, this.WorldPosition.Y, Width, Height);
         }
 
         public virtual void Kill()
@@ -152,7 +162,7 @@ namespace Flakcore.Display
             // Transform = -Origin * Scale * Rotation * Translation
             return Matrix.CreateTranslation(-Origin.X, -Origin.Y, 0f) *
             //Matrix.CreateScale(Scale.X, Scale.Y, 1f) *
-            //Matrix.CreateRotationZ(Rotation) *   
+            Matrix.CreateRotationZ(Rotation) *   
             Matrix.CreateTranslation(Position.X, Position.Y, 0f);
         }
 
@@ -196,22 +206,22 @@ namespace Flakcore.Display
             this.Velocity.Y = (float)Math.Round(this.Velocity.Y);
         }
 
-        public void addCollisionGroup(string groupName)
+        public void AddCollisionGroup(string groupName)
         {
             this.CollisionGroup.Add(groupName);
         }
 
-        public void removeCollisionGroup(string groupName)
+        public void RemoveCollisionGroup(string groupName)
         {
             this.CollisionGroup.Remove(groupName);
         }
 
-        public bool isMemberOfCollisionGroup(string groupName)
+        public bool IsMemberOfCollisionGroup(string groupName)
         {
             return this.CollisionGroup.Contains(groupName);
         }
 
-        public bool hasCollisionGroups()
+        public bool HasCollisionGroups()
         {
             return this.CollisionGroup.Count > 0;
         }
@@ -236,6 +246,15 @@ namespace Flakcore.Display
         }
 
 
+        public float GetParentDepth()
+        {
+            if (this.Parent != null)
+                return this.Parent.GetParentDepth() + this.Depth;
+            else
+                return this.Depth;
+        }
+
+
         public object Clone()
         {
             Node clone = new Node();
@@ -246,6 +265,11 @@ namespace Flakcore.Display
             clone.Parent = Parent;
 
             return clone;
+        }
+
+        internal static void ResetDrawDepth()
+        {
+            Node.DrawDepth = 0;
         }
     }
 }

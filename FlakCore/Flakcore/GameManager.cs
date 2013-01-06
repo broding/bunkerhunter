@@ -92,17 +92,11 @@ namespace Flakcore
 
         public static void collide(Node node, string collideGroup, Action<Node, Node> callback, Func<Node, Node, bool> checker)
         {
-            if (node.Dead)
-                return;
-
             Core.CollisionSolver.addCollision(node, collideGroup, callback, checker);
         }
 
         public static void collide(Node node, string collideGroup, Action<Node, Node> callback)
         {
-            if (node.Dead)
-                return;
-
             Core.CollisionSolver.addCollision(node, collideGroup, callback, null);
         }
 

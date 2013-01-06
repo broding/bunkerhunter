@@ -8,31 +8,32 @@ namespace Display.Tilemap
 {
     public class Tileset
     {
-        private int _firstGid;
-        public int firstGid { get { return this._firstGid; } }
+        public int FirstGid { get; private set; }
+        public string Name { get; private set; }
+        public int Width { get; private set; }
+        public int Height { get; private set; }
+        public Texture2D Graphic { get; private set; }
+        public string[] CollisionGroups { get; private set; }
+        public Dictionary<string, string>[] Properties { get; private set; }
 
-        private string _name;
-        public string name { get { return this._name; } }
 
-        private int _width;
-        public int width { get { return this._width; } }
-
-        private int _height;
-        public int height { get { return this._height; } }
-
-        private Texture2D _graphic;
-        public Texture2D graphic { get { return this._graphic; } }
-
-        public string[] collisionGroups { get; private set; }
-
-        public Tileset(int firstGid, string name, int width, int height, Texture2D graphic, string[] collisionGroups)
+        public Tileset(int firstGid, string name, int width, int height, Texture2D graphic, string[] collisionGroups, Dictionary<string,string>[] properties)
         {
-            this._firstGid = firstGid;
-            this._name = name;
-            this._width = width;
-            this._height = height;
-            this._graphic = graphic;
-            this.collisionGroups = collisionGroups;
+            this.FirstGid = firstGid;
+            this.Name = name;
+            this.Width = width;
+            this.Height = height;
+            this.Graphic = graphic;
+            this.CollisionGroups = collisionGroups;
+            this.Properties = properties;
+        }
+
+        public Dictionary<string, string> GetPropertiesOfGid(int gid)
+        {
+            if (this.Properties[gid] != null)
+                return this.Properties[gid];
+            else
+                return null;
         }
     }
 }

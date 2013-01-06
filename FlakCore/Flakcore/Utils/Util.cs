@@ -19,5 +19,10 @@ namespace Flakcore.Utils
         {
             return facing == Facing.Left ? -1 : 1;
         }
+
+        public static bool Visible(Microsoft.Xna.Framework.Vector2 position, int width, int height)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

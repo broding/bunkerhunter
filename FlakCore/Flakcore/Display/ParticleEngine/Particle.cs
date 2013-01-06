@@ -24,6 +24,7 @@ namespace Flakcore.Display.ParticleEngine
             this.Modifiers = new LinkedList<IParticleModifier>();
             this.Kill();
             this.Origin = new Vector2(this.Emitter.Data.BaseTexture.Width / 2, this.Emitter.Data.BaseTexture.Height / 2);
+            this.OffScreenAction = OffScreenAction.NONE;
 
             this.InitializeModifiers();
         }
@@ -48,6 +49,7 @@ namespace Flakcore.Display.ParticleEngine
             this.Scale = this.Emitter.Data.ReleaseScale + Particle.GetVector2Variantion(this.Emitter.Data.ReleaseScaleVariation) * Util.RandomPositiveNegative();
             this.Color = Particle.GetColorVariation(this.Emitter.Data.ReleaseColor, this.Emitter.Data.ReleaseColorVariation);
             this.Rotation = this.Emitter.Data.ReleaseRotation + Particle.GetVariantion(this.Emitter.Data.ReleaseRotationVariation) * Util.RandomPositiveNegative();
+            this.LoadTexture(this.Emitter.Data.BaseTexture);
 
             foreach (IParticleModifier modifier in this.Modifiers)
             {
@@ -84,16 +86,18 @@ namespace Flakcore.Display.ParticleEngine
 
         protected override void DrawCall(SpriteBatch spriteBatch, Vector2 position, Vector2 scale, float rotation, SpriteEffects spriteEffect)
         {
+            position = GameManager.currentDrawCamera.TransformPosition(this.Position);
+
             spriteBatch.Draw(
                 this.Emitter.Data.BaseTexture,
-                new Vector2(this.Position.X * ScrollFactor.X, this.Position.Y * ScrollFactor.Y),
+                new Vector2(position.X * ScrollFactor.X, position.Y * ScrollFactor.Y),
                 new Rectangle(0, 0, this.Emitter.Data.BaseTexture.Width, this.Emitter.Data.BaseTexture.Height),
                 this.Color * this.Alpha,
                 0,
                 this.Origin,
                 this.Scale,
                 spriteEffect,
-                1.0f);
+                Node.GetDrawDepth(this.Depth));
 
         }
 

@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
+  <Asset Type="Pipeline:BuildItemCollection">
+    <Item>
+      <Source>fontDefault.spritefont</Source>
+      <Name>fontDefault</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Release\Content\fontDefault.xnb</Output>
+      <Time>2012-12-27T16:11:10.9870807+01:00</Time>
+    </Item>
+    <Item>
+      <Source>font.spritefont</Source>
+      <Name>font</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Release\Content\font.xnb</Output>
+      <Time>2012-12-27T16:11:10.9870807+01:00</Time>
+    </Item>
+    <Item>
+      <Source>background.png</Source>
+      <Name>background</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Release\Content\background.xnb</Output>
+      <Time>2012-12-27T16:11:10.9860806+01:00</Time>
+    </Item>
+    <Item>
+      <Source>bullet.png</Source>
+      <Name>bullet</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Release\Content\bullet.xnb</Output>
+      <Time>2012-12-27T16:11:10.9860806+01:00</Time>
+    </Item>
+    <Item>
+      <Source>npc.png</Source>
+      <Name>npc</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Release\Content\npc.xnb</Output>
+      <Time>2012-12-27T16:11:10.9880807+01:00</Time>
+    </Item>
+    <Item>
+      <Source>pan.jpg</Source>
+      <Name>pan</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Release\Content\pan.xnb</Output>
+      <Time>2012-12-27T16:11:10.9980813+01:00</Time>
+    </Item>
+    <Item>
+      <Source>poppetje.png</Source>
+      <Name>poppetje</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Release\Content\poppetje.xnb</Output>
+      <Time>2012-12-27T16:11:10.9990813+01:00</Time>
+    </Item>
+    <Item>
+      <Source>tilemap.png</Source>
+      <Name>tilemap</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Release\Content\tilemap.xnb</Output>
+      <Time>2013-01-05T14:42:21.2130123+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Cloud001.png</Source>
+      <Name>Cloud001</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Release\Content\Cloud001.xnb</Output>
+      <Time>2012-12-27T16:11:10.9830804+01:00</Time>
+    </Item>
+    <Item>
+      <Source>FlowerBurst.png</Source>
+      <Name>FlowerBurst</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Release\Content\FlowerBurst.xnb</Output>
+      <Time>2012-12-27T16:11:10.9840805+01:00</Time>
+    </Item>
+    <Item>
+      <Source>LensFlare.png</Source>
+      <Name>LensFlare</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Release\Content\LensFlare.xnb</Output>
+      <Time>2012-12-27T16:11:10.9840805+01:00</Time>
+    </Item>
+    <Item>
+      <Source>player.png</Source>
+      <Name>player</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Release\Content\player.xnb</Output>
+      <Time>2012-12-30T12:29:40.1153563+01:00</Time>
+    </Item>
+    <Item>
+      <Source>level\borderTile.png</Source>
+      <Name>level\borderTile</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Release\Content\level\borderTile.xnb</Output>
+      <Time>2013-01-02T18:40:36.0242367+01:00</Time>
+    </Item>
+    <Item>
+      <Source>level\levelTile.png</Source>
+      <Name>level\levelTile</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Release\Content\level\levelTile.xnb</Output>
+      <Time>2013-01-02T18:40:36.0262368+01:00</Time>
+    </Item>
+    <Item>
+      <Source>level\borders_bunker.png</Source>
+      <Name>level\borders_bunker</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Release\Content\level\borders_bunker.xnb</Output>
+      <Time>2013-01-05T13:50:39.2585906+01:00</Time>
+    </Item>
+    <Item>
+      <Source>ladder.png</Source>
+      <Name>ladder</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Release\Content\ladder.xnb</Output>
+      <Time>2013-01-05T15:18:16.3632798+01:00</Time>
+    </Item>
+    <Item>
+      <Source>ParticleEffects\smoke1.xml</Source>
+      <Name>ParticleEffects\smoke1</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Release\Content\ParticleEffects\smoke1.xnb</Output>
+      <Time>2012-12-29T16:28:25.3899178+01:00</Time>
+    </Item>
+    <Item>
+      <Source>ParticleEffects\smokePuff.xml</Source>
+      <Name>ParticleEffects\smokePuff</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Release\Content\ParticleEffects\smokePuff.xnb</Output>
+      <Time>2012-12-29T16:28:54.9256071+01:00</Time>
+    </Item>
+    <BuildSuccessful>true</BuildSuccessful>
+    <Settings>
+      <TargetPlatform>Windows</TargetPlatform>
+      <TargetProfile>HiDef</TargetProfile>
+      <BuildConfiguration>Release</BuildConfiguration>
+      <CompressContent>true</CompressContent>
+      <RootDirectory>C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker HunterContent\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker HunterContent\obj\x86\Release\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Release\Content\</OutputDirectory>
+    </Settings>
+    <Assemblies>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll</Key>
+        <Value>2010-08-23T12:41:18+02:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.VideoImporters.dll</Key>
+        <Value>2010-08-23T12:41:18+02:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.TextureImporter.dll</Key>
+        <Value>2010-08-23T12:41:18+02:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.FBXImporter.dll</Key>
+        <Value>2010-08-23T12:41:18+02:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.EffectImporter.dll</Key>
+        <Value>2010-08-23T12:41:18+02:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.AudioImporters.dll</Key>
+        <Value>2010-08-23T12:41:18+02:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Users\Bas\Git Repositories\bunkerhunter\Libraries\Indiefreaks.Xna.Profiler.dll</Key>
+        <Value>2012-12-27T16:11:11.1210883+01:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Users\Bas\Git Repositories\bunkerhunter\Libraries\Indiefreaks.AOP.Profiler.dll</Key>
+        <Value>2012-12-27T16:11:11.1200883+01:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Users\Bas\Git Repositories\bunkerhunter\FlakCore\Flakcore\bin\x86\Release\Flakcore.dll</Key>
+        <Value>2013-01-05T16:04:20.0723549+01:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
+        <Value>2011-06-06T20:12:47.9440875+02:00</Value>
+      </Assembly>
+    </Assemblies>
+  </Asset>
+</XnaContent>

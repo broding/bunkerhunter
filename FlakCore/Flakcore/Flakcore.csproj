@@ -100,8 +100,16 @@
     <Compile Include="Display\Camera.cs" />
     <Compile Include="Display\Layer.cs" />
     <Compile Include="Display\Level\Block.cs" />
+    <Compile Include="Display\Level\Builder.cs" />
+    <Compile Include="Display\Level\Dungeon.cs" />
+    <Compile Include="Display\Level\Furnisher.cs" />
     <Compile Include="Display\Level\Level.cs" />
     <Compile Include="Display\Level\LevelBackground.cs" />
+    <Compile Include="Display\Level\Architect.cs" />
+    <Compile Include="Display\Level\LevelObjects\End.cs" />
+    <Compile Include="Display\Level\LevelObjects\Ladder.cs" />
+    <Compile Include="Display\Level\LevelObjects\LevelObject.cs" />
+    <Compile Include="Display\Level\LevelObjects\Start.cs" />
     <Compile Include="Display\Level\Room.cs" />
     <Compile Include="Display\Level\RoomType.cs" />
     <Compile Include="Display\Node.cs" />

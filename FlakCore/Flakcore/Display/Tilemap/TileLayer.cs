@@ -42,11 +42,11 @@ namespace Display.Tilemap
             gid--; // remove 1 because the Tiled editor start counting at 1, instead of 0
 
             string[] collisionGroups = new string[10];
-            if(tileset.collisionGroups[gid] != null)
-                collisionGroups = tileset.collisionGroups[gid].Split(' ');
+            if(tileset.CollisionGroups[gid] != null)
+                collisionGroups = tileset.CollisionGroups[gid].Split(' ');
 
-            int sourceY = ((gid * Tilemap.tileWidth) / (tileset.width)) * Tilemap.tileHeight;
-            Rectangle sourceRect = new Rectangle(gid * Tilemap.tileWidth - ((sourceY / Tilemap.tileHeight) * tileset.width), sourceY, Tilemap.tileWidth, Tilemap.tileHeight);
+            int sourceY = ((gid * Tilemap.tileWidth) / (tileset.Width)) * Tilemap.tileHeight;
+            Rectangle sourceRect = new Rectangle(gid * Tilemap.tileWidth - ((sourceY / Tilemap.tileHeight) * tileset.Width), sourceY, Tilemap.tileWidth, Tilemap.tileHeight);
 
             map[x, y] = new Tile(x, y, gid, sourceRect, tileset, collisionGroups);
             Tiles.Add(map[x, y]);
@@ -63,7 +63,7 @@ namespace Display.Tilemap
 
                 Node.decomposeMatrix(ref globalTransform, out position, out rotation, out scale);
 
-                spriteBatch.Draw(tile.tileset.graphic, new Vector2(position.X * ScrollFactor.X, position.Y * ScrollFactor.Y), tile.sourceRect, Color.White, 0, Vector2.Zero, scale, new SpriteEffects(), 1);
+                spriteBatch.Draw(tile.tileset.Graphic, new Vector2(position.X * ScrollFactor.X, position.Y * ScrollFactor.Y), tile.sourceRect, Color.White, 0, Vector2.Zero, scale, new SpriteEffects(), 1);
             }
         }
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Flakcore.Utils;
 
 namespace Flakcore.Display
 {
@@ -13,6 +14,8 @@ namespace Flakcore.Display
         public Facing Facing;
         public Color Color;
         public float Alpha;
+        public Rectangle SourceRectangle;
+        public OffScreenAction OffScreenAction;
 
         private List<Animation> Animations;
         private bool Animating;
@@ -26,6 +29,7 @@ namespace Flakcore.Display
             Facing = Facing.Right;
             Color = Color.White;
             Alpha = 1;
+            OffScreenAction = OffScreenAction.NO_DRAW;
         }
 
         public void LoadTexture(string assetName)
@@ -38,12 +42,13 @@ namespace Flakcore.Display
             this.LoadTexture(texture, texture.Width, texture.Height);
         }
 
-        public void LoadTexture(Texture2D texture, int width, int height)
+        public virtual void LoadTexture(Texture2D texture, int width, int height)
         {
             this.Texture = texture;
             this.Width = width;
             this.Height = height;
             this.Animating = false;
+            this.SourceRectangle = new Rectangle(0, 0, width, height);
         }
 
         public void AddAnimation(string name, int[] frames, float frameRate)
@@ -103,6 +108,12 @@ namespace Flakcore.Display
 
             Node.decomposeMatrix(ref globalTransform, out position, out rotation, out scale);
 
+            if (position.X + this.Width < 0 || position.X > GameManager.ScreenSize.X || position.Y + this.Height < 0 || position.Y > GameManager.ScreenSize.Y)
+            {
+                if (this.OffScreen())
+                    return;
+            }
+
             SpriteEffects spriteEffect = new SpriteEffects();
 
             position.X = (float)Math.Round(position.X);
@@ -118,6 +129,8 @@ namespace Flakcore.Display
 
         protected override void DrawCall(SpriteBatch spriteBatch, Vector2 position, Vector2 scale, float rotation, SpriteEffects spriteEffect)
         {
+            if (this.Texture == null)
+                return;
 
             if (Animating)
                 spriteBatch.Draw(Texture,
@@ -128,17 +141,34 @@ namespace Flakcore.Display
                     this.Origin,
                     scale,
                     spriteEffect,
-                    1.0f);
+                    Node.GetDrawDepth(this.GetParentDepth()));
             else
                 spriteBatch.Draw(Texture,
                     new Vector2(position.X * ScrollFactor.X, position.Y * ScrollFactor.Y),
-                    new Rectangle(0, 0, Width, Height),
+                    this.SourceRectangle,
                     this.Color * this.Alpha,
                     rotation,
                     this.Origin,
                     scale,
                     spriteEffect,
-                    1.0f);
+                    Node.GetDrawDepth(this.GetParentDepth()));
+        }
+
+        private bool OffScreen()
+        {
+            switch (this.OffScreenAction)
+            {
+                case OffScreenAction.NO_DRAW:
+                    return true;
+                case OffScreenAction.KILL:
+                    this.Kill();
+                    return true;
+                case OffScreenAction.NONE:
+                    return false;
+                default:
+                    return false;
+            }
+
         }
     }
 
@@ -146,6 +176,13 @@ namespace Flakcore.Display
     {
         Left,
         Right
+    }
+
+    public enum OffScreenAction
+    {
+        NONE,
+        NO_DRAW,
+        KILL
     }
 
 }

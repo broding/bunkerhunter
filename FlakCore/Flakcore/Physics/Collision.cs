@@ -139,14 +139,14 @@ namespace Flakcore.Physics
 
             if (Node1.Velocity.X != Node2.Velocity.X)
             {
-                if (Node1.Velocity.X > Node2.Velocity.X)
+                if (Node1.Velocity.X > Node2.Velocity.X && Node1.CollidableSides.Right && Node2.CollidableSides.Left)
                 {
                     Node1.Touching.Right = true;
                     Node2.Touching.Left = true;
 
                     separateX(overlap);
                 }
-                else if (Node1.Velocity.X < Node2.Velocity.X)
+                else if (Node1.Velocity.X < Node2.Velocity.X && Node1.CollidableSides.Left && Node2.CollidableSides.Right)
                 {
                     Node1.Touching.Left = true;
                     Node2.Touching.Right = true;
@@ -163,14 +163,14 @@ namespace Flakcore.Physics
 
             if (Node1.Velocity.Y != Node2.Velocity.Y)
             {
-                if (Node1.Velocity.Y > Node2.Velocity.Y)
+                if (Node1.Velocity.Y > Node2.Velocity.Y &&  Node1.CollidableSides.Bottom && Node2.CollidableSides.Top)
                 {
                     Node1.Touching.Bottom = true;
                     Node2.Touching.Top = true;
 
                     separateY(overlap);
                 }
-                else if(Node1.Velocity.Y < Node2.Velocity.Y)
+                else if (Node1.Velocity.Y < Node2.Velocity.Y && Node1.CollidableSides.Top && Node2.CollidableSides.Bottom)
                 {
                     Node1.Touching.Top = true;
                     Node2.Touching.Bottom = true;

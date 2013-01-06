@@ -76,14 +76,14 @@ namespace Display.Tilemap
                         this.CollisionGroups.Add(groupName);
                     }
 
-                    foreach (XElement tileElements in element.Element("properties").Elements())
+                    foreach (XElement tileElements in tile.Element("properties").Elements())
                     {
                         properties[index] = new Dictionary<string, string>();
                         properties[index].Add(tileElements.Attribute("name").Value, tileElements.Attribute("value").Value);
                     }
                 }
 
-                Tileset tileset = new Tileset(Convert.ToInt32(element.Attribute("firstgid").Value), element.Attribute("name").Value, Convert.ToInt32(element.Element("image").Attribute("width").Value), Convert.ToInt32(element.Element("image").Attribute("height").Value), GameManager.Content.Load<Texture2D>(assetName), tileCollisionGroups);
+                Tileset tileset = new Tileset(Convert.ToInt32(element.Attribute("firstgid").Value), element.Attribute("name").Value, Convert.ToInt32(element.Element("image").Attribute("width").Value), Convert.ToInt32(element.Element("image").Attribute("height").Value), GameManager.Content.Load<Texture2D>(assetName), tileCollisionGroups, properties);
 
                 Tilesets.Add(tileset);
             }
@@ -135,7 +135,7 @@ namespace Display.Tilemap
                     best = tileset;
                 else
                 {
-                    if (gid >= tileset.firstGid && tileset.firstGid > best.firstGid)
+                    if (gid >= tileset.FirstGid && tileset.FirstGid > best.FirstGid)
                         best = tileset;
                 }
             }

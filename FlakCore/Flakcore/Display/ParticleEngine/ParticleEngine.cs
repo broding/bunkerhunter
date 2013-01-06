@@ -43,6 +43,7 @@ namespace Flakcore.Display.ParticleEngine
                 return;
 
             this.UpdateEmitterPositions();
+
         }
 
         public void Start()
@@ -85,7 +86,7 @@ namespace Flakcore.Display.ParticleEngine
         private void UpdateEmitterPositions()
         {
             foreach (BasicEmitter emitter in this.Emitters)
-                emitter.Position = this.WorldPosition;
+                emitter.Position = this.Position;
         }
     }
 

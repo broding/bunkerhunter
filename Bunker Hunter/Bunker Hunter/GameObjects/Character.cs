@@ -32,7 +32,8 @@ namespace Bunker_Hunker.GameObjects
         {
             this.Type = type;
             this.Health = 100;
-            this.Mass = 1;
+            this.Mass = 1.3f;
+            this.Depth = 0.1f;
             this.BulletLayer = bulletLayer;
 
             this.JumpAvailable = false;
@@ -40,7 +41,7 @@ namespace Bunker_Hunker.GameObjects
             this.LadderClimbing = false;
 
             this.Weapon = new Weapon(bulletLayer);
-            this.addCollisionGroup("character");
+            this.AddCollisionGroup("character");
 
             this.AddChild(this.Weapon);
 
@@ -62,6 +63,7 @@ namespace Bunker_Hunker.GameObjects
 
             GameManager.collide(this, "tilemap", TilemapCollide);
             GameManager.collide(this, "ladder", null, LadderOverlap);
+            GameManager.collide(this, "ladderArea", LadderAreaCollide, LadderAreaCheck);
         }
 
         public override void PreCollisionUpdate(GameTime gameTime)
@@ -98,13 +100,26 @@ namespace Bunker_Hunker.GameObjects
 
         private bool LadderOverlap(Node player, Node tile)
         {
-            if (Math.Abs(tile.Position.X - player.Position.X) < 10)
+            if (Math.Abs(tile.WorldPosition.X - player.WorldPosition.X) < 10)
             {
                 this.LadderTile = tile;
                 this.LadderAvailable = true;
             }
 
             return false;
+        }
+
+        public bool LadderAreaCheck(Node character, Node ladderArea)
+        {
+            if (this.LadderClimbing || ((this.WorldPosition.Y + this.Height/1.2) >= ladderArea.WorldPosition.Y && this.Velocity.Y > 0))
+                return false;
+
+            return true;
+        }
+
+        private void LadderAreaCollide(Node player, Node tilemap)
+        {
+            this.TilemapCollide(player, tilemap);
         }
 
         public void Hit(Bullet bullet)
@@ -127,7 +142,7 @@ namespace Bunker_Hunker.GameObjects
             
         protected void Run(float speed)
         {
-            this.Velocity.X = speed * 166;
+            this.Velocity.X = speed * 366;
         }
 
         protected void Climb(float ySpeed, bool exitButton)
@@ -136,7 +151,7 @@ namespace Bunker_Hunker.GameObjects
             {
                 if ((ySpeed != 0 || this.LadderClimbing) && !exitButton)
                 {
-                    this.Position.X = this.LadderTile.Position.X;
+                    this.Position.X = this.LadderTile.WorldPosition.X;
                     this.Velocity.X = 0;
                     this.Velocity.Y = ySpeed * 166;
                     this.LadderClimbing = true;
@@ -146,6 +161,10 @@ namespace Bunker_Hunker.GameObjects
                     this.LadderClimbing = false;
                 }
             }
+            else
+            {
+                this.LadderClimbing = false;
+            }
         }
 
         protected void Jump()
@@ -153,7 +172,7 @@ namespace Bunker_Hunker.GameObjects
             if (this.JumpAvailable) 
             {
                 this.PlayAnimation("airing");
-                this.Velocity.Y = -220;
+                this.Velocity.Y = -520;
                 this.JumpAvailable = false;
             }
         }

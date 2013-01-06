@@ -8,6 +8,7 @@ using Flakcore.Display;
 using Microsoft.Xna.Framework.Content;
 using Flakcore.Utils;
 using Flakcore.Physics;
+using Flakcore.Display.Level;
 
 namespace Flakcore
 {
@@ -32,7 +33,7 @@ namespace Flakcore
             this.Cameras.Add(camera);
             GameManager.currentDrawCamera = camera;
 
-            GameManager.worldBounds = new Rectangle(0, 0, (int)screenSize.X, (int)screenSize.Y);
+            GameManager.worldBounds = new Rectangle(0, 0, (int)Level.LEVEL_WIDTH * Level.ROOM_WIDTH * Level.BLOCK_WIDTH, (int)Level.LEVEL_HEIGHT * Level.ROOM_HEIGHT * Level.BLOCK_HEIGHT);
 
             setupQuadTree();
 
@@ -61,18 +62,22 @@ namespace Flakcore
             {
                 GameManager.currentDrawCamera = camera;
                 GameManager.Graphics.GraphicsDevice.Viewport = camera.viewport;
-                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, null, null);
+                spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, null, null);
                 this.CurrentState.draw(spriteBatch);
                 spriteBatch.End();
 
-                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, null, null, null, camera.getTransformMatrix());
+#if(DEBUG)
+                spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, null, null, null, camera.getTransformMatrix());
                 drawCollisionQuad(spriteBatch);
                 spriteBatch.End();
 
                 spriteBatch.Begin();
                 Debug.draw(spriteBatch);
-                spriteBatch.DrawString(GameManager.fontDefault, "FPS: " + Math.Round(1 /gameTime.ElapsedGameTime.TotalSeconds), new Vector2(20, 20), Color.Black);
+                spriteBatch.DrawString(GameManager.fontDefault, "FPS: " + Math.Round(1 / gameTime.ElapsedGameTime.TotalSeconds), new Vector2(20, 20), Color.Black);
                 spriteBatch.End();
+#endif
+
+                Node.ResetDrawDepth();
 
             }
         }

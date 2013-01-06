@@ -72,3 +72,16 @@ C:\Documents and Settings\Bas\My Documents\bunkerhunter-master\Bunker Hunter\Bun
 C:\Documents and Settings\Bas\My Documents\bunkerhunter-master\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\rooms\simple.tmx
 C:\Documents and Settings\Bas\My Documents\bunkerhunter-master\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\level\borderTile.xnb
 C:\Documents and Settings\Bas\My Documents\bunkerhunter-master\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\level\levelTile.xnb
+C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\level\borderTile.xnb
+C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\level\levelTile.xnb
+C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\rooms\topright.tmx
+C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\rooms\ends\end1.tmx
+C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\rooms\rightleft.tmx
+C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\rooms\starts\start1.tmx
+C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\rooms\bottomright.tmx
+C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\rooms\bottomleft.tmx
+C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\rooms\toprightleft.tmx
+C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\rooms\topleft.tmx
+C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\level\borders_bunker.xnb
+C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\ladder.xnb
+C:\Users\Bas\Git Repositories\bunkerhunter\Bunker Hunter\Bunker Hunter\bin\x86\Debug\Content\start.xnb

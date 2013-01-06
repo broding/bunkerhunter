@@ -1,2 +1,0 @@
-FlakCoreContent\fontDefault.xnb
-FlakCoreContent\fontDefault.spritefont

@@ -26,15 +26,15 @@ namespace CallOfHonour.GameObjects
             this.BulletType = bulletType;
 
             ParticleEffect effect = GameManager.Content.Load<ParticleEffect>(@"ParticleEffects/smoke1");
-            //this.ParticleEngine = new ParticleEngine(effect);
-            //bulletLayer.addChild(this.ParticleEngine);
+            this.ParticleEngine = new ParticleEngine(effect);
+            bulletLayer.AddChild(this.ParticleEngine);
 
             ParticleEffect effect2 = GameManager.Content.Load<ParticleEffect>(@"ParticleEffects/smokePuff");
             this.ExplosionParticles = new ParticleEngine(effect2);
             bulletLayer.AddChild(this.ExplosionParticles);
 
             this.LoadTexture(this.BulletType.TextureName);
-            this.addCollisionGroup("bullet");
+            this.AddCollisionGroup("bullet");
             this.Kill();
         }
 
@@ -44,8 +44,8 @@ namespace CallOfHonour.GameObjects
             this.Facing = facing;
             this.Shooter = shooter;
             this.Revive();
-            //this.ParticleEngine.Position = this.Position;
-            //this.ParticleEngine.Start();
+            this.ParticleEngine.Position = this.Position;
+            this.ParticleEngine.Start();
 
             this.Velocity.X = Util.FacingToVelocity(facing) * this.BulletType.Speed.X;
             this.Velocity.Y = this.BulletType.Speed.Y;
@@ -56,8 +56,13 @@ namespace CallOfHonour.GameObjects
         {
             base.Update(gameTime);
 
+            if (this.Dead)
+                return;
+
+            Console.WriteLine(this.Position);
+
             this.Velocity *= this.BulletType.SpeedChange;
-            //this.ParticleEngine.Position = this.Position;
+            this.ParticleEngine.Position = this.Position;
 
             GameManager.collide(this, "tilemap", this.TilemapCollision);
             GameManager.collide(this, "character", this.CharacterCollision);
@@ -66,14 +71,14 @@ namespace CallOfHonour.GameObjects
         private void TilemapCollision(Node bullet, Node tile)
         {
             if (this.Facing == Facing.Left)
-                this.ExplosionParticles.Position = new Vector2(tile.ScreenPosition.X + tile.Width, this.ScreenPosition.Y);
+                this.ExplosionParticles.Position = new Vector2(tile.Position.X + tile.Width, this.Position.Y);
             else
-                this.ExplosionParticles.Position = new Vector2(tile.ScreenPosition.X, this.ScreenPosition.Y);
+                this.ExplosionParticles.Position = new Vector2(tile.Position.X, this.Position.Y);
 
             this.ExplosionParticles.Explode();
 
             this.Kill();
-            //this.ParticleEngine.Stop();
+            this.ParticleEngine.Stop();
         }
 
         private void CharacterCollision(Node bullet, Node characterNode)

@@ -7,15 +7,15 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Flakcore;
 
-namespace Bunker_Hunter.GameObjects.Level
+namespace Flakcore.Display.Level
 {
     class Room : Node
     {
         public RoomType RoomType;
         public Vector2 LevelPosition;
+        public Block[,] Map { get; private set; }
 
-        private List<Block> Blocks;
-        private Block[,] Map;
+        public List<Block> Blocks { get; private set; }
 
         public Room(RoomType roomType)
         {
@@ -26,28 +26,26 @@ namespace Bunker_Hunter.GameObjects.Level
             this.Height = Level.BLOCK_HEIGHT;
         }
 
-        public void AddBlock(int x, int y)
+        public void AddBlock(int x, int y, BlockType type)
         {
-            Block block = new Block();
+            Block block = new Block(type, this);
             block.Position = new Vector2(x, y);
             this.Blocks.Add(block);
             this.AddChild(block);
             this.Map[x / Level.BLOCK_WIDTH, y / Level.BLOCK_HEIGHT] = block;
         }
 
-        public override void Draw(SpriteBatch spriteBatch, Matrix parentTransform)
+        public List<Block> GetLadderBlocks()
         {
+            List<Block> ladderBlocks = new List<Block>(this.Blocks.Count / 2);
+
             foreach (Block block in this.Blocks)
             {
-                Matrix globalTransform = this.getLocalTransform() * block.getLocalTransform() * GameManager.currentDrawCamera.getTransformMatrix();
-
-                Vector2 position, scale;
-                float rotation;
-
-                Node.decomposeMatrix(ref globalTransform, out position, out rotation, out scale);
-
-                spriteBatch.Draw(Block.Graphic, new Vector2(position.X * ScrollFactor.X, position.Y * ScrollFactor.Y), block.GetSourceRectangle(), Color.White, 0, Vector2.Zero, scale, new SpriteEffects(), 1);
+                if (block.Type == BlockType.LADDER)
+                    ladderBlocks.Add(block);
             }
+
+            return ladderBlocks;
         }
 
         internal void GetCollidedBlocks(Node node, List<Node> collidedNodes)
@@ -76,6 +74,20 @@ namespace Bunker_Hunter.GameObjects.Level
                         collidedNodes.Add(block);
                 }
             }
+        }
+
+        internal Block GetBlock(Vector2 position)
+        {
+            position.X = position.X * Level.BLOCK_WIDTH;
+            position.Y = position.Y * Level.BLOCK_HEIGHT;
+
+            foreach (Block block in this.Blocks)
+            {
+                if (block.Position == position)
+                    return block;
+            }
+
+            return null;
         }
     }
 }

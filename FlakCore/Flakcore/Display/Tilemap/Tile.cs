@@ -29,7 +29,7 @@ namespace Display.Tilemap
             this.Height = Tilemap.tileHeight;
 
             for (int i = 0; collisionGroups.Length > i; i++)
-                this.addCollisionGroup(collisionGroups[i]);
+                this.AddCollisionGroup(collisionGroups[i]);
 
         }
 

@@ -5,7 +5,7 @@ using System.Text;
 using Flakcore.Display;
 using Microsoft.Xna.Framework;
 using Display.Tilemap;
-using Bunker_Hunter.GameObjects.Level;
+using Flakcore.Display.Level;
 
 namespace Flakcore.Physics
 {
@@ -38,7 +38,7 @@ namespace Flakcore.Physics
 
             foreach (Node collideNode in collidedNodes)
             {
-                if (collideNode.isMemberOfCollisionGroup(collideGroup))
+                if (collideNode.IsMemberOfCollisionGroup(collideGroup))
                     this.addCollision(node, collideNode, callback, checker);
             }
 

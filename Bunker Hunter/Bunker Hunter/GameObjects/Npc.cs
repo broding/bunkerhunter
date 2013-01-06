@@ -14,7 +14,7 @@ namespace Bunker_Hunker.GameObjects
             : base(bulletLayer, CharacterTypes.ENEMY)
         {
             this.LoadTexture(GameManager.Content.Load<Texture2D>("player"), 32, 48);
-            this.addCollisionGroup("npc");
+            this.AddCollisionGroup("npc");
         }
     }
 }

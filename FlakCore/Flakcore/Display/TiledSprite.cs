@@ -22,6 +22,14 @@ namespace Flakcore.Display
         {
         }
 
+        public override void LoadTexture(Texture2D texture, int width, int height)
+        {
+            base.LoadTexture(texture, width, height);
+
+            this.Width = width * this.TiledWidth;
+            this.Height = height * this.TiledHeight;
+        }
+
         protected override void DrawCall(SpriteBatch spriteBatch, Vector2 position, Vector2 scale, float rotation, SpriteEffects spriteEffect)
         {
             int amountX = this.TiledWidth / this.Texture.Width;
