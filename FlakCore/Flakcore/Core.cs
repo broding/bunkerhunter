@@ -9,16 +9,18 @@ using Microsoft.Xna.Framework.Content;
 using Flakcore.Utils;
 using Flakcore.Physics;
 using Flakcore.Display.Level;
+using System.Diagnostics;
 
 namespace Flakcore
 {
     public class Core
     {
-        private State CurrentState;
         public List<Camera> Cameras { get; private set; }
+        public CollisionSolver CollisionSolver { get; private set; }
 
         private QuadTree CollisionQuad;
-        public CollisionSolver CollisionSolver { get; private set; }
+        private State CurrentState;
+        private Stopwatch Stopwatch;
 
         public Core(Vector2 screenSize, GraphicsDeviceManager graphics, ContentManager content)
         {
@@ -36,10 +38,15 @@ namespace Flakcore
             GameManager.worldBounds = new Rectangle(0, 0, (int)Level.LEVEL_WIDTH * Level.ROOM_WIDTH * Level.BLOCK_WIDTH, (int)Level.LEVEL_HEIGHT * Level.ROOM_HEIGHT * Level.BLOCK_HEIGHT);
 
             setupQuadTree();
+
+            this.Stopwatch = new Stopwatch();
         }
 
         public void Update(GameTime gameTime)
         {
+            this.Stopwatch.Reset();
+            this.Stopwatch.Start();
+
             resetCollisionQuadTree();
                 
             this.CurrentState.Update(gameTime);
@@ -50,10 +57,16 @@ namespace Flakcore
 
             foreach (Camera camera in Cameras)
                 camera.update(gameTime);
+
+            this.Stopwatch.Stop();
+            DebugInfo.AddDebugItem("Update", this.Stopwatch.ElapsedMilliseconds + " ms");
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
+
+            this.Stopwatch.Reset();
+            this.Stopwatch.Start();
             GameManager.Graphics.GraphicsDevice.Clear(CurrentState.BackgroundColor);
 
             foreach (Camera camera in Cameras)
@@ -69,10 +82,14 @@ namespace Flakcore
                 drawCollisionQuad(spriteBatch);
                 spriteBatch.End();
 
+                this.Stopwatch.Stop();
+                DebugInfo.AddDebugItem("Draw", this.Stopwatch.ElapsedMilliseconds + " ms");
+                DebugInfo.AddDebugItem("FPS", "" + Math.Round(1 / gameTime.ElapsedGameTime.TotalSeconds));
+
                 spriteBatch.Begin();
-                Debug.draw(spriteBatch);
-                spriteBatch.DrawString(GameManager.fontDefault, "FPS: " + Math.Round(1 / gameTime.ElapsedGameTime.TotalSeconds), new Vector2(20, 20), Color.Black);
+                DebugInfo.Draw(spriteBatch);
                 spriteBatch.End();
+
 #endif
 
                 Node.ResetDrawDepth();
@@ -108,13 +125,13 @@ namespace Flakcore
             foreach (BoundingRectangle quad in quads)
             {
                 // left
-                Debug.DrawLine(spriteBatch, blank, 1, Color.White, new Vector2(quad.X, quad.Y), new Vector2(quad.X, quad.Y + quad.Height));
+                DebugInfo.DrawLine(spriteBatch, blank, 1, Color.White, new Vector2(quad.X, quad.Y), new Vector2(quad.X, quad.Y + quad.Height));
                 // right
-                Debug.DrawLine(spriteBatch, blank, 1, Color.White, new Vector2(quad.X + quad.Width, quad.Y), new Vector2(quad.X + quad.Width, quad.Y + quad.Height));
+                DebugInfo.DrawLine(spriteBatch, blank, 1, Color.White, new Vector2(quad.X + quad.Width, quad.Y), new Vector2(quad.X + quad.Width, quad.Y + quad.Height));
                 // top
-                Debug.DrawLine(spriteBatch, blank, 1, Color.White, new Vector2(quad.X, quad.Y), new Vector2(quad.X + quad.Width, quad.Y));
+                DebugInfo.DrawLine(spriteBatch, blank, 1, Color.White, new Vector2(quad.X, quad.Y), new Vector2(quad.X + quad.Width, quad.Y));
                 // bottom
-                Debug.DrawLine(spriteBatch, blank, 1, Color.White, new Vector2(quad.X, quad.Y + quad.Height), new Vector2(quad.X + quad.Width, quad.Y + quad.Height));
+                DebugInfo.DrawLine(spriteBatch, blank, 1, Color.White, new Vector2(quad.X, quad.Y + quad.Height), new Vector2(quad.X + quad.Width, quad.Y + quad.Height));
             }
         }
 

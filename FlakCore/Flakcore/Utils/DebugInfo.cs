@@ -7,16 +7,9 @@ using Microsoft.Xna.Framework;
 
 namespace Flakcore.Utils
 {
-    class Debug
+    class DebugInfo
     {
-        private static int timer;
-        private static string timerSubject;
         private static Dictionary<string, string> infoLines;
-
-        public static void writeLine(string message)
-        {
-            System.Diagnostics.Debug.WriteLine(message);
-        }
 
         public static void DrawLine(SpriteBatch batch, Texture2D blank, float width, Color color, Vector2 point1, Vector2 point2)
         {
@@ -26,20 +19,7 @@ namespace Flakcore.Utils
             batch.Draw(blank, point1, null, color,angle, Vector2.Zero, new Vector2(length, width),SpriteEffects.None, 0);
         }
 
-        public static void timerStart(string subject)
-        {
-            timerSubject = subject;
-            timer = System.Environment.TickCount;
-        }
-
-        public static int timerStop()
-        {
-            //System.Diagnostics.Debug.WriteLine("Flakcore - Timer stopped: " + timerSubject + " took " + (System.Environment.TickCount - timer));
-
-            return System.Environment.TickCount - timer;
-        }
-
-        public static void addDebugItem(string name, string value)
+        public static void AddDebugItem(string name, string value)
         {
             if (infoLines == null)
                 infoLines = new Dictionary<string, string>();
@@ -48,7 +28,7 @@ namespace Flakcore.Utils
                 infoLines.Add(name, value);
         }
 
-        public static void draw(SpriteBatch spriteBatch)
+        public static void Draw(SpriteBatch spriteBatch)
         {
             if (infoLines == null)
                 return;
@@ -56,8 +36,8 @@ namespace Flakcore.Utils
             int i = 0;
             foreach (KeyValuePair<string, string> line in infoLines)
             {
-                spriteBatch.DrawString(GameManager.fontDefault, line.Key + ":", new Vector2(3, 20 * i), Color.Black);
-                spriteBatch.DrawString(GameManager.fontDefault, line.Value, new Vector2(180, 20 * i), Color.Black);
+                spriteBatch.DrawString(GameManager.fontDefault, line.Key + ":", new Vector2(3, 20 * i), Color.White);
+                spriteBatch.DrawString(GameManager.fontDefault, line.Value, new Vector2(180, 20 * i), Color.White);
                 i++;
             }
 
