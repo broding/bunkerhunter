@@ -36,7 +36,6 @@ namespace Flakcore
             GameManager.worldBounds = new Rectangle(0, 0, (int)Level.LEVEL_WIDTH * Level.ROOM_WIDTH * Level.BLOCK_WIDTH, (int)Level.LEVEL_HEIGHT * Level.ROOM_HEIGHT * Level.BLOCK_HEIGHT);
 
             setupQuadTree();
-
         }
 
         public void Update(GameTime gameTime)
@@ -51,7 +50,6 @@ namespace Flakcore
 
             foreach (Camera camera in Cameras)
                 camera.update(gameTime);
-
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
@@ -61,9 +59,9 @@ namespace Flakcore
             foreach (Camera camera in Cameras)
             {
                 GameManager.currentDrawCamera = camera;
-                GameManager.Graphics.GraphicsDevice.Viewport = camera.viewport;
-                spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, null, null);
-                this.CurrentState.draw(spriteBatch);
+                GameManager.Graphics.GraphicsDevice.Viewport = camera.Viewport;
+                spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, null, null, null, camera.GetTransformMatrix());
+                this.CurrentState.Draw(spriteBatch);
                 spriteBatch.End();
 
 #if(DEBUG)

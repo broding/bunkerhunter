@@ -121,12 +121,12 @@ namespace Flakcore.Display
             }
         }
 
-        public void draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
-            this.Draw(spriteBatch, Matrix.Identity);
+            this.Draw(spriteBatch, Matrix.Identity, Vector2.Zero);
         }
 
-        public virtual void Draw(SpriteBatch spriteBatch, Matrix parentTransform)
+        public virtual void Draw(SpriteBatch spriteBatch, Matrix parentTransform, Vector2 parentPosition)
         {
             if (!Visable || Dead)
                 return;
@@ -135,7 +135,7 @@ namespace Flakcore.Display
 
             foreach (Node child in Children)
             {
-                child.Draw(spriteBatch, globalTransform);
+                child.Draw(spriteBatch, globalTransform, this.Position + parentPosition);
             }
         }
 
@@ -143,7 +143,7 @@ namespace Flakcore.Display
         {
         }
 
-        public void removeAllChildren()
+        public void RemoveAllChildren()
         {
             Children = null;
             Children = new List<Node>();
@@ -152,6 +152,11 @@ namespace Flakcore.Display
         public virtual BoundingRectangle GetBoundingBox()
         {
             return new BoundingRectangle(this.WorldPosition.X, this.WorldPosition.Y, Width, Height);
+        }
+
+        public virtual Rectangle GetBoundingBox(Vector2 position)
+        {
+            return new Rectangle((int)position.X, (int)position.Y, Width, Height);
         }
 
         public virtual void Kill()
@@ -279,7 +284,6 @@ namespace Flakcore.Display
             else
                 return this.Depth;
         }
-
 
         public object Clone()
         {

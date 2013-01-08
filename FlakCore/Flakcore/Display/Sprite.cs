@@ -23,8 +23,8 @@ namespace Flakcore.Display
         private int CurrentFrame;
         private Animation CurrentAnimation;
 
-        private static Vector2 Position, Scale;
-        private static Matrix GlobalTransform;
+        private static Vector2 DrawPosition, DrawScale;
+        private static Rectangle DrawRectangle;
 
         public Sprite() : base()
         {
@@ -33,6 +33,15 @@ namespace Flakcore.Display
             Color = Color.White;
             Alpha = 1;
             OffScreenAction = OffScreenAction.NO_DRAW;
+
+            if (DrawPosition != null)
+                Sprite.DrawPosition = Vector2.Zero;
+
+            if (DrawScale != null)
+                Sprite.DrawScale = Vector2.Zero;
+
+            if (DrawRectangle != null)
+                Sprite.DrawRectangle = Rectangle.Empty;
         }
 
         public void LoadTexture(string assetName)
@@ -99,36 +108,28 @@ namespace Flakcore.Display
             base.Update(gameTime);
         }
 
-        public override void Draw(SpriteBatch spriteBatch, Matrix parentTransform)
+        public override void Draw(SpriteBatch spriteBatch, Matrix parentTransform, Vector2 parentPosition)
         {
-            if (!Visable)
+            if (!Visable || !GameManager.currentDrawCamera.BoundingBox.Intersects(this.GetBoundingBox(this.Position + parentPosition)))
                 return;
 
-            Sprite.GlobalTransform = this.GetLocalTransform() * parentTransform * GameManager.currentDrawCamera.GetTransformMatrix();
-
-            Node.decomposeMatrix(ref Sprite.GlobalTransform, out Sprite.Position, out Sprite.Scale);
-
-            if (Sprite.Position.X + this.Width < 0 || Sprite.Position.X > GameManager.ScreenSize.X || Sprite.Position.Y + this.Height < 0 || Sprite.Position.Y > GameManager.ScreenSize.Y)
-                if (this.OffScreen())
-                    return;
-
             SpriteEffects spriteEffect = new SpriteEffects();
-
-            Sprite.Position.X = (float)Math.Round(Sprite.Position.X);
-            Sprite.Position.Y = (float)Math.Round(Sprite.Position.Y);
 
             if(Facing == Facing.Left)
                  spriteEffect = SpriteEffects.FlipHorizontally;
 
-            this.DrawCall(spriteBatch, Sprite.Position, Sprite.Scale, this.Rotation, spriteEffect);
+            this.DrawCall(spriteBatch, parentPosition + this.Position, this.Scale, this.Rotation, spriteEffect);
 
-            base.Draw(spriteBatch, parentTransform);   
+            base.Draw(spriteBatch, parentTransform, this.Position + parentPosition);   
         }
 
         protected override void DrawCall(SpriteBatch spriteBatch, Vector2 position, Vector2 scale, float rotation, SpriteEffects spriteEffect)
         {
             if (this.Texture == null)
                 return;
+
+            Sprite.DrawPosition.X = position.X * this.ScrollFactor.X;
+            Sprite.DrawPosition.Y = position.Y * this.ScrollFactor.Y;
 
             if (Animating)
                 spriteBatch.Draw(Texture,

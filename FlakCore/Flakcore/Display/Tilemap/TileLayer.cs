@@ -52,7 +52,7 @@ namespace Display.Tilemap
             Tiles.Add(map[x, y]);
         }
 
-        public override void Draw(SpriteBatch spriteBatch, Matrix parentTransform)
+        public override void Draw(SpriteBatch spriteBatch, Matrix parentTransform, Vector2 parentPosition)
         {
             foreach (Tile tile in Tiles)
             {

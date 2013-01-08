@@ -28,20 +28,5 @@ namespace Bunker_Hunker.GameObjects
 
             this.UpdateInput(GameManager.Input.GetInputState(PlayerIndex.One));
         }
-
-        public override void PostUpdate(GameTime gameTime)
-        {
-            base.PostUpdate(gameTime);
-        }
-
-        public override void Draw(SpriteBatch spriteBatch, Matrix parentTransform)
-        {
-            base.Draw(spriteBatch, parentTransform);
-        }
-
-        protected override void DrawCall(SpriteBatch spriteBatch, Vector2 position, Vector2 scale, float rotation, SpriteEffects spriteEffect)
-        {
-            base.DrawCall(spriteBatch, position, scale, rotation, spriteEffect);
-        }
     }
 }

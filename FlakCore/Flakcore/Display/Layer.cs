@@ -11,10 +11,5 @@ namespace Flakcore.Display
             : base()
         {
         }
-
-        public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch, Microsoft.Xna.Framework.Matrix parentTransform)
-        {
-            base.Draw(spriteBatch, parentTransform);
-        }
     }
 }

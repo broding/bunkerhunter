@@ -57,5 +57,15 @@ namespace Flakcore.Physics
                 sides1.Top != sides2.Top ||
                 sides1.Bottom != sides2.Bottom;
         }
+
+        public override bool Equals(object sides)
+        {
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 }

@@ -10,11 +10,12 @@ namespace Flakcore.Display
 {
     public class Camera
     {
-        public Viewport viewport { get; private set; }
-        private Vector2 Position;
+        public Viewport Viewport { get; private set; }
+        public Vector2 Position;
+        public Rectangle BoundingBox;
+
         private float rotation;
         private float zoom;
-
         private Matrix transformMatrix;
 
         public Node followNode { get; set; }
@@ -24,12 +25,13 @@ namespace Flakcore.Display
             Position = Vector2.Zero;
             zoom = 1f;
             rotation = 0;
-            viewport = new Viewport(x, y, width, height);
+            Viewport = new Viewport(x, y, width, height);
+            this.BoundingBox = this.Viewport.Bounds;
         }
 
         public void resetViewport(int x, int y, int width, int height)
         {
-            viewport = new Viewport(x, y, width, height);
+            Viewport = new Viewport(x, y, width, height);
         }
 
         public Matrix GetTransformMatrix()
@@ -38,8 +40,8 @@ namespace Flakcore.Display
                Matrix.CreateTranslation(new Vector3((int)-Position.X, (int)-Position.Y, 0)) *
                Matrix.CreateRotationZ(rotation) *
                Matrix.CreateScale(new Vector3(zoom, zoom, 1)) *
-               Matrix.CreateTranslation(new Vector3(viewport.Width * 0.5f,
-                   viewport.Height * 0.5f, 0));
+               Matrix.CreateTranslation(new Vector3(Viewport.Width * 0.5f,
+                   Viewport.Height * 0.5f, 0));
 
             return transformMatrix;
         }
@@ -60,8 +62,8 @@ namespace Flakcore.Display
             Position.X = Math.Max((GameManager.ScreenSize.X - GameManager.LevelBorderSize.X) / 2, Position.X);
             Position.Y = Math.Max((GameManager.ScreenSize.Y - GameManager.LevelBorderSize.Y) / 2, Position.Y);
 
-            //this.position.X = (float)Math.Round(this.position.X);
-            //this.position.Y = (float)Math.Round(this.position.Y);
+            this.BoundingBox.X = (int)Position.X - (int)GameManager.ScreenSize.X / 2;
+            this.BoundingBox.Y = (int)Position.Y - (int)GameManager.ScreenSize.Y / 2;
         }
     }
 }

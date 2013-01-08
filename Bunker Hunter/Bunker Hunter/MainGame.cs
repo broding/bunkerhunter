@@ -24,7 +24,6 @@ namespace Bunker_Hunter
         SpriteBatch spriteBatch;
 
         private Core Core;
-        private ProfilerGameComponent profilerGameComponent;
 
         public MainGame()
         {

@@ -23,8 +23,6 @@ namespace Flakcore.Display.Level
 
         private static Random Random = new Random();
 
-        private Node RoomNode;
-
         private Dungeon Dungeon;
 
         private Architect Architect;
