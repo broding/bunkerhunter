@@ -16,6 +16,7 @@ namespace Flakcore.Display
         public float Alpha;
         public Rectangle SourceRectangle;
         public OffScreenAction OffScreenAction;
+        public SpriteEffects SpriteEffects;
 
         private List<Animation> Animations;
         private bool Animating;
@@ -33,6 +34,7 @@ namespace Flakcore.Display
             Color = Color.White;
             Alpha = 1;
             OffScreenAction = OffScreenAction.NO_DRAW;
+            SpriteEffects = new SpriteEffects();
 
             if (DrawPosition != null)
                 Sprite.DrawPosition = Vector2.Zero;
@@ -108,22 +110,22 @@ namespace Flakcore.Display
             base.Update(gameTime);
         }
 
-        public override void Draw(SpriteBatch spriteBatch, Matrix parentTransform, Vector2 parentPosition)
+        public override void Draw(SpriteBatch spriteBatch, Vector2 parentPosition)
         {
             if (!Visable || !GameManager.currentDrawCamera.BoundingBox.Intersects(this.GetBoundingBox(this.Position + parentPosition)))
                 return;
 
-            SpriteEffects spriteEffect = new SpriteEffects();
+            this.SpriteEffects = SpriteEffects.None;
 
             if(Facing == Facing.Left)
-                 spriteEffect = SpriteEffects.FlipHorizontally;
+                this.SpriteEffects = SpriteEffects.FlipHorizontally;
 
-            this.DrawCall(spriteBatch, parentPosition + this.Position, this.Scale, this.Rotation, spriteEffect);
+            this.DrawCall(spriteBatch, parentPosition + this.Position);
 
-            base.Draw(spriteBatch, parentTransform, this.Position + parentPosition);   
+            base.Draw(spriteBatch, this.Position + parentPosition);   
         }
 
-        protected override void DrawCall(SpriteBatch spriteBatch, Vector2 position, Vector2 scale, float rotation, SpriteEffects spriteEffect)
+        protected override void DrawCall(SpriteBatch spriteBatch, Vector2 position)
         {
             if (this.Texture == null)
                 return;
@@ -136,20 +138,20 @@ namespace Flakcore.Display
                     new Vector2(position.X * ScrollFactor.X, position.Y * ScrollFactor.Y),
                     new Rectangle(CurrentAnimation.frames[CurrentFrame] * Width, 0, Width, Height),
                     this.Color * this.Alpha,
-                    rotation,
+                    this.Rotation,
                     this.Origin,
-                    scale,
-                    spriteEffect,
+                    this.Scale,
+                    this.SpriteEffects,
                     Node.GetDrawDepth(this.GetParentDepth()));
             else
                 spriteBatch.Draw(Texture,
                     new Vector2(position.X * ScrollFactor.X, position.Y * ScrollFactor.Y),
                     this.SourceRectangle,
                     this.Color * this.Alpha,
-                    rotation,
+                    this.Rotation,
                     this.Origin,
-                    scale,
-                    spriteEffect,
+                    this.Scale,
+                    this.SpriteEffects,
                     Node.GetDrawDepth(this.GetParentDepth()));
         }
 

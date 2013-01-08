@@ -84,7 +84,7 @@ namespace Flakcore.Display.ParticleEngine
                 modifier.Update(gameTime);
         }
 
-        protected override void DrawCall(SpriteBatch spriteBatch, Vector2 position, Vector2 scale, float rotation, SpriteEffects spriteEffect)
+        protected override void DrawCall(SpriteBatch spriteBatch, Vector2 position)
         {
             position = GameManager.currentDrawCamera.TransformPosition(this.Position);
 
@@ -93,10 +93,10 @@ namespace Flakcore.Display.ParticleEngine
                 new Vector2(position.X * ScrollFactor.X, position.Y * ScrollFactor.Y),
                 new Rectangle(0, 0, this.Emitter.Data.BaseTexture.Width, this.Emitter.Data.BaseTexture.Height),
                 this.Color * this.Alpha,
-                0,
+                this.Rotation,
                 this.Origin,
                 this.Scale,
-                spriteEffect,
+                this.SpriteEffects,
                 Node.GetDrawDepth(this.Depth));
 
         }

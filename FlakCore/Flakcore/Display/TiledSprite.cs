@@ -30,7 +30,7 @@ namespace Flakcore.Display
             this.Height = height * this.TiledHeight;
         }
 
-        protected override void DrawCall(SpriteBatch spriteBatch, Vector2 position, Vector2 scale, float rotation, SpriteEffects spriteEffect)
+        protected override void DrawCall(SpriteBatch spriteBatch, Vector2 position)
         {
             int amountX = this.TiledWidth / this.Texture.Width;
             int amountY = this.TiledHeight / this.Texture.Height;
@@ -39,8 +39,8 @@ namespace Flakcore.Display
             {
                 for (int y = 0; y < amountY; y++)
                 {
-                    Vector2 newPosition = position + new Vector2(x * this.Texture.Width * scale.X, y * this.Texture.Height * scale.Y);
-                    base.DrawCall(spriteBatch, newPosition, scale, rotation, spriteEffect); 
+                    Vector2 newPosition = position + new Vector2(x * this.Texture.Width * this.Scale.X, y * this.Texture.Height * this.Scale.Y);
+                    base.DrawCall(spriteBatch, newPosition); 
                 }
             }
         }

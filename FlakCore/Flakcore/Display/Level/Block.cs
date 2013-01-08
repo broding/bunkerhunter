@@ -96,18 +96,18 @@ namespace Flakcore.Display.Level
             }
         }
 
-        protected override void DrawCall(SpriteBatch spriteBatch, Vector2 position, Vector2 scale, float rotation, SpriteEffects spriteEffect)
+        protected override void DrawCall(SpriteBatch spriteBatch, Vector2 position)
         {
-            base.DrawCall(spriteBatch, position, scale, rotation, spriteEffect);
+            base.DrawCall(spriteBatch, position);
 
             spriteBatch.Draw(Block.BorderGraphic,
                    new Vector2(position.X * ScrollFactor.X, position.Y * ScrollFactor.Y),
                    this.SourceRectangle,
                    this.Color * this.Alpha,
-                   rotation,
+                   this.Rotation,
                    this.Origin,
-                   scale,
-                   spriteEffect,
+                   this.Scale,
+                   this.SpriteEffects,
                    Node.GetDrawDepth(this.GetParentDepth()));
         }
 

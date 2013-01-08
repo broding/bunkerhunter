@@ -123,23 +123,21 @@ namespace Flakcore.Display
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            this.Draw(spriteBatch, Matrix.Identity, Vector2.Zero);
+            this.Draw(spriteBatch, Vector2.Zero);
         }
 
-        public virtual void Draw(SpriteBatch spriteBatch, Matrix parentTransform, Vector2 parentPosition)
+        public virtual void Draw(SpriteBatch spriteBatch, Vector2 parentPosition)
         {
             if (!Visable || Dead)
                 return;
 
-            Matrix globalTransform = this.GetLocalTransform() * parentTransform;
-
             foreach (Node child in Children)
             {
-                child.Draw(spriteBatch, globalTransform, this.Position + parentPosition);
+                child.Draw(spriteBatch, this.Position + parentPosition);
             }
         }
 
-        protected virtual void DrawCall(SpriteBatch spriteBatch, Vector2 position, Vector2 scale, float rotation, SpriteEffects spriteEffect)
+        protected virtual void DrawCall(SpriteBatch spriteBatch, Vector2 position)
         {
         }
 

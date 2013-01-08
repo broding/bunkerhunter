@@ -73,12 +73,12 @@ namespace Flakcore
             {
                 GameManager.currentDrawCamera = camera;
                 GameManager.Graphics.GraphicsDevice.Viewport = camera.Viewport;
-                spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, null, null, null, camera.GetTransformMatrix());
+                spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.LinearClamp, null, null, null, camera.GetTransformMatrix());
                 this.CurrentState.Draw(spriteBatch);
                 spriteBatch.End();
 
 #if(DEBUG)
-                spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, null, null, null, camera.GetTransformMatrix());
+                spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.LinearClamp, null, null, null, camera.GetTransformMatrix());
                 drawCollisionQuad(spriteBatch);
                 spriteBatch.End();
 
