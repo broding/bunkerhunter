@@ -32,7 +32,7 @@ namespace Flakcore.Display
             viewport = new Viewport(x, y, width, height);
         }
 
-        public Matrix getTransformMatrix()
+        public Matrix GetTransformMatrix()
         {
             transformMatrix =
                Matrix.CreateTranslation(new Vector3((int)-Position.X, (int)-Position.Y, 0)) *

@@ -152,11 +152,11 @@ namespace Display.Tilemap
             }
         }
 
-        public override List<Node> getAllChildren(List<Node> nodes)
+        public override List<Node> GetAllChildren(List<Node> nodes)
         {
             foreach (TileLayer layer in Layers)
             {
-                layer.getAllChildren(nodes);
+                layer.GetAllChildren(nodes);
             }
 
             return nodes;

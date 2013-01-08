@@ -24,7 +24,6 @@ namespace Flakcore.Display.Level
             Room room = this.GetRoom(roomPosition);
 
             return room.GetBlock(new Vector2(x % Level.ROOM_WIDTH, y % Level.ROOM_HEIGHT));
-
         }
 
         public Block GetBlock(Vector2 position)

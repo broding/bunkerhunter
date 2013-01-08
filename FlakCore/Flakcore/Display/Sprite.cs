@@ -23,6 +23,9 @@ namespace Flakcore.Display
         private int CurrentFrame;
         private Animation CurrentAnimation;
 
+        private static Vector2 Position, Scale;
+        private static Matrix GlobalTransform;
+
         public Sprite() : base()
         {
             Animations = new List<Animation>();
@@ -101,28 +104,23 @@ namespace Flakcore.Display
             if (!Visable)
                 return;
 
-            Matrix globalTransform = this.getLocalTransform() * parentTransform * GameManager.currentDrawCamera.getTransformMatrix();
+            Sprite.GlobalTransform = this.GetLocalTransform() * parentTransform * GameManager.currentDrawCamera.GetTransformMatrix();
 
-            Vector2 position, scale;
-            float rotation;
+            Node.decomposeMatrix(ref Sprite.GlobalTransform, out Sprite.Position, out Sprite.Scale);
 
-            Node.decomposeMatrix(ref globalTransform, out position, out rotation, out scale);
-
-            if (position.X + this.Width < 0 || position.X > GameManager.ScreenSize.X || position.Y + this.Height < 0 || position.Y > GameManager.ScreenSize.Y)
-            {
+            if (Sprite.Position.X + this.Width < 0 || Sprite.Position.X > GameManager.ScreenSize.X || Sprite.Position.Y + this.Height < 0 || Sprite.Position.Y > GameManager.ScreenSize.Y)
                 if (this.OffScreen())
                     return;
-            }
 
             SpriteEffects spriteEffect = new SpriteEffects();
 
-            position.X = (float)Math.Round(position.X);
-            position.Y = (float)Math.Round(position.Y);
+            Sprite.Position.X = (float)Math.Round(Sprite.Position.X);
+            Sprite.Position.Y = (float)Math.Round(Sprite.Position.Y);
 
             if(Facing == Facing.Left)
                  spriteEffect = SpriteEffects.FlipHorizontally;
 
-            this.DrawCall(spriteBatch, position, scale, rotation, spriteEffect);
+            this.DrawCall(spriteBatch, Sprite.Position, Sprite.Scale, this.Rotation, spriteEffect);
 
             base.Draw(spriteBatch, parentTransform);   
         }

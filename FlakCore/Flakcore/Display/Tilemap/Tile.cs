@@ -19,7 +19,6 @@ namespace Display.Tilemap
         public Tile(int x, int y, int gid, Rectangle sourceRect, Tileset tileset, string[] collisionGroups)
         {
             this.Position = new Vector2(x*Tilemap.tileWidth, y*Tilemap.tileHeight);
-            this.previousPosition = Position;
             this.gid = gid;
             this.sourceRect = sourceRect;
             this.tileset = tileset;

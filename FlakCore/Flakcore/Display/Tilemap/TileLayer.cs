@@ -56,18 +56,17 @@ namespace Display.Tilemap
         {
             foreach (Tile tile in Tiles)
             {
-                Matrix globalTransform = tile.getLocalTransform() * GameManager.currentDrawCamera.getTransformMatrix();
+                Matrix globalTransform = tile.GetLocalTransform() * GameManager.currentDrawCamera.GetTransformMatrix();
 
                 Vector2 position, scale;
-                float rotation;
 
-                Node.decomposeMatrix(ref globalTransform, out position, out rotation, out scale);
+                Node.decomposeMatrix(ref globalTransform, out position, out scale);
 
                 spriteBatch.Draw(tile.tileset.Graphic, new Vector2(position.X * ScrollFactor.X, position.Y * ScrollFactor.Y), tile.sourceRect, Color.White, 0, Vector2.Zero, scale, new SpriteEffects(), 1);
             }
         }
 
-        public override List<Node> getAllChildren(List<Node> nodes)
+        public override List<Node> GetAllChildren(List<Node> nodes)
         {
             foreach (Tile tile in Tiles)
                 nodes.Add(tile);

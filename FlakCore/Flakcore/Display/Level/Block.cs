@@ -53,6 +53,8 @@ namespace Flakcore.Display.Level
         {
             this.Borders = borders;
 
+            return;
+
             if (!this.Borders.Top && this.Type == BlockType.WALL)
             {
                 Sprite topBorder = new Sprite();
@@ -92,6 +94,21 @@ namespace Flakcore.Display.Level
                 rightBorder.Position = new Vector2(Level.BLOCK_WIDTH / 2, Level.BLOCK_HEIGHT / 2);
                 this.AddChild(rightBorder);
             }
+        }
+
+        protected override void DrawCall(SpriteBatch spriteBatch, Vector2 position, Vector2 scale, float rotation, SpriteEffects spriteEffect)
+        {
+            base.DrawCall(spriteBatch, position, scale, rotation, spriteEffect);
+
+            spriteBatch.Draw(Block.BorderGraphic,
+                   new Vector2(position.X * ScrollFactor.X, position.Y * ScrollFactor.Y),
+                   this.SourceRectangle,
+                   this.Color * this.Alpha,
+                   rotation,
+                   this.Origin,
+                   scale,
+                   spriteEffect,
+                   Node.GetDrawDepth(this.GetParentDepth()));
         }
 
         public Vector2 RoomPosition

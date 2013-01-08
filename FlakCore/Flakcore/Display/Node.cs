@@ -18,9 +18,9 @@ namespace Flakcore.Display
         public Node Parent;
 
         public Vector2 Position = Vector2.Zero;
-        public Vector2 previousPosition { get; protected set; }
+        public Vector2 PreviousPosition { get; protected set; }
         public Vector2 Velocity = Vector2.Zero;
-        public Vector2 previousVelocity { get; protected set; }
+        public Vector2 PreviousVelocity { get; protected set; }
         public Vector2 Acceleration = Vector2.Zero;
         public float Mass = 0;
         public float Depth = 0;
@@ -48,6 +48,10 @@ namespace Flakcore.Display
         public bool Dead { get; protected set; }
 
         private List<string> CollisionGroup;
+        private Matrix LocalTransform;
+
+        private static Quaternion RotationQuaternoin;
+        private static Vector3 position3, scale3;
 
         public Node()
         {
@@ -57,6 +61,9 @@ namespace Flakcore.Display
             this.WasTouching = new Sides();
             this.CollidableSides = new Sides();
             this.CollidableSides.SetAllTrue();
+            
+            if(Node.RotationQuaternoin == null)
+                Node.RotationQuaternoin = new Quaternion();
         }
 
         public static float GetDrawDepth(float depth)
@@ -82,10 +89,10 @@ namespace Flakcore.Display
             if (this.Dead)
                 return;
 
-            foreach (Node child in Children.ToList<Node>())
+            for (int i = 0; i < this.Children.Count; i++)
             {
-                child.Update(gameTime);
-                child.PreCollisionUpdate(gameTime);
+                this.Children[i].Update(gameTime);
+                this.Children[i].PreCollisionUpdate(gameTime);
             }
 
             this.Velocity.Y += this.Mass * GameManager.Gravity;
@@ -97,7 +104,6 @@ namespace Flakcore.Display
 
         public virtual void PreCollisionUpdate(GameTime gameTime)
         {
-
         }
 
         public virtual void PostUpdate(GameTime gameTime)
@@ -107,7 +113,10 @@ namespace Flakcore.Display
 
             if (!Immovable)
             {
-                this.Rotation += RotationVelocity;
+                this.PreviousPosition = this.Position;
+                this.PreviousVelocity = this.Velocity;
+
+                this.Rotation += RotationVelocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
                 this.Position += this.Velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
         }
@@ -122,7 +131,7 @@ namespace Flakcore.Display
             if (!Visable || Dead)
                 return;
 
-            Matrix globalTransform = this.getLocalTransform() * parentTransform;
+            Matrix globalTransform = this.GetLocalTransform() * parentTransform;
 
             foreach (Node child in Children)
             {
@@ -157,27 +166,26 @@ namespace Flakcore.Display
             this.Visable = true;
         }
 
-        public Matrix getLocalTransform()
+        public Matrix GetLocalTransform()
         {
-            // Transform = -Origin * Scale * Rotation * Translation
-            return Matrix.CreateTranslation(-Origin.X, -Origin.Y, 0f) *
-            //Matrix.CreateScale(Scale.X, Scale.Y, 1f) *
-            Matrix.CreateRotationZ(Rotation) *   
-            Matrix.CreateTranslation(Position.X, Position.Y, 0f);
+            this.LocalTransform = Matrix.CreateTranslation(-Origin.X, -Origin.Y, 0f) *
+                //Matrix.CreateScale(Scale.X, Scale.Y, 1f) *
+                //Matrix.CreateRotationZ(Rotation) *   
+                Matrix.CreateTranslation(Position.X, Position.Y, 0f);
+
+            return this.LocalTransform;
         }
 
-        public static void decomposeMatrix(ref Matrix matrix, out Vector2 position, out float rotation, out Vector2 scale)
+        public static void decomposeMatrix(ref Matrix matrix, out Vector2 position, out Vector2 scale)
         {
-            Vector3 position3, scale3;
-            Quaternion rotationQ;
-            matrix.Decompose(out scale3, out rotationQ, out position3);
-            Vector2 direction = Vector2.Transform(Vector2.UnitX, rotationQ);
-            rotation = (float)Math.Atan2(direction.Y, direction.X);
-            position = new Vector2(position3.X, position3.Y);
-            scale = new Vector2(scale3.X, scale3.Y);
+            matrix.Decompose(out scale3, out Node.RotationQuaternoin, out position3);
+            position.X = position3.X;
+            position.Y = position3.Y;
+            scale.X = scale3.X;
+            scale.Y = scale3.Y;
         }
 
-        public virtual List<Node> getAllChildren(List<Node> nodes)
+        public virtual List<Node> GetAllChildren(List<Node> nodes)
         {
             nodes.Add(this);
 
@@ -187,7 +195,25 @@ namespace Flakcore.Display
             {
                 foreach (Node child in Children)
                 {
-                    child.getAllChildren(nodes);
+                    child.GetAllChildren(nodes);
+                }
+
+                return nodes;
+            }
+        }
+
+        public virtual List<Node> GetAllCollidableChildren(List<Node> nodes)
+        {
+            nodes.Add(this);
+
+            if (Children.Count == 0)
+                return nodes;
+            else
+            {
+                foreach (Node child in Children)
+                {
+                    if(child.Collidable)
+                        child.GetAllCollidableChildren(nodes);
                 }
 
                 return nodes;

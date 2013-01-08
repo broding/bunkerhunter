@@ -16,7 +16,7 @@ namespace Flakcore.Display
             this.BackgroundColor = Color.DarkSlateGray;
         }
 
-        public override List<Node> getAllChildren(List<Node> nodes)
+        public override List<Node> GetAllChildren(List<Node> nodes)
         {
             if (Children.Count == 0)
                 return nodes;
@@ -24,7 +24,7 @@ namespace Flakcore.Display
             {
                 foreach (Node child in Children)
                 {
-                    child.getAllChildren(nodes);
+                    child.GetAllChildren(nodes);
                 }
 
                 return nodes;

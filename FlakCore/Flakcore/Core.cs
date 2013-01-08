@@ -67,7 +67,7 @@ namespace Flakcore
                 spriteBatch.End();
 
 #if(DEBUG)
-                spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, null, null, null, camera.getTransformMatrix());
+                spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, null, null, null, camera.GetTransformMatrix());
                 drawCollisionQuad(spriteBatch);
                 spriteBatch.End();
 
@@ -92,7 +92,7 @@ namespace Flakcore
         {
             CollisionQuad.clear();
 
-            List<Node> children = CurrentState.getAllChildren(new List<Node>());
+            List<Node> children = CurrentState.GetAllCollidableChildren(new List<Node>());
 
             foreach (Node child in children)
             {
