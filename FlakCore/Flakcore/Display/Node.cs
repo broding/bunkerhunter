@@ -295,6 +295,15 @@ namespace Flakcore.Display
             return clone;
         }
 
+        public void Clone(Node node)
+        {
+            node.Position = this.Position;
+            node.Velocity = this.Velocity;
+            node.Width = this.Width;
+            node.Height = this.Height;
+            node.Parent = this.Parent;
+        }
+
         internal static void ResetDrawDepth()
         {
             Node.DrawDepth = 0;

@@ -52,63 +52,78 @@ namespace Flakcore.Display.Level
         internal void SetBorders(Sides borders)
         {
             this.Borders = borders;
-
-            return;
-
-            if (!this.Borders.Top && this.Type == BlockType.WALL)
-            {
-                Sprite topBorder = new Sprite();
-                topBorder.LoadTexture(Block.BorderGraphic);
-                topBorder.Origin = new Vector2(11, 12);
-                topBorder.Rotation = 0;
-                topBorder.Position = new Vector2(Level.BLOCK_WIDTH / 2, Level.BLOCK_HEIGHT / 2);
-                this.AddChild(topBorder);
-            }
-
-            if (!this.Borders.Bottom && this.Type == BlockType.WALL)
-            {
-                Sprite bottomBorder = new Sprite();
-                bottomBorder.LoadTexture(Block.BorderGraphic);
-                bottomBorder.Origin = new Vector2(11, 12);
-                bottomBorder.Rotation = (float)Math.PI;
-                bottomBorder.Position = new Vector2(Level.BLOCK_WIDTH / 2,Level.BLOCK_HEIGHT / 2);
-                this.AddChild(bottomBorder);
-            }
-
-            if (!this.Borders.Left && this.Type == BlockType.WALL)
-            {
-                Sprite leftBorder = new Sprite();
-                leftBorder.LoadTexture(Block.BorderGraphic);
-                leftBorder.Origin = new Vector2(11, 12);
-                leftBorder.Rotation = (float)Math.PI / 2 + (float)Math.PI;
-                leftBorder.Position = new Vector2(Level.BLOCK_WIDTH / 2, Level.BLOCK_HEIGHT / 2);
-                this.AddChild(leftBorder);
-            }
-
-            if (!this.Borders.Right && this.Type == BlockType.WALL)
-            {
-                Sprite rightBorder = new Sprite();
-                rightBorder.LoadTexture(Block.BorderGraphic);
-                rightBorder.Origin = new Vector2(11, 12);
-                rightBorder.Rotation = (float)Math.PI / 2;
-                rightBorder.Position = new Vector2(Level.BLOCK_WIDTH / 2, Level.BLOCK_HEIGHT / 2);
-                this.AddChild(rightBorder);
-            }
         }
 
         protected override void DrawCall(SpriteBatch spriteBatch, Vector2 position)
         {
             base.DrawCall(spriteBatch, position);
 
-            spriteBatch.Draw(Block.BorderGraphic,
-                   new Vector2(position.X * ScrollFactor.X, position.Y * ScrollFactor.Y),
-                   this.SourceRectangle,
-                   this.Color * this.Alpha,
-                   this.Rotation,
-                   this.Origin,
-                   this.Scale,
-                   this.SpriteEffects,
-                   Node.GetDrawDepth(this.GetParentDepth()));
+            this.DrawBorders(spriteBatch, position);
+        }
+
+        private void DrawBorders(SpriteBatch spriteBatch, Vector2 position)
+        {
+            Vector2 drawPosition = position;
+
+            if (!this.Borders.Top && this.Type == BlockType.WALL)
+            {
+                drawPosition.X -= 4;
+                drawPosition.Y -= 10;
+
+                spriteBatch.Draw(Block.BorderGraphic,
+                    drawPosition,
+                    new Rectangle(0, 0, Block.BorderGraphic.Width, Block.BorderGraphic.Height),
+                    Color.White * this.Alpha,
+                    0,
+                    Vector2.Zero,
+                    Vector2.One,
+                    this.SpriteEffects,
+                    this.GetParentDepth() + this.Depth
+                    );
+
+                drawPosition = position;
+            }
+
+            if (!this.Borders.Bottom && this.Type == BlockType.WALL)
+            {
+                drawPosition.X += Level.BLOCK_WIDTH + 6;
+                drawPosition.Y += Level.BLOCK_HEIGHT + 10;
+
+                spriteBatch.Draw(Block.BorderGraphic,
+                    drawPosition,
+                    new Rectangle(0, 0, Block.BorderGraphic.Width, Block.BorderGraphic.Height),
+                    Color.White * this.Alpha,
+                    (float)Math.PI,
+                    Vector2.Zero,
+                    Vector2.One,
+                    this.SpriteEffects,
+                    this.GetParentDepth() + this.Depth
+                    );
+
+                drawPosition = position;
+            }
+
+
+
+            if (!this.Borders.Right && this.Type == BlockType.WALL)
+            {
+                drawPosition.X += Level.BLOCK_WIDTH + 10;
+                drawPosition.Y -= 6;
+
+                spriteBatch.Draw(Block.BorderGraphic,
+                    drawPosition,
+                    new Rectangle(0, 0, Block.BorderGraphic.Width, Block.BorderGraphic.Height),
+                    Color.White * this.Alpha,
+                    (float)Math.PI / 2,
+                    Vector2.Zero,
+                    Vector2.One,
+                    this.SpriteEffects,
+                    this.GetParentDepth() + this.Depth
+                    );
+
+                drawPosition = position;
+            }
+
         }
 
         public Vector2 RoomPosition

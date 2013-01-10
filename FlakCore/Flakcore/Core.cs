@@ -44,22 +44,36 @@ namespace Flakcore
 
         public void Update(GameTime gameTime)
         {
+
             this.Stopwatch.Reset();
             this.Stopwatch.Start();
-
             resetCollisionQuadTree();
-                
+            this.Stopwatch.Stop();
+            DebugInfo.AddDebugItem("Reset Collision Quad", this.Stopwatch.ElapsedTicks + " ms");
+
+            this.Stopwatch.Reset();
+            this.Stopwatch.Start();
             this.CurrentState.Update(gameTime);
+            this.Stopwatch.Stop();
+            DebugInfo.AddDebugItem("Update", this.Stopwatch.ElapsedTicks + " ms");
+
+            this.Stopwatch.Reset();
+            this.Stopwatch.Start();
             this.CollisionSolver.resolveCollisions(gameTime);
+            this.Stopwatch.Stop();
+            DebugInfo.AddDebugItem("Resolve Collisions", this.Stopwatch.ElapsedTicks + " ms");
+
+            this.Stopwatch.Reset();
+            this.Stopwatch.Start();
             this.CurrentState.PostUpdate(gameTime);
+            this.Stopwatch.Stop();
+            DebugInfo.AddDebugItem("Post Update", this.Stopwatch.ElapsedTicks + " ms");
 
             GameManager.Input.update();
 
             foreach (Camera camera in Cameras)
                 camera.update(gameTime);
 
-            this.Stopwatch.Stop();
-            DebugInfo.AddDebugItem("Update", this.Stopwatch.ElapsedMilliseconds + " ms");
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
@@ -83,7 +97,7 @@ namespace Flakcore
                 spriteBatch.End();
 
                 this.Stopwatch.Stop();
-                DebugInfo.AddDebugItem("Draw", this.Stopwatch.ElapsedMilliseconds + " ms");
+                DebugInfo.AddDebugItem("Draw", this.Stopwatch.ElapsedTicks + " ms");
                 DebugInfo.AddDebugItem("FPS", "" + Math.Round(1 / gameTime.ElapsedGameTime.TotalSeconds));
 
                 spriteBatch.Begin();
