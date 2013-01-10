@@ -24,8 +24,8 @@ namespace Flakcore.Display
         private int CurrentFrame;
         private Animation CurrentAnimation;
 
-        private static Vector2 DrawPosition, DrawScale;
-        private static Rectangle DrawRectangle;
+        protected static Vector2 DrawPosition, DrawScale;
+        protected static Rectangle DrawRectangle;
 
         public Sprite() : base()
         {
@@ -135,7 +135,7 @@ namespace Flakcore.Display
 
             if (Animating)
                 spriteBatch.Draw(Texture,
-                    new Vector2(position.X * ScrollFactor.X, position.Y * ScrollFactor.Y),
+                    Sprite.DrawPosition,
                     new Rectangle(CurrentAnimation.frames[CurrentFrame] * Width, 0, Width, Height),
                     this.Color * this.Alpha,
                     this.Rotation,
@@ -145,7 +145,7 @@ namespace Flakcore.Display
                     Node.GetDrawDepth(this.GetParentDepth()));
             else
                 spriteBatch.Draw(Texture,
-                    new Vector2(position.X * ScrollFactor.X, position.Y * ScrollFactor.Y),
+                    Sprite.DrawPosition,
                     this.SourceRectangle,
                     this.Color * this.Alpha,
                     this.Rotation,

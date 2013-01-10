@@ -57,6 +57,7 @@ namespace Flakcore.Display
         {
             Children = new List<Node>(1000);
             CollisionGroup = new List<string>(10);
+            this.Collidable = false;
             this.Touching = new Sides();
             this.WasTouching = new Sides();
             this.CollidableSides = new Sides();
@@ -215,7 +216,7 @@ namespace Flakcore.Display
             {
                 foreach (Node child in Children)
                 {
-                    if(child.Collidable)
+                    if(child.Collidable && !child.Dead)
                         child.GetAllCollidableChildren(nodes);
                 }
 

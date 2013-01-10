@@ -9,6 +9,7 @@ namespace Flakcore.Display.Level.LevelObjects
     {
         public LevelObject()
         {
+            this.Collidable = true;
         }
     }
 }

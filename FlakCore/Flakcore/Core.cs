@@ -49,25 +49,25 @@ namespace Flakcore
             this.Stopwatch.Start();
             resetCollisionQuadTree();
             this.Stopwatch.Stop();
-            DebugInfo.AddDebugItem("Reset Collision Quad", this.Stopwatch.ElapsedTicks + " ms");
+            DebugInfo.AddDebugItem("Reset Collision Quad", this.Stopwatch.ElapsedMilliseconds + " ms");
 
             this.Stopwatch.Reset();
             this.Stopwatch.Start();
             this.CurrentState.Update(gameTime);
             this.Stopwatch.Stop();
-            DebugInfo.AddDebugItem("Update", this.Stopwatch.ElapsedTicks + " ms");
+            DebugInfo.AddDebugItem("Update", this.Stopwatch.ElapsedMilliseconds + " ms");
 
             this.Stopwatch.Reset();
             this.Stopwatch.Start();
             this.CollisionSolver.resolveCollisions(gameTime);
             this.Stopwatch.Stop();
-            DebugInfo.AddDebugItem("Resolve Collisions", this.Stopwatch.ElapsedTicks + " ms");
+            DebugInfo.AddDebugItem("Resolve Collisions", this.Stopwatch.ElapsedMilliseconds + " ms");
 
             this.Stopwatch.Reset();
             this.Stopwatch.Start();
             this.CurrentState.PostUpdate(gameTime);
             this.Stopwatch.Stop();
-            DebugInfo.AddDebugItem("Post Update", this.Stopwatch.ElapsedTicks + " ms");
+            DebugInfo.AddDebugItem("Post Update", this.Stopwatch.ElapsedMilliseconds + " ms");
 
             GameManager.Input.update();
 
@@ -97,7 +97,7 @@ namespace Flakcore
                 spriteBatch.End();
 
                 this.Stopwatch.Stop();
-                DebugInfo.AddDebugItem("Draw", this.Stopwatch.ElapsedTicks + " ms");
+                DebugInfo.AddDebugItem("Draw", this.Stopwatch.ElapsedMilliseconds + " ms");
                 DebugInfo.AddDebugItem("FPS", "" + Math.Round(1 / gameTime.ElapsedGameTime.TotalSeconds));
 
                 spriteBatch.Begin();
@@ -127,6 +127,9 @@ namespace Flakcore
             {
                 CollisionQuad.insert(child);
             }
+#if(DEBUG)
+            DebugInfo.AddDebugItem("Collidable Children", children.Count + " children");
+#endif
         }
 
         private void drawCollisionQuad(SpriteBatch spriteBatch)

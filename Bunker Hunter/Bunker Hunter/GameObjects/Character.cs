@@ -35,6 +35,7 @@ namespace Bunker_Hunker.GameObjects
             this.Mass = 1.3f;
             this.Depth = 0.1f;
             this.BulletLayer = bulletLayer;
+            this.Collidable = true;
 
             this.JumpAvailable = false;
             this.LadderAvailable = false;

@@ -20,6 +20,7 @@ namespace Flakcore.Display.ParticleEngine
 
         public BasicEmitter(BasicEmitterData data)
         {
+            this.Collidable = false;
             this.Particles = new List<Particle>();
             this.DeadParticles = new List<Particle>();
             this.Data = data;

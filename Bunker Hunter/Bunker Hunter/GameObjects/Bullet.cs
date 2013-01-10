@@ -23,15 +23,16 @@ namespace CallOfHonour.GameObjects
 
         public Bullet(Layer bulletLayer, BulletType bulletType)
         {
+            this.Collidable = true;
             this.BulletType = bulletType;
 
             ParticleEffect effect = GameManager.Content.Load<ParticleEffect>(@"ParticleEffects/smoke1");
             this.ParticleEngine = new ParticleEngine(effect);
-            //bulletLayer.AddChild(this.ParticleEngine);
+            bulletLayer.AddChild(this.ParticleEngine);
 
             ParticleEffect effect2 = GameManager.Content.Load<ParticleEffect>(@"ParticleEffects/smokePuff");
             this.ExplosionParticles = new ParticleEngine(effect2);
-           // bulletLayer.AddChild(this.ExplosionParticles);
+            bulletLayer.AddChild(this.ExplosionParticles);
 
             this.LoadTexture(this.BulletType.TextureName);
             this.AddCollisionGroup("bullet");
@@ -44,6 +45,8 @@ namespace CallOfHonour.GameObjects
             this.Facing = facing;
             this.Shooter = shooter;
             this.Revive();
+            this.ParticleEngine.Position = this.Position;
+            this.ParticleEngine.Start();
 
             this.Velocity.X = Util.FacingToVelocity(facing) * this.BulletType.Speed.X;
             this.Velocity.Y = this.BulletType.Speed.Y;
@@ -58,7 +61,7 @@ namespace CallOfHonour.GameObjects
                 return;
 
             this.Velocity *= this.BulletType.SpeedChange;
-            this.ParticleEngine.Position = this.Position;
+            this.ParticleEngine.EmitterPosition = this.Position;
 
             GameManager.collide(this, "tilemap", this.TilemapCollision);
             GameManager.collide(this, "character", this.CharacterCollision);
@@ -67,10 +70,11 @@ namespace CallOfHonour.GameObjects
         private void TilemapCollision(Node bullet, Node tile)
         {
             if (this.Facing == Facing.Left)
-                this.ExplosionParticles.Position = new Vector2(tile.Position.X + tile.Width, this.Position.Y);
+                this.ExplosionParticles.EmitterPosition = new Vector2(tile.WorldPosition.X + tile.Width, this.WorldPosition.Y);
             else
-                this.ExplosionParticles.Position = new Vector2(tile.Position.X, this.Position.Y);
+                this.ExplosionParticles.EmitterPosition = new Vector2(tile.WorldPosition.X, this.WorldPosition.Y);
 
+            this.ExplosionParticles.Explode();
 
             this.Kill();
             this.ParticleEngine.Stop();

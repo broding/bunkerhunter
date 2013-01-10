@@ -7,7 +7,7 @@ namespace Flakcore.Display.Level.LevelObjects
 {
     class Ladder : LevelObject
     {
-        public Ladder()
+        public Ladder() : base()
         {
             this.LoadTexture("ladder");
             this.AddCollisionGroup("ladder");

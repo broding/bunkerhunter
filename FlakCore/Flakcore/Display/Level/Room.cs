@@ -24,6 +24,7 @@ namespace Flakcore.Display.Level
             this.Map = new Block[Level.ROOM_WIDTH, Level.ROOM_HEIGHT];
             this.Width = Level.BLOCK_WIDTH;
             this.Height = Level.BLOCK_HEIGHT;
+            this.Collidable = false;
         }
 
         public void AddBlock(int x, int y, BlockType type)

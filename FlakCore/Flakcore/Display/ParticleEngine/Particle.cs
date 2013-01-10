@@ -25,6 +25,7 @@ namespace Flakcore.Display.ParticleEngine
             this.Kill();
             this.Origin = new Vector2(this.Emitter.Data.BaseTexture.Width / 2, this.Emitter.Data.BaseTexture.Height / 2);
             this.OffScreenAction = OffScreenAction.NONE;
+            this.SourceRectangle = new Rectangle(0, 0, this.Emitter.Data.BaseTexture.Width, this.Emitter.Data.BaseTexture.Height);
 
             this.InitializeModifiers();
         }
@@ -86,12 +87,13 @@ namespace Flakcore.Display.ParticleEngine
 
         protected override void DrawCall(SpriteBatch spriteBatch, Vector2 position)
         {
-            position = GameManager.currentDrawCamera.TransformPosition(this.Position);
+            position.X *= this.ScrollFactor.X;
+            position.Y *= this.ScrollFactor.Y;
 
             spriteBatch.Draw(
                 this.Emitter.Data.BaseTexture,
-                new Vector2(position.X * ScrollFactor.X, position.Y * ScrollFactor.Y),
-                new Rectangle(0, 0, this.Emitter.Data.BaseTexture.Width, this.Emitter.Data.BaseTexture.Height),
+                position,
+                this.SourceRectangle,
                 this.Color * this.Alpha,
                 this.Rotation,
                 this.Origin,

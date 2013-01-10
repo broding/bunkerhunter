@@ -34,6 +34,7 @@ namespace Flakcore.Display.Level
             CollisionSolver.Level = this;
             Block.Graphic = GameManager.Content.Load<Texture2D>("tilemap");
             Block.BorderGraphic = GameManager.Content.Load<Texture2D>("level/borders_bunker");
+            this.Collidable = true;
 
             this.InitializeBackground();
             this.Architect = new Architect();

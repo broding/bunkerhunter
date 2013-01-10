@@ -14,6 +14,7 @@ namespace Flakcore.Display.Level
 
         public Dungeon()
         {
+            this.Collidable = true;
             this.Rooms = new List<Room>(Level.LEVEL_WIDTH * Level.LEVEL_HEIGHT);
             this.LevelObjects = new List<LevelObject>();
         }
@@ -23,7 +24,10 @@ namespace Flakcore.Display.Level
             Vector2 roomPosition = new Vector2((float)Math.Floor((float)x / Level.ROOM_WIDTH), (float)Math.Floor((float)y / Level.ROOM_HEIGHT));
             Room room = this.GetRoom(roomPosition);
 
-            return room.GetBlock(new Vector2(x % Level.ROOM_WIDTH, y % Level.ROOM_HEIGHT));
+            if (room != null)
+                return room.GetBlock(new Vector2(x % Level.ROOM_WIDTH, y % Level.ROOM_HEIGHT));
+            else
+                return null;
         }
 
         public Block GetBlock(Vector2 position)
@@ -39,7 +43,7 @@ namespace Flakcore.Display.Level
                     return room;
             }
 
-            throw new Exception("Could not find room");
+            return null;
         }
 
         public Block GetBlock(BlockType blockType)

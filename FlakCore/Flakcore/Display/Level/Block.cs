@@ -17,6 +17,8 @@ namespace Flakcore.Display.Level
         public BlockType Type { get; private set; }
         public Room Room { get; private set; }
 
+        private static Rectangle BorderSourceRectangle;
+
         private Sides Borders;
 
         public Block(BlockType type, Room room)
@@ -28,6 +30,7 @@ namespace Flakcore.Display.Level
             this.Borders = new Sides();
             this.SetupBlock();
             this.Room = room;
+            Block.BorderSourceRectangle = new Rectangle(0, 0, Block.BorderGraphic.Width, Block.BorderGraphic.Height);
         }
 
         private void SetupBlock()
@@ -72,7 +75,7 @@ namespace Flakcore.Display.Level
 
                 spriteBatch.Draw(Block.BorderGraphic,
                     drawPosition,
-                    new Rectangle(0, 0, Block.BorderGraphic.Width, Block.BorderGraphic.Height),
+                    Block.BorderSourceRectangle,
                     Color.White * this.Alpha,
                     0,
                     Vector2.Zero,
@@ -91,7 +94,7 @@ namespace Flakcore.Display.Level
 
                 spriteBatch.Draw(Block.BorderGraphic,
                     drawPosition,
-                    new Rectangle(0, 0, Block.BorderGraphic.Width, Block.BorderGraphic.Height),
+                    Block.BorderSourceRectangle,
                     Color.White * this.Alpha,
                     (float)Math.PI,
                     Vector2.Zero,
@@ -112,7 +115,7 @@ namespace Flakcore.Display.Level
 
                 spriteBatch.Draw(Block.BorderGraphic,
                     drawPosition,
-                    new Rectangle(0, 0, Block.BorderGraphic.Width, Block.BorderGraphic.Height),
+                    Block.BorderSourceRectangle,
                     Color.White * this.Alpha,
                     (float)Math.PI / 2,
                     Vector2.Zero,

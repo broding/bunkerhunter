@@ -8,6 +8,7 @@ namespace Flakcore.Display.Level.LevelObjects
     class End : LevelObject
     {
         public End()
+            : base()
         {
             this.LoadTexture("start");
             this.Immovable = true;
