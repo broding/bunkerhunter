@@ -4,14 +4,13 @@
 *.suo
 **/bin/*
 **/obj/*
+*/bin/*
+*/obj/*
 *.chachefile
 *.Debug.cachefile
 *.cache
 *.ccgame
 !*.dll
-code/RC Management Game/RC Management Game/obj/*
-code/RC Management Game/RC Management Game/bin/*
-code/RC Management Game/RC Management GameContent/obj/*
 
 # Packages #
 # it's better to unpack these files and commit the raw source
