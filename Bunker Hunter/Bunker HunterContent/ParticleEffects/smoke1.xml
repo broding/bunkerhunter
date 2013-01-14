@@ -6,7 +6,7 @@
         
         <Name>smoke1</Name>
         <TextureName>Cloud001</TextureName>
-        <TotalParticles>50</TotalParticles>
+        <TotalParticles>20</TotalParticles>
         <Lifetime>500</Lifetime>
 
         <ReleaseQuantity>1</ReleaseQuantity>
