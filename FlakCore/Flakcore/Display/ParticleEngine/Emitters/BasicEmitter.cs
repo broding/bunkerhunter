@@ -42,10 +42,10 @@ namespace Flakcore.Display.ParticleEngine
 
         public override void Update(GameTime gameTime)
         {
-            base.Update(gameTime);
-
             if (!this.Started)
                 return;
+
+            base.Update(gameTime);
 
             this.ReleaseTimer += (int)gameTime.ElapsedGameTime.TotalMilliseconds;
 
@@ -54,6 +54,14 @@ namespace Flakcore.Display.ParticleEngine
                 this.ReleaseTimer = 0;
                 this.Emit(this.Data.ReleaseQuantity);
             }
+        }
+
+        public override void PostUpdate(GameTime gameTime)
+        {
+            if (!this.Started)
+                return;
+
+            base.PostUpdate(gameTime);
         }
 
         private void Emit(int quanitity)

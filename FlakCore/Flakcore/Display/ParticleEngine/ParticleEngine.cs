@@ -37,13 +37,12 @@ namespace Flakcore.Display.ParticleEngine
 
         public override void Update(GameTime gameTime)
         {
-            base.Update(gameTime);
-
             if (!this.Started)
                 return;
 
-            this.UpdateEmitterPositions();
+            base.Update(gameTime);
 
+            this.UpdateEmitterPositions();
         }
 
         public void Start()
