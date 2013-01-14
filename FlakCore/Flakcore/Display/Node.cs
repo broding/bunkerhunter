@@ -44,6 +44,7 @@ namespace Flakcore.Display
         public bool Visable = true;
         public bool Immovable = false;
         public bool Collidable = true;
+        public bool UpdateChildren = true;
         public Sides CollidableSides;
         public bool Dead { get; protected set; }
 
@@ -87,14 +88,20 @@ namespace Flakcore.Display
 
         public virtual void Update(GameTime gameTime)
         {
+            GameManager.UpdateCalls++;
+
             if (this.Dead)
                 return;
 
-            for (int i = 0; i < this.Children.Count; i++)
+            if (this.UpdateChildren)
             {
-                this.Children[i].Update(gameTime);
-                this.Children[i].PreCollisionUpdate(gameTime);
+                for (int i = 0; i < this.Children.Count; i++)
+                {
+                    this.Children[i].Update(gameTime);
+                    this.Children[i].PreCollisionUpdate(gameTime);
+                }
             }
+            
 
             this.Velocity.Y += this.Mass * GameManager.Gravity;
 

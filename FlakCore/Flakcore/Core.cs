@@ -68,6 +68,9 @@ namespace Flakcore
             this.Stopwatch.Stop();
             DebugInfo.AddDebugItem("Post Update", this.Stopwatch.ElapsedMilliseconds + " ms");
 
+            DebugInfo.AddDebugItem("Update calls", GameManager.UpdateCalls + " times");
+            GameManager.UpdateCalls = 0;
+
             GameManager.Input.update();
 
             foreach (Camera camera in Cameras)
@@ -92,7 +95,7 @@ namespace Flakcore
 
 #if(DEBUG)
                 spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.LinearClamp, null, null, null, camera.GetTransformMatrix());
-                //drawCollisionQuad(spriteBatch);
+                drawCollisionQuad(spriteBatch);
                 spriteBatch.End();
 
                 this.Stopwatch.Stop();

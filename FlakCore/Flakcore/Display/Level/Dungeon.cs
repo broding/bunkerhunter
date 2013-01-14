@@ -17,6 +17,7 @@ namespace Flakcore.Display.Level
             this.Collidable = true;
             this.Rooms = new List<Room>(Level.LEVEL_WIDTH * Level.LEVEL_HEIGHT);
             this.LevelObjects = new List<LevelObject>();
+            this.UpdateChildren = false;
         }
 
         public Block GetBlock(int x, int y)

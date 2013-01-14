@@ -19,6 +19,8 @@ namespace Flakcore
         public static Vector2 ScreenSize { get; private set; }
         public static Vector2 LevelBorderSize { get; private set; }
 
+        public static int UpdateCalls;
+
         private static Core Core;
         private static Rectangle _worldBounds;
         public static Rectangle worldBounds 
