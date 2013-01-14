@@ -55,10 +55,10 @@ namespace CallOfHonour.GameObjects
 
         public override void Update(GameTime gameTime)
         {
+            base.Update(gameTime);
+
             if (this.Dead)
                 return;
-
-            base.Update(gameTime);
 
             this.Velocity *= this.BulletType.SpeedChange;
             this.ParticleEngine.EmitterPosition = this.Position;
