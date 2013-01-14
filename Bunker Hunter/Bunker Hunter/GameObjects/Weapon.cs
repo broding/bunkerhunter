@@ -39,7 +39,7 @@ namespace Bunker_Hunter.GameObjects
 
         private void InitializeBullets()
         {
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 600; i++)
             {
                 Bullet bullet = new Bullet(this.BulletLayer, new BulletType());
                 this.Bullets.Add(bullet);

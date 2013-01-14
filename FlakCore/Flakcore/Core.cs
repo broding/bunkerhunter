@@ -44,7 +44,6 @@ namespace Flakcore
 
         public void Update(GameTime gameTime)
         {
-
             this.Stopwatch.Reset();
             this.Stopwatch.Start();
             resetCollisionQuadTree();
@@ -93,7 +92,7 @@ namespace Flakcore
 
 #if(DEBUG)
                 spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.LinearClamp, null, null, null, camera.GetTransformMatrix());
-                drawCollisionQuad(spriteBatch);
+                //drawCollisionQuad(spriteBatch);
                 spriteBatch.End();
 
                 this.Stopwatch.Stop();

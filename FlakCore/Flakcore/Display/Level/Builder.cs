@@ -49,21 +49,18 @@ namespace Flakcore.Display.Level
 
         private void BuildLadder(Block block)
         {
-            Vector2 position = block.LevelPosition;
-
-            Ladder ladder = new Ladder();
-            this.Dungeon.AddObject(ladder, new Vector2(position.X, position.Y - 1));
-
-            ladder = new Ladder();
-            this.Dungeon.AddObject(ladder, new Vector2(position.X, position.Y));
+            Vector2 beginPosition = block.LevelPosition;
+            beginPosition.Y -= 1;
+            Vector2 position = beginPosition;
 
             while (block == null || block.Type != BlockType.WALL)
             {
                 position.Y++;
-                ladder = new Ladder();
-                this.Dungeon.AddObject(ladder, new Vector2(position.X, position.Y));
                 block = this.Dungeon.GetBlock(position);
             }
+
+            Ladder ladder = new Ladder((int)position.Y - (int)beginPosition.Y);
+            this.Dungeon.AddObject(ladder, new Vector2(beginPosition.X, beginPosition.Y));
         }
 
         private void BuildStart()
