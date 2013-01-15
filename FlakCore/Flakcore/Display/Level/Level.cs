@@ -63,6 +63,14 @@ namespace Flakcore.Display.Level
             this.AddChild(levelBackground);
         }
 
+        public Vector2 StartPosition
+        {
+            get
+            {
+                return this.Dungeon.StartPosition;
+            }
+        }
+
         internal bool HasBlockCollisionGroup(string groupName)
         {
             return groupName == "ladderArea" || groupName == "tilemap";

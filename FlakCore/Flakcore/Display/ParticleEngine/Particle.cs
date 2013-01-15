@@ -61,7 +61,7 @@ namespace Flakcore.Display.ParticleEngine
         public void Fire(Vector2 position)
         {
             this.Revive();
-            this.Position = position;
+            //this.Position = position;
             this.InitializeEffect();
         }
 
@@ -85,22 +85,21 @@ namespace Flakcore.Display.ParticleEngine
                 modifier.Update(gameTime);
         }
 
-        protected override void DrawCall(SpriteBatch spriteBatch, Vector2 position)
+        protected override void DrawCall(SpriteBatch spriteBatch, ParentNode parentNode)
         {
-            position.X *= this.ScrollFactor.X;
-            position.Y *= this.ScrollFactor.Y;
+            parentNode.Position.X *= this.ScrollFactor.X;
+            parentNode.Position.Y *= this.ScrollFactor.Y;
 
             spriteBatch.Draw(
                 this.Emitter.Data.BaseTexture,
-                position,
+                parentNode.Position,
                 this.SourceRectangle,
-                this.Color * this.Alpha,
+                this.Color * parentNode.Alpha,
                 this.Rotation,
                 this.Origin,
                 this.Scale,
                 this.SpriteEffects,
                 Node.GetDrawDepth(this.Depth));
-
         }
 
         private static float GetVariantion(float variation)

@@ -142,6 +142,8 @@
     <Compile Include="Utils\DebugInfo.cs" />
     <Compile Include="Physics\QuadTree.cs" />
     <Compile Include="Utils\Easing.cs" />
+    <Compile Include="Utils\IPoolable.cs" />
+    <Compile Include="Utils\Pool.cs" />
     <Compile Include="Utils\Util.cs" />
   </ItemGroup>
   <ItemGroup>

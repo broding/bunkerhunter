@@ -30,17 +30,20 @@ namespace Flakcore.Display
             this.Height = height * this.TiledHeight;
         }
 
-        protected override void DrawCall(SpriteBatch spriteBatch, Vector2 position)
+        protected override void DrawCall(SpriteBatch spriteBatch, ParentNode parentNode)
         {
             int amountX = this.TiledWidth / this.Texture.Width;
             int amountY = this.TiledHeight / this.Texture.Height;
+
+            ParentNode newParentNode = new ParentNode();
+            newParentNode.Alpha = this.Alpha;
 
             for (int x = 0; x < amountX; x++)
             {
                 for (int y = 0; y < amountY; y++)
                 {
-                    Vector2 newPosition = position + new Vector2(x * this.Texture.Width * this.Scale.X, y * this.Texture.Height * this.Scale.Y);
-                    base.DrawCall(spriteBatch, newPosition); 
+                    newParentNode.Position = parentNode.Position + new Vector2(x * this.Texture.Width * this.Scale.X, y * this.Texture.Height * this.Scale.Y);
+                    base.DrawCall(spriteBatch, newParentNode); 
                 }
             }
         }

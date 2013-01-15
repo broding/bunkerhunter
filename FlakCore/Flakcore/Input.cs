@@ -9,26 +9,42 @@ namespace Flakcore
 {
     public class Input
     {
-        private GamePadState[] previousStates = new GamePadState[4];
+        private GamePadState[] PreviousGamepadStates = new GamePadState[4];
+        private KeyboardState[] PreviousKeyboardStates = new KeyboardState[4];
 
-        public void update()
+        public void Update()
         {
-            this.previousStates[(int)PlayerIndex.One] = GamePad.GetState(PlayerIndex.One);
-            this.previousStates[(int)PlayerIndex.Two] = GamePad.GetState(PlayerIndex.Two);
-            this.previousStates[(int)PlayerIndex.Three] = GamePad.GetState(PlayerIndex.Three);
-            this.previousStates[(int)PlayerIndex.Four] = GamePad.GetState(PlayerIndex.Four);
+            this.PreviousGamepadStates[(int)PlayerIndex.One] = GamePad.GetState(PlayerIndex.One);
+            this.PreviousGamepadStates[(int)PlayerIndex.Two] = GamePad.GetState(PlayerIndex.Two);
+            this.PreviousGamepadStates[(int)PlayerIndex.Three] = GamePad.GetState(PlayerIndex.Three);
+            this.PreviousGamepadStates[(int)PlayerIndex.Four] = GamePad.GetState(PlayerIndex.Four);
+
+            this.PreviousKeyboardStates[(int)PlayerIndex.One] = Keyboard.GetState(PlayerIndex.One);
+            this.PreviousKeyboardStates[(int)PlayerIndex.Two] = Keyboard.GetState(PlayerIndex.Two);
+            this.PreviousKeyboardStates[(int)PlayerIndex.Three] = Keyboard.GetState(PlayerIndex.Three);
+            this.PreviousKeyboardStates[(int)PlayerIndex.Four] = Keyboard.GetState(PlayerIndex.Four);
         }
 
-        public GamePadState getPadState(PlayerIndex player)
+        public GamePadState GetPadState(PlayerIndex player)
         {
             return GamePad.GetState(player);
         }
 
-        public bool justPressed(PlayerIndex player, Buttons button)
+        public bool JustPressed(PlayerIndex player, Buttons button)
         {
             GamePadState currentState = GamePad.GetState(player);
 
-            if(currentState.IsButtonDown(button) && this.previousStates[(int)player].IsButtonUp(button))
+            if(currentState.IsButtonDown(button) && this.PreviousGamepadStates[(int)player].IsButtonUp(button))
+                return true;
+            else
+                return false;
+        }
+
+        public bool JustPressed(PlayerIndex player, Keys key)
+        {
+            KeyboardState currentState = Keyboard.GetState(player);
+
+            if (currentState.IsKeyDown(key) && this.PreviousKeyboardStates[(int)player].IsKeyUp(key))
                 return true;
             else
                 return false;

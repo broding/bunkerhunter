@@ -16,6 +16,10 @@ namespace Flakcore.Display
             this.BackgroundColor = Color.DarkSlateGray;
         }
 
+        public virtual void Load()
+        {
+        }
+
         public override List<Node> GetAllChildren(List<Node> nodes)
         {
             if (Children.Count == 0)
@@ -30,5 +34,11 @@ namespace Flakcore.Display
                 return nodes;
             }
         }
+    }
+
+    public enum StateTransition
+    {
+        IMMEDIATELY,
+        FADE
     }
 }

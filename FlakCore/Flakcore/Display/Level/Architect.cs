@@ -47,7 +47,7 @@ namespace Flakcore.Display.Level
             foreach (FileInfo file in files)
             {
                 string roomName = Path.GetFileNameWithoutExtension(file.Name);
-                this.NormalRoomTypes.Add(new RoomType(roomName));
+                this.NormalRoomTypes.Add(new RoomType(roomName, RoomTypes.ROUTE));
             }
 
             // load stars
@@ -58,7 +58,7 @@ namespace Flakcore.Display.Level
             foreach (FileInfo file in files)
             {
                 string roomName = Path.GetFileNameWithoutExtension(file.Name);
-                this.StartRoomTypes.Add(new RoomType("starts/" + roomName));
+                this.StartRoomTypes.Add(new RoomType("starts/" + roomName, RoomTypes.START));
             }
 
             
@@ -70,13 +70,13 @@ namespace Flakcore.Display.Level
             foreach (FileInfo file in files)
             {
                 string roomName = Path.GetFileNameWithoutExtension(file.Name);
-                this.EndRoomTypes.Add(new RoomType("ends/" + roomName));
+                this.EndRoomTypes.Add(new RoomType("ends/" + roomName, RoomTypes.END));
             }
         }
 
         private void PlaceStart()
         {
-            int xPosition = this.Random.Next(0, Level.LEVEL_WIDTH);
+            int xPosition = this.Random.Next(1, Level.LEVEL_WIDTH-1);
             this.Plan[xPosition,0] = this.GetRandomStart();
 
             this.StartPosition = new Vector2(xPosition, 0);
@@ -84,7 +84,7 @@ namespace Flakcore.Display.Level
 
         private void PlaceEnd()
         {
-            int xPosition = (this.StartPosition.X < 2 ? 0 : 2) + this.Random.Next(0, 2);
+            int xPosition = (this.StartPosition.X < 2 ? 1 : 2) + this.Random.Next(0, 1);
             this.Plan[xPosition, 3] = this.GetRandomEnd();
 
             this.EndPosition = new Vector2(xPosition, 3);
@@ -150,7 +150,10 @@ namespace Flakcore.Display.Level
                 {
                     if (this.Plan[x, y] == null)
                     {
-                        this.Plan[x,y] = this.NormalRoomTypes[Random.Next(0, this.NormalRoomTypes.Count)];
+                        if (x == 0)
+                            this.Plan[x, y] = this.GetRandomRoom(new Sides(false, false, false, true));
+                        else if(x == Level.LEVEL_WIDTH-1)
+                            this.Plan[x, y] = this.GetRandomRoom(new Sides(false, false, true, false));
                     }
                 }
             }

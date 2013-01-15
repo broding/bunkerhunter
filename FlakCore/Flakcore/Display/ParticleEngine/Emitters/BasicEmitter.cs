@@ -40,12 +40,19 @@ namespace Flakcore.Display.ParticleEngine
             }
         }
 
+        public override void Draw(SpriteBatch spriteBatch, ParentNode parentNode)
+        {
+            // we need to pass a zero vector to the draw call, because the particle engine always is at 0,0
+            parentNode.Position = Vector2.Zero;
+            base.Draw(spriteBatch, parentNode);
+        }
+
         public override void Update(GameTime gameTime)
         {
+            base.Update(gameTime);
+
             if (!this.Started)
                 return;
-
-            base.Update(gameTime);
 
             this.ReleaseTimer += (int)gameTime.ElapsedGameTime.TotalMilliseconds;
 

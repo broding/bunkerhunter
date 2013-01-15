@@ -6,8 +6,10 @@ using Microsoft.Xna.Framework;
 using Flakcore.Display;
 using CallOfHonour.GameObjects;
 using Bunker_Hunker.GameObjects;
+using Bunker_Hunter.Types;
+using Flakcore;
 
-namespace Bunker_Hunter.GameObjects
+namespace Bunker_Hunter.Models
 {
     public class Weapon : Node
     {
@@ -15,19 +17,15 @@ namespace Bunker_Hunter.GameObjects
 
         private Layer BulletLayer;
         private WeaponType WeaponType;
-        private List<Bullet> Bullets;
 
         private int FireRate;
 
         public Weapon(Layer bulletLayer)
         {
             this.WeaponType = new WeaponType();
-            this.Bullets = new List<Bullet>();
             this.BulletLayer = bulletLayer;
 
             this.FireRate = 0;
-
-            this.InitializeBullets();
         }
 
         public override void Update(GameTime gameTime)
@@ -37,31 +35,18 @@ namespace Bunker_Hunter.GameObjects
             this.FireRate += (int)gameTime.ElapsedGameTime.TotalMilliseconds;
         }
 
-        private void InitializeBullets()
-        {
-            for (int i = 0; i < 30; i++)
-            {
-                Bullet bullet = new Bullet(this.BulletLayer, new BulletType());
-                this.Bullets.Add(bullet);
-                this.BulletLayer.AddChild(bullet);
-            }
-        }
-
         public void Fire(Vector2 position, Facing facing, Character user)
         {
             if (this.FireRate < this.WeaponType.FireRate)
                 return;
 
+            Bullet bullet = this.WeaponType.BulletType.Pool.New();
+            bullet.Fire(position, facing, user);
+            GameManager.BulletLayer.AddChild(bullet);
+
             this.FireRate = 0;
 
-            foreach (Bullet bullet in Bullets)
-            {
-                if (bullet.Dead)
-                {
-                    bullet.Fire(position, facing, user);
-                    return;
-                }
-            }
+            
         }
     }
 }

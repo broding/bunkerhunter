@@ -17,13 +17,15 @@ namespace Flakcore
         public static GraphicsDeviceManager Graphics { get; private set; }
         public static ContentManager Content { get; private set; }
         public static Vector2 ScreenSize { get; private set; }
-        public static Vector2 LevelBorderSize { get; private set; }
+        public static Vector2 LevelBorderSize { get; set; }
+
+        public static Layer BulletLayer;
 
         public static int UpdateCalls;
 
         private static Core Core;
         private static Rectangle _worldBounds;
-        public static Rectangle worldBounds 
+        public static Rectangle WorldBounds 
         { 
             get { return _worldBounds; }
             set { 
@@ -43,8 +45,7 @@ namespace Flakcore
             GameManager.Input = new Input();
             GameManager.ScreenSize = screenSize;
             GameManager.Core = core;
-            GameManager.worldBounds = Rectangle.Empty;
-            GameManager.LevelBorderSize = new Vector2(250, 250);
+            GameManager.WorldBounds = Rectangle.Empty;
 
             //TODO (BR): needs to be done more nice
             fontDefault = content.Load<SpriteFont>("fontDefault");
@@ -55,9 +56,14 @@ namespace Flakcore
         /// Used to switch between states; old state gets deleted
         /// </summary>
         /// <param name="state"></param>
-        public static void switchState(State state)
+        public static void SwitchState(Type state)
         {
-            Core.switchState(state);
+            GameManager.SwitchState(state, StateTransition.IMMEDIATELY, StateTransition.IMMEDIATELY);
+        }
+
+        public static void SwitchState(Type state, StateTransition startTransition, StateTransition endTransition)
+        {
+            Core.SwitchState(state, startTransition, endTransition);
         }
 
         public static void addCamera()

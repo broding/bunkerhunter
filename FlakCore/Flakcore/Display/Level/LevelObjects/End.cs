@@ -11,6 +11,7 @@ namespace Flakcore.Display.Level.LevelObjects
             : base()
         {
             this.LoadTexture("start");
+            this.AddCollisionGroup("end");
             this.Immovable = true;
         }
     }

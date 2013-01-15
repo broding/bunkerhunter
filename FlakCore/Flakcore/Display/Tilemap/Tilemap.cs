@@ -143,12 +143,12 @@ namespace Display.Tilemap
             return best;
         }
 
-        public override void Draw(SpriteBatch spriteBatch, Vector2 parentPosition)
+        public override void Draw(SpriteBatch spriteBatch, ParentNode parentNode)
         {
             // loop through all layers to draw them
             foreach (TileLayer layer in Layers)
             {
-                layer.Draw(spriteBatch, parentPosition);
+                layer.Draw(spriteBatch, parentNode);
             }
         }
 

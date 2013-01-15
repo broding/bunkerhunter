@@ -11,13 +11,15 @@ namespace Flakcore.Display.Level
     class RoomType
     {
         public Sides Sides;
+        public RoomTypes Type;
         private Tilemap Tilemap;
 
-        public RoomType(string roomName)
+        public RoomType(string roomName, RoomTypes type)
         {
             this.Tilemap = new Tilemap();
             this.Tilemap.LoadMap(@"Content/rooms/" + roomName + ".tmx", 32, 32);
             this.Sides = new Sides();
+            this.Type = type;
 
             this.CheckSides();
         }

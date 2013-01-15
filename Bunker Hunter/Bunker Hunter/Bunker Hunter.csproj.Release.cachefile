@@ -14,11 +14,14 @@ Content\level\borderTile.xnb
 Content\level\levelTile.xnb
 Content\level\borders_bunker.xnb
 Content\ladder.xnb
+Content\start.xnb
 Content\ParticleEffects\smoke1.xnb
 Content\ParticleEffects\smokePuff.xnb
 Content\fontDefault.spritefont
 Content\rooms\bottomleft.tmx
 Content\rooms\bottomright.tmx
+Content\rooms\left.tmx
+Content\rooms\right.tmx
 Content\rooms\topleft.tmx
 Content\rooms\topright.tmx
 Content\rooms\toprightleft.tmx

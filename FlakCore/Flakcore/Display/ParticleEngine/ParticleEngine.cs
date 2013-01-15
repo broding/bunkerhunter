@@ -10,8 +10,6 @@ namespace Flakcore.Display.ParticleEngine
 {
     public class ParticleEngine : Node
     {
-        public Vector2 EmitterPosition = Vector2.Zero;
-
         private ParticleEffect Effect;
         private BasicEmitter[] Emitters;
         private bool Started;
@@ -37,10 +35,10 @@ namespace Flakcore.Display.ParticleEngine
 
         public override void Update(GameTime gameTime)
         {
+            base.Update(gameTime);
+
             if (!this.Started)
                 return;
-
-            base.Update(gameTime);
 
             this.UpdateEmitterPositions();
         }
@@ -66,26 +64,27 @@ namespace Flakcore.Display.ParticleEngine
 
         private void StartEmitters()
         {
-            foreach (BasicEmitter emitter in this.Emitters)
-                emitter.Start();
+            for (int i = 0; i < this.Emitters.Length; i++)
+                this.Emitters[i].Start();
         }
 
         private void StopEmitters()
         {
-            foreach (BasicEmitter emitter in this.Emitters)
-                emitter.Stop();
+            for (int i = 0; i < this.Emitters.Length; i++)
+                this.Emitters[i].Stop();
         }
 
         private void ExplodeEmitters()
         {
-            foreach (BasicEmitter emitter in this.Emitters)
-                emitter.Explode();
+            for (int i = 0; i < this.Emitters.Length; i++)
+                this.Emitters[i].Explode();
         }
 
         private void UpdateEmitterPositions()
         {
-            foreach (BasicEmitter emitter in this.Emitters)
-                emitter.Position = this.EmitterPosition;
+            for (int i = 0; i < this.Emitters.Length; i++)
+                this.Emitters[i].Position = this.Position;
+                
         }
     }
 

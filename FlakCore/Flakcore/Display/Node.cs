@@ -22,8 +22,10 @@ namespace Flakcore.Display
         public Vector2 Velocity = Vector2.Zero;
         public Vector2 PreviousVelocity { get; protected set; }
         public Vector2 Acceleration = Vector2.Zero;
-        public float Mass = 0;
+        public float Alpha = 1;
         public float Depth = 0;
+
+        public float Mass = 0;
 
         public int Width;
         public int Height;
@@ -86,6 +88,12 @@ namespace Flakcore.Display
                 throw new Exception("Tried to remove child but gave an error");
         }
 
+        public void RemoveFromParent()
+        {
+            if (this.Parent != null)
+                this.Parent.RemoveChild(this);
+        }
+
         public virtual void Update(GameTime gameTime)
         {
             GameManager.UpdateCalls++;
@@ -95,7 +103,8 @@ namespace Flakcore.Display
 
             if (this.UpdateChildren)
             {
-                for (int i = 0; i < this.Children.Count; i++)
+                int childrenCount = this.Children.Count;
+                for (int i = 0; i < childrenCount; i++)
                 {
                     this.Children[i].Update(gameTime);
                     this.Children[i].PreCollisionUpdate(gameTime);
@@ -116,9 +125,12 @@ namespace Flakcore.Display
 
         public virtual void PostUpdate(GameTime gameTime)
         {
-            foreach (Node child in Children.ToList<Node>())
-                child.PostUpdate(gameTime);
+            if (this.Dead)
+                return;
 
+            for (int i = 0; i < this.Children.Count; i++)
+                this.Children[i].PostUpdate(gameTime);
+                
             if (!Immovable)
             {
                 this.PreviousPosition = this.Position;
@@ -131,21 +143,27 @@ namespace Flakcore.Display
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            this.Draw(spriteBatch, Vector2.Zero);
+            ParentNode parentNode = new ParentNode();
+            parentNode.Position = this.Position;
+            parentNode.Alpha = this.Alpha;
+
+            this.Draw(spriteBatch, parentNode);
         }
 
-        public virtual void Draw(SpriteBatch spriteBatch, Vector2 parentPosition)
+        public virtual void Draw(SpriteBatch spriteBatch, ParentNode parentNode)
         {
             if (!Visable || Dead)
                 return;
 
-            foreach (Node child in Children)
-            {
-                child.Draw(spriteBatch, this.Position + parentPosition);
-            }
+            parentNode.Position += this.Position;
+            parentNode.Alpha = Math.Min(this.Alpha, parentNode.Alpha);
+
+            int childrenCount = this.Children.Count;
+            for (int i = 0; i < childrenCount; i++)
+                this.Children[i].Draw(spriteBatch, parentNode);
         }
 
-        protected virtual void DrawCall(SpriteBatch spriteBatch, Vector2 position)
+        protected virtual void DrawCall(SpriteBatch spriteBatch, ParentNode parentNode)
         {
         }
 
@@ -169,6 +187,13 @@ namespace Flakcore.Display
         {
             this.Dead = true;
             this.Visable = false;
+
+            if (this is IPoolable)
+            {
+                IPoolable node = this as IPoolable;
+                if(node.ReportDeadToPool != null)
+                    node.ReportDeadToPool(node.PoolIndex);
+            }
         }
 
         public virtual void Revive()
@@ -316,5 +341,11 @@ namespace Flakcore.Display
         {
             Node.DrawDepth = 0;
         }
+    }
+
+    public struct ParentNode
+    {
+        public Vector2 Position;
+        public float Alpha;
     }
 }

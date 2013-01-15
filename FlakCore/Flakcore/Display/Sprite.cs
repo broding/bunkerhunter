@@ -13,7 +13,6 @@ namespace Flakcore.Display
         public Texture2D Texture { get; protected set; }
         public Facing Facing;
         public Color Color;
-        public float Alpha;
         public Rectangle SourceRectangle;
         public OffScreenAction OffScreenAction;
         public SpriteEffects SpriteEffects;
@@ -32,7 +31,6 @@ namespace Flakcore.Display
             Animations = new List<Animation>();
             Facing = Facing.Right;
             Color = Color.White;
-            Alpha = 1;
             OffScreenAction = OffScreenAction.NO_DRAW;
             SpriteEffects = new SpriteEffects();
 
@@ -92,6 +90,8 @@ namespace Flakcore.Display
 
         public override void Update(GameTime gameTime)
         {
+            base.Update(gameTime);
+
             // if animating, then update all animation stuff
             if (Animating)
             {
@@ -106,13 +106,14 @@ namespace Flakcore.Display
                     AnimationTimer = 0;
                 }
             }
-
-            base.Update(gameTime);
         }
 
-        public override void Draw(SpriteBatch spriteBatch, Vector2 parentPosition)
+        public override void Draw(SpriteBatch spriteBatch, ParentNode parentNode)
         {
-            if (!Visable || !GameManager.currentDrawCamera.BoundingBox.Intersects(this.GetBoundingBox(this.Position + parentPosition)))
+            parentNode.Position += this.Position;
+            parentNode.Alpha = Math.Min(this.Alpha, parentNode.Alpha);
+
+            if (!Visable || !GameManager.currentDrawCamera.BoundingBox.Intersects(this.GetBoundingBox(parentNode.Position)))
                 return;
 
             this.SpriteEffects = SpriteEffects.None;
@@ -120,24 +121,24 @@ namespace Flakcore.Display
             if(Facing == Facing.Left)
                 this.SpriteEffects = SpriteEffects.FlipHorizontally;
 
-            this.DrawCall(spriteBatch, parentPosition + this.Position);
+            this.DrawCall(spriteBatch, parentNode);
 
-            base.Draw(spriteBatch, this.Position + parentPosition);   
+            base.Draw(spriteBatch, parentNode);   
         }
 
-        protected override void DrawCall(SpriteBatch spriteBatch, Vector2 position)
+        protected override void DrawCall(SpriteBatch spriteBatch, ParentNode parentNode)
         {
             if (this.Texture == null)
                 return;
 
-            Sprite.DrawPosition.X = position.X * this.ScrollFactor.X;
-            Sprite.DrawPosition.Y = position.Y * this.ScrollFactor.Y;
+            Sprite.DrawPosition.X = parentNode.Position.X * this.ScrollFactor.X;
+            Sprite.DrawPosition.Y = parentNode.Position.Y * this.ScrollFactor.Y;
 
             if (Animating)
                 spriteBatch.Draw(Texture,
                     Sprite.DrawPosition,
                     new Rectangle(CurrentAnimation.frames[CurrentFrame] * Width, 0, Width, Height),
-                    this.Color * this.Alpha,
+                    this.Color * parentNode.Alpha,
                     this.Rotation,
                     this.Origin,
                     this.Scale,
@@ -147,7 +148,7 @@ namespace Flakcore.Display
                 spriteBatch.Draw(Texture,
                     Sprite.DrawPosition,
                     this.SourceRectangle,
-                    this.Color * this.Alpha,
+                    this.Color * parentNode.Alpha,
                     this.Rotation,
                     this.Origin,
                     this.Scale,
@@ -170,6 +171,21 @@ namespace Flakcore.Display
                     return false;
             }
 
+        }
+
+        public static Sprite CreateRectangle(Vector2 size, Color color)
+        {
+            Texture2D rectangle = new Texture2D(GameManager.Graphics.GraphicsDevice, 1, 1);
+            rectangle.SetData(new[] { color });
+
+            Sprite sprite = new Sprite();
+            sprite.LoadTexture(rectangle);
+            sprite.Width = (int)size.X;
+            sprite.Height = (int)size.Y;
+            sprite.SourceRectangle.Width = (int)size.X;
+            sprite.SourceRectangle.Height = (int)size.Y;
+
+            return sprite;
         }
     }
 

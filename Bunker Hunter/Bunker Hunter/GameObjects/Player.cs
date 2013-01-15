@@ -10,16 +10,16 @@ using Microsoft.Xna.Framework.Input;
 using Flakcore.Utils;
 using Flakcore.Physics;
 using CallOfHonour;
-using Bunker_Hunter.GameObjects;
+using Bunker_Hunter.Models;
 
 namespace Bunker_Hunker.GameObjects
 {
     public class Player : Character
     {
         public Player(Layer bulletLayer)
-            : base(bulletLayer, CharacterTypes.PLAYER)
+            : base(bulletLayer, CharacterType.PLAYER)
         {
-            this.LoadTexture(GameManager.Content.Load<Texture2D>("player"), 32, 48);
+            this.LoadTexture("player");
         }
 
         public override void Update(GameTime gameTime)

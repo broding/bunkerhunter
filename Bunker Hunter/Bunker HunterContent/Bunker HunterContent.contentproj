@@ -111,6 +111,14 @@
       <Name>end1</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="rooms\left.tmx">
+      <Name>left</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="rooms\right.tmx">
+      <Name>right</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="rooms\rightleft.tmx">
       <Name>rightleft</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -215,6 +223,13 @@
   <ItemGroup>
     <Compile Include="start.png">
       <Name>start</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="enemy.png">
+      <Name>enemy</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

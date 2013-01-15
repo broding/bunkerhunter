@@ -10,13 +10,13 @@ using Microsoft.Xna.Framework.Input;
 using Flakcore.Utils;
 using CallOfHonour.GameObjects;
 using Flakcore.Physics;
-using Bunker_Hunter.GameObjects;
+using Bunker_Hunter.Models;
 
 namespace Bunker_Hunker.GameObjects
 {
     public abstract class Character : Sprite
     {
-        public CharacterTypes Type { get; private set; }
+        public CharacterType Type { get; private set; }
         public int Health { get; protected set; }
 
         protected Weapon Weapon;
@@ -28,7 +28,7 @@ namespace Bunker_Hunker.GameObjects
         protected Node LadderTile;
         protected bool LadderClimbing;
 
-        public Character(Layer bulletLayer, CharacterTypes type)
+        public Character(Layer bulletLayer, CharacterType type)
         {
             this.Type = type;
             this.Health = 100;
@@ -187,7 +187,7 @@ namespace Bunker_Hunker.GameObjects
         }
     }
 
-    public enum CharacterTypes
+    public enum CharacterType
     {
         PLAYER,
         ENEMY

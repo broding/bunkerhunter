@@ -6,16 +6,20 @@ using Flakcore.Display;
 using Flakcore;
 using Microsoft.Xna.Framework;
 using Flakcore.Utils;
-using Bunker_Hunter.GameObjects;
+using Bunker_Hunter.Models;
 using Flakcore.Display.ParticleEngine;
 using Microsoft.Xna.Framework.Graphics;
 using Flakcore.Display.ParticleEngine.Modifiers;
 using Bunker_Hunker.GameObjects;
+using Bunker_Hunter.Types;
 
 namespace CallOfHonour.GameObjects
 {
-    public class Bullet : Sprite
+    public class Bullet : Sprite, IPoolable
     {
+        public int PoolIndex { get; set; }
+        public Action<int> ReportDeadToPool { get; set; }
+
         public BulletType BulletType { get; private set; }
         public Character Shooter { get; private set; }
         public ParticleEngine ParticleEngine;
@@ -45,7 +49,6 @@ namespace CallOfHonour.GameObjects
             this.Facing = facing;
             this.Shooter = shooter;
             this.Revive();
-            this.ParticleEngine.Position = this.Position;
             this.ParticleEngine.Start();
 
             this.Velocity.X = Util.FacingToVelocity(facing) * this.BulletType.Speed.X;
@@ -61,7 +64,7 @@ namespace CallOfHonour.GameObjects
                 return;
 
             this.Velocity *= this.BulletType.SpeedChange;
-            this.ParticleEngine.EmitterPosition = this.Position;
+            this.ParticleEngine.Position = this.WorldPosition;
 
             GameManager.collide(this, "tilemap", this.TilemapCollision);
             GameManager.collide(this, "character", this.CharacterCollision);
@@ -70,9 +73,9 @@ namespace CallOfHonour.GameObjects
         private void TilemapCollision(Node bullet, Node tile)
         {
             if (this.Facing == Facing.Left)
-                this.ExplosionParticles.EmitterPosition = new Vector2(tile.WorldPosition.X + tile.Width, this.WorldPosition.Y);
+                this.ExplosionParticles.Position = new Vector2(tile.WorldPosition.X + tile.Width, this.WorldPosition.Y);
             else
-                this.ExplosionParticles.EmitterPosition = new Vector2(tile.WorldPosition.X, this.WorldPosition.Y);
+                this.ExplosionParticles.Position = tile.WorldPosition;
 
             this.ExplosionParticles.Explode();
 
@@ -84,12 +87,12 @@ namespace CallOfHonour.GameObjects
         {
             Character character = (Character)characterNode;
 
-            if (this.Shooter.Type == CharacterTypes.PLAYER && character.Type == CharacterTypes.ENEMY)
+            if (this.Shooter.Type == CharacterType.PLAYER && character.Type == CharacterType.ENEMY)
             {
                 character.Hit(this);
                 this.Kill();
             }
-            else if (this.Shooter.Type == CharacterTypes.ENEMY && character.Type == CharacterTypes.PLAYER)
+            else if (this.Shooter.Type == CharacterType.ENEMY && character.Type == CharacterType.PLAYER)
             {
                 character.Hit(this);
                 this.Kill();

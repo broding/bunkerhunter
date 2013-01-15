@@ -10,6 +10,7 @@ using Flakcore.Utils;
 using Flakcore.Physics;
 using Flakcore.Display.Level;
 using System.Diagnostics;
+using System.Threading;
 
 namespace Flakcore
 {
@@ -19,8 +20,9 @@ namespace Flakcore
         public CollisionSolver CollisionSolver { get; private set; }
 
         private QuadTree CollisionQuad;
-        private State CurrentState;
         private Stopwatch Stopwatch;
+
+        private State CurrentState;
 
         public Core(Vector2 screenSize, GraphicsDeviceManager graphics, ContentManager content)
         {
@@ -35,7 +37,7 @@ namespace Flakcore
             this.Cameras.Add(camera);
             GameManager.currentDrawCamera = camera;
 
-            GameManager.worldBounds = new Rectangle(0, 0, (int)Level.LEVEL_WIDTH * Level.ROOM_WIDTH * Level.BLOCK_WIDTH, (int)Level.LEVEL_HEIGHT * Level.ROOM_HEIGHT * Level.BLOCK_HEIGHT);
+            GameManager.WorldBounds = new Rectangle(0, 0, (int)Level.LEVEL_WIDTH * Level.ROOM_WIDTH * Level.BLOCK_WIDTH, (int)Level.LEVEL_HEIGHT * Level.ROOM_HEIGHT * Level.BLOCK_HEIGHT);
 
             setupQuadTree();
 
@@ -46,7 +48,7 @@ namespace Flakcore
         {
             this.Stopwatch.Reset();
             this.Stopwatch.Start();
-            resetCollisionQuadTree();
+            ResetCollisionQuadTree();
             this.Stopwatch.Stop();
             DebugInfo.AddDebugItem("Reset Collision Quad", this.Stopwatch.ElapsedMilliseconds + " ms");
 
@@ -69,9 +71,10 @@ namespace Flakcore
             DebugInfo.AddDebugItem("Post Update", this.Stopwatch.ElapsedMilliseconds + " ms");
 
             DebugInfo.AddDebugItem("Update calls", GameManager.UpdateCalls + " times");
+            DebugInfo.AddDebugItem("Allocated memory", System.GC.GetTotalMemory(false) / 131072 + " mb");
             GameManager.UpdateCalls = 0;
 
-            GameManager.Input.update();
+            GameManager.Input.Update();
 
             foreach (Camera camera in Cameras)
                 camera.update(gameTime);
@@ -80,7 +83,6 @@ namespace Flakcore
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-
             this.Stopwatch.Reset();
             this.Stopwatch.Start();
             GameManager.Graphics.GraphicsDevice.Clear(CurrentState.BackgroundColor);
@@ -89,13 +91,14 @@ namespace Flakcore
             {
                 GameManager.currentDrawCamera = camera;
                 GameManager.Graphics.GraphicsDevice.Viewport = camera.Viewport;
+
                 spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.LinearClamp, null, null, null, camera.GetTransformMatrix());
                 this.CurrentState.Draw(spriteBatch);
                 spriteBatch.End();
 
 #if(DEBUG)
                 spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.LinearClamp, null, null, null, camera.GetTransformMatrix());
-                drawCollisionQuad(spriteBatch);
+                DrawCollisionQuad(spriteBatch);
                 spriteBatch.End();
 
                 this.Stopwatch.Stop();
@@ -107,34 +110,41 @@ namespace Flakcore
                 spriteBatch.End();
 
 #endif
-
                 Node.ResetDrawDepth();
 
             }
         }
 
-        public void switchState(State state)
+        public void SwitchState(State state)
         {
             this.CurrentState = null;
+            //GC.Collect();
             this.CurrentState = state;
         }
 
-        private void resetCollisionQuadTree()
+        public void SwitchState(Type state, StateTransition startTransition, StateTransition endTransition)
         {
-            CollisionQuad.clear();
+            this.CurrentState = null;
+            //GC.Collect();
+            this.CurrentState = (State)Activator.CreateInstance(state);
+        }
 
-            List<Node> children = CurrentState.GetAllCollidableChildren(new List<Node>());
+        private void ResetCollisionQuadTree()
+        {
+            this.CollisionQuad.clear();
+
+            List<Node> children = this.CurrentState.GetAllCollidableChildren(new List<Node>());
 
             foreach (Node child in children)
             {
-                CollisionQuad.insert(child);
+                this.CollisionQuad.insert(child);
             }
 #if(DEBUG)
             DebugInfo.AddDebugItem("Collidable Children", children.Count + " children");
 #endif
         }
 
-        private void drawCollisionQuad(SpriteBatch spriteBatch)
+        private void DrawCollisionQuad(SpriteBatch spriteBatch)
         {
             Texture2D blank = new Texture2D(GameManager.Graphics.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
             blank.SetData(new[]{Color.White});
@@ -156,7 +166,7 @@ namespace Flakcore
 
         public void setupQuadTree()
         {
-            CollisionQuad = new QuadTree(0, new BoundingRectangle(0, 0, GameManager.worldBounds.Width, GameManager.worldBounds.Height));
+            CollisionQuad = new QuadTree(0, new BoundingRectangle(0, 0, GameManager.WorldBounds.Width, GameManager.WorldBounds.Height));
             CollisionSolver = new CollisionSolver(CollisionQuad);
         }
     }

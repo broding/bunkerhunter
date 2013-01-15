@@ -63,6 +63,19 @@ namespace Flakcore.Display.Level
             return null;
         }
 
+        public Vector2 StartPosition
+        {
+            get
+            {
+                foreach (LevelObject levelObject in this.LevelObjects)
+                {
+                    if (levelObject is Start)
+                        return levelObject.Position;
+                }
+
+                throw new Exception("Could not find start position");
+            }
+        }
 
         internal void AddRoom(Room room, Vector2 position)
         {

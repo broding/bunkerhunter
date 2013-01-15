@@ -57,11 +57,11 @@ namespace Flakcore.Display.Level
             this.Borders = borders;
         }
 
-        protected override void DrawCall(SpriteBatch spriteBatch, Vector2 position)
+        protected override void DrawCall(SpriteBatch spriteBatch, ParentNode parentNode)
         {
-            base.DrawCall(spriteBatch, position);
+            base.DrawCall(spriteBatch, parentNode);
 
-            this.DrawBorders(spriteBatch, position);
+            this.DrawBorders(spriteBatch, parentNode.Position);
         }
 
         private void DrawBorders(SpriteBatch spriteBatch, Vector2 position)

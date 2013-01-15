@@ -12,6 +12,7 @@ using Flakcore;
 using Bunker_Hunter.States;
 using Indiefreaks.Xna.Profiler;
 using Indiefreaks.AOP.Profiler;
+using Flakcore.Display;
 
 namespace Bunker_Hunter
 {
@@ -53,7 +54,7 @@ namespace Bunker_Hunter
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             this.Core = new Core(new Vector2(1136, 640), graphics, Content);
-            Core.switchState(new PlayState());
+            Core.SwitchState(new PlayState());
         }
 
         /// <summary>
