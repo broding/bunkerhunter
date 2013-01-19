@@ -16,6 +16,9 @@ using Display.Tilemap;
 using Flakcore.Display.Level;
 using System.Threading;
 using Bunker_Hunter.GameDirector;
+using Bunker_Hunter.Types;
+using Bunker_Hunter.Models;
+using Bunker_Hunter.UI;
 
 namespace Bunker_Hunter.States
 {
@@ -33,8 +36,10 @@ namespace Bunker_Hunter.States
         public override void Load()
         {
             GameManager.LevelBorderSize = new Vector2(250, 250);
-
             GameManager.BulletLayer = new Layer();
+            GameManager.UILayer = new Layer();
+
+            DamageIndicator.Initialize(GameManager.UILayer);
 
             this.Level = new Level();
             this.Player = new Player(GameManager.BulletLayer);
@@ -44,10 +49,20 @@ namespace Bunker_Hunter.States
             this.AddChild(this.Level);
             this.AddChild(Player);
             this.AddChild(GameManager.BulletLayer);
+            this.AddChild(GameManager.UILayer);
 
             GameManager.currentDrawCamera.followNode = this.Player;
 
             this.SpawnPlayer();
+
+            Enemy.Players = new List<Player>(4);
+            Enemy.Players.Add(this.Player);
+
+            EnemyType enemyType = new EnemyType();
+            Enemy enemy = enemyType.Pool.New();
+            enemy.Activate();
+            enemy.Position = this.Player.Position - new Vector2(64, 64);
+            this.AddChild(enemy);
         }
 
         public override void Update(GameTime gameTime)

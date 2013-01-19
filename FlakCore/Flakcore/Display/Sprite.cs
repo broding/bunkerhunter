@@ -163,7 +163,7 @@ namespace Flakcore.Display
                 case OffScreenAction.NO_DRAW:
                     return true;
                 case OffScreenAction.KILL:
-                    this.Kill();
+                    this.Deactivate();
                     return true;
                 case OffScreenAction.NONE:
                     return false;

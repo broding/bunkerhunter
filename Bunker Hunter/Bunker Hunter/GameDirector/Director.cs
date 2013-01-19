@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using Bunker_Hunker.GameObjects;
 using Flakcore.Display.Level;
-using Bunker_Hunter.Models.Enemies;
 using Flakcore.Display;
+using Bunker_Hunter.Models;
 
 namespace Bunker_Hunter.GameDirector
 {
@@ -21,19 +21,6 @@ namespace Bunker_Hunter.GameDirector
             this.Player = player;
             this.Level = level;
             this.BulletLayer = bulletLayer;
-
-            this.LoadEnemies();
-        }
-
-        private void LoadEnemies()
-        {
-            this.Enemies = new Enemy[50];
-
-            for (int i = 0; i < 50; i++)
-            {
-                this.Enemies[i] = new Enemy(this.BulletLayer);
-                this.Enemies[i].Kill();
-            }
         }
     }
 }

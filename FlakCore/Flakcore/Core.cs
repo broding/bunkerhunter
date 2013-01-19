@@ -118,14 +118,12 @@ namespace Flakcore
         public void SwitchState(State state)
         {
             this.CurrentState = null;
-            //GC.Collect();
             this.CurrentState = state;
         }
 
         public void SwitchState(Type state, StateTransition startTransition, StateTransition endTransition)
         {
             this.CurrentState = null;
-            //GC.Collect();
             this.CurrentState = (State)Activator.CreateInstance(state);
         }
 

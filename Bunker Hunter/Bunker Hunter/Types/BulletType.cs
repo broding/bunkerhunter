@@ -10,7 +10,7 @@ using Flakcore;
 
 namespace Bunker_Hunter.Types
 {
-    public class BulletType : ITypePool
+    public class BulletType : ITypePool<Bullet>
     {
         public int PoolSize { get; private set; }
         public string TextureName { get; private set; }
@@ -18,13 +18,13 @@ namespace Bunker_Hunter.Types
         public Vector2 SpeedChange { get; private set; }
         public float Mass { get; private set; }
 
-        public Pool<Bullet> Pool;
+        public Pool<Bullet> Pool { get; set; }
 
         public BulletType()
         {
             this.PoolSize = 30;
             this.TextureName = "bullet";
-            this.Speed = new Vector2(800, -100);
+            this.Speed = new Vector2(1000, -100);
             this.SpeedChange = new Vector2(1.00f, 0f);
             this.Mass = 0.0f;
 
@@ -33,18 +33,18 @@ namespace Bunker_Hunter.Types
 
         public void InitializePool()
         {
-            this.Pool = new Pool<Bullet>(this.PoolSize, false, this.IsBulletDead, this.SetupBullet);
+            this.Pool = new Pool<Bullet>(this.PoolSize, false, this.IsBulletActive, this.SetupBullet);
         }
 
-        private bool IsBulletDead(Bullet bullet)
+        private bool IsBulletActive(Bullet bullet)
         {
-            return bullet.Dead;
+            return !bullet.Active;
         }
 
         private Bullet SetupBullet()
         {
             Bullet bullet = new Bullet(GameManager.BulletLayer, this);
-            bullet.Kill();
+            bullet.Deactivate();
 
             return bullet;
         }

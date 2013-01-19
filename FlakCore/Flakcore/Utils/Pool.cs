@@ -48,7 +48,7 @@ namespace Flakcore.Utils
 
         public T New()
         {
-            for (int i = this.NextIndex; i < this.Items.Length; i++)
+            for (int i = 0; i < this.Items.Length; i++)
             {
                 T item = this.Items[i];
 

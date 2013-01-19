@@ -22,7 +22,7 @@ namespace Flakcore.Display.ParticleEngine
             this.Emitter = emitter;
             this.Lifetime = 0;
             this.Modifiers = new LinkedList<IParticleModifier>();
-            this.Kill();
+            this.Deactivate();
             this.Origin = new Vector2(this.Emitter.Data.BaseTexture.Width / 2, this.Emitter.Data.BaseTexture.Height / 2);
             this.OffScreenAction = OffScreenAction.NONE;
             this.SourceRectangle = new Rectangle(0, 0, this.Emitter.Data.BaseTexture.Width, this.Emitter.Data.BaseTexture.Height);
@@ -60,7 +60,7 @@ namespace Flakcore.Display.ParticleEngine
 
         public void Fire(Vector2 position)
         {
-            this.Revive();
+            this.Activate();
             //this.Position = position;
             this.InitializeEffect();
         }
@@ -69,7 +69,7 @@ namespace Flakcore.Display.ParticleEngine
         {
             base.Update(gameTime);
 
-            if (this.Dead)
+            if (!this.Active)
                 return;
 
             this.Lifetime += (int)gameTime.ElapsedGameTime.TotalMilliseconds;

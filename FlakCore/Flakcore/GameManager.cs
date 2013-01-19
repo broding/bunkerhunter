@@ -20,6 +20,7 @@ namespace Flakcore
         public static Vector2 LevelBorderSize { get; set; }
 
         public static Layer BulletLayer;
+        public static Layer UILayer;
 
         public static int UpdateCalls;
 
@@ -39,7 +40,7 @@ namespace Flakcore
 
         public static void initialize(Vector2 screenSize, GraphicsDeviceManager graphics, ContentManager content, Core core)
         {
-            GameManager.Gravity = 10;
+            GameManager.Gravity = 14;
             GameManager.Graphics = graphics;
             GameManager.Content = content;
             GameManager.Input = new Input();

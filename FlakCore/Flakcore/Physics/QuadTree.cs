@@ -80,7 +80,7 @@ namespace Flakcore.Physics
 
         public void insert(Node node)
         {
-            if (!node.HasCollisionGroups() || node.Dead || !node.Collidable)
+            if (!node.HasCollisionGroups() || !node.Active || !node.Collidable)
                 return;
 
             if(!node.GetBoundingBox().Intersects(this.bounds))

@@ -48,7 +48,7 @@ namespace Flakcore.Display
         public bool Collidable = true;
         public bool UpdateChildren = true;
         public Sides CollidableSides;
-        public bool Dead { get; protected set; }
+        public bool Active { get; protected set; }
 
         private List<string> CollisionGroup;
         private Matrix LocalTransform;
@@ -60,6 +60,7 @@ namespace Flakcore.Display
         {
             Children = new List<Node>(1000);
             CollisionGroup = new List<string>(10);
+            this.Active = true;
             this.Collidable = false;
             this.Touching = new Sides();
             this.WasTouching = new Sides();
@@ -98,7 +99,7 @@ namespace Flakcore.Display
         {
             GameManager.UpdateCalls++;
 
-            if (this.Dead)
+            if (!this.Active)
                 return;
 
             if (this.UpdateChildren)
@@ -125,7 +126,7 @@ namespace Flakcore.Display
 
         public virtual void PostUpdate(GameTime gameTime)
         {
-            if (this.Dead)
+            if (!this.Active)
                 return;
 
             for (int i = 0; i < this.Children.Count; i++)
@@ -152,7 +153,7 @@ namespace Flakcore.Display
 
         public virtual void Draw(SpriteBatch spriteBatch, ParentNode parentNode)
         {
-            if (!Visable || Dead)
+            if (!Visable || !Active)
                 return;
 
             parentNode.Position += this.Position;
@@ -183,9 +184,9 @@ namespace Flakcore.Display
             return new Rectangle((int)position.X, (int)position.Y, Width, Height);
         }
 
-        public virtual void Kill()
+        public virtual void Deactivate()
         {
-            this.Dead = true;
+            this.Active = false;
             this.Visable = false;
 
             if (this is IPoolable)
@@ -196,9 +197,9 @@ namespace Flakcore.Display
             }
         }
 
-        public virtual void Revive()
+        public virtual void Activate()
         {
-            this.Dead = false;
+            this.Active = true;
             this.Visable = true;
         }
 
@@ -248,7 +249,7 @@ namespace Flakcore.Display
             {
                 foreach (Node child in Children)
                 {
-                    if(child.Collidable && !child.Dead)
+                    if(child.Collidable && child.Active)
                         child.GetAllCollidableChildren(nodes);
                 }
 

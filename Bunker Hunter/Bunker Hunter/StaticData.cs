@@ -9,6 +9,8 @@ namespace Bunker_Hunter
 {
     class StaticData
     {
-        private EnemyType[] EnemyTypes; 
+        private EnemyType[] EnemyTypes;
+        private BulletType[] BulletTypes;
+        private WeaponType[] WeaponTypes;
     }
 }

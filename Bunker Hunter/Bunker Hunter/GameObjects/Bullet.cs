@@ -40,7 +40,7 @@ namespace CallOfHonour.GameObjects
 
             this.LoadTexture(this.BulletType.TextureName);
             this.AddCollisionGroup("bullet");
-            this.Kill();
+            this.Deactivate();
         }
 
         public void Fire(Vector2 position, Facing facing, Character shooter)
@@ -48,7 +48,7 @@ namespace CallOfHonour.GameObjects
             this.Position = position;
             this.Facing = facing;
             this.Shooter = shooter;
-            this.Revive();
+            this.Activate();
             this.ParticleEngine.Start();
 
             this.Velocity.X = Util.FacingToVelocity(facing) * this.BulletType.Speed.X;
@@ -56,11 +56,18 @@ namespace CallOfHonour.GameObjects
             this.Mass = this.BulletType.Mass;
         }
 
+        public override void Deactivate()
+        {
+            base.Deactivate();
+
+            this.RemoveFromParent();
+        }
+
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
 
-            if (this.Dead)
+            if (!this.Active)
                 return;
 
             this.Velocity *= this.BulletType.SpeedChange;
@@ -79,7 +86,7 @@ namespace CallOfHonour.GameObjects
 
             this.ExplosionParticles.Explode();
 
-            this.Kill();
+            this.Deactivate();
             this.ParticleEngine.Stop();
         }
 
@@ -90,12 +97,12 @@ namespace CallOfHonour.GameObjects
             if (this.Shooter.Type == CharacterType.PLAYER && character.Type == CharacterType.ENEMY)
             {
                 character.Hit(this);
-                this.Kill();
+                this.Deactivate();
             }
             else if (this.Shooter.Type == CharacterType.ENEMY && character.Type == CharacterType.PLAYER)
             {
                 character.Hit(this);
-                this.Kill();
+                this.Deactivate();
             }
         }
     }

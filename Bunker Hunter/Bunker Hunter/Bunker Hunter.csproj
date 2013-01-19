@@ -117,7 +117,7 @@
     <Compile Include="GameObjects\Bullet.cs" />
     <Compile Include="Types\BulletType.cs" />
     <Compile Include="GameObjects\Character.cs" />
-    <Compile Include="GameObjects\Enemies\Enemy.cs" />
+    <Compile Include="GameObjects\Enemy.cs" />
     <Compile Include="GameObjects\Player.cs" />
     <Compile Include="GameObjects\Weapon.cs" />
     <Compile Include="Types\ITypePool.cs" />
@@ -130,6 +130,8 @@
     <Compile Include="States\MenuState.cs" />
     <Compile Include="States\PlayState.cs" />
     <Compile Include="StaticData.cs" />
+    <Compile Include="UI\DamageIndicator.cs" />
+    <Compile Include="UI\DamageText.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

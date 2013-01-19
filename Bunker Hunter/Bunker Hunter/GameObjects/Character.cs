@@ -11,6 +11,7 @@ using Flakcore.Utils;
 using CallOfHonour.GameObjects;
 using Flakcore.Physics;
 using Bunker_Hunter.Models;
+using Bunker_Hunter.UI;
 
 namespace Bunker_Hunker.GameObjects
 {
@@ -19,32 +20,25 @@ namespace Bunker_Hunker.GameObjects
         public CharacterType Type { get; private set; }
         public int Health { get; protected set; }
 
-        protected Weapon Weapon;
-        protected Node BulletLayer;
-
         protected bool JumpAvailable;
 
         protected bool LadderAvailable;
         protected Node LadderTile;
         protected bool LadderClimbing;
 
-        public Character(Layer bulletLayer, CharacterType type)
+        public Character(CharacterType type)
         {
             this.Type = type;
             this.Health = 100;
             this.Mass = 1.3f;
             this.Depth = 0.1f;
-            this.BulletLayer = bulletLayer;
             this.Collidable = true;
 
             this.JumpAvailable = false;
             this.LadderAvailable = false;
             this.LadderClimbing = false;
 
-            this.Weapon = new Weapon(bulletLayer);
             this.AddCollisionGroup("character");
-
-            this.AddChild(this.Weapon);
 
             //this.AddAnimation("run", new int[8] { 0, 1, 2, 3, 4, 5, 6, 7 }, 0.08f);
         }
@@ -90,7 +84,7 @@ namespace Bunker_Hunker.GameObjects
                 this.PlayAnimation("still");
         }
 
-        private void TilemapCollide(Node player, Node tilemap)
+        protected virtual void TilemapCollide(Node player, Node tilemap)
         {
             if (this.Touching.Bottom)
             {
@@ -123,27 +117,15 @@ namespace Bunker_Hunker.GameObjects
             this.TilemapCollide(player, tilemap);
         }
 
-        public void Hit(Bullet bullet)
+        public virtual void Hit(Bullet bullet)
         {
             this.Health -= 4;
-        }
-
-        protected void UpdateInput(InputState inputState)
-        {
-            this.Run(inputState.X);
-
-            this.Climb(inputState.Y, inputState.Jump);
-
-            if (inputState.Jump)
-                Jump();
-
-            if (inputState.Fire)
-                Fire();
+            DamageIndicator.Show(this, 126);
         }
             
         protected void Run(float speed)
         {
-            this.Velocity.X = speed * 366;
+            this.Velocity.X = speed * 326;
         }
 
         protected void Climb(float ySpeed, bool exitButton)
@@ -178,11 +160,11 @@ namespace Bunker_Hunker.GameObjects
             }
         }
 
-        private void Fire()
+        public bool Dead
         {
-            if (this.Weapon != null)
+            get
             {
-                this.Weapon.Fire(this.Position, this.Facing, this);
+                return this.Health <= 0;
             }
         }
     }

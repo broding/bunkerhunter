@@ -88,7 +88,7 @@ namespace Flakcore.Display.ParticleEngine
         internal void KillParticle(Particle particle)
         {
             this.Particles.Remove(particle);
-            particle.Kill();
+            particle.Deactivate();
             this.DeadParticles.Add(particle);
         }
 
