@@ -54,7 +54,7 @@ namespace Flakcore.Utils
 
                 if (this.IsItemValid(item))
                 {
-                    this.NextIndex++;
+                    this.NextIndex = ++i;
                     return item;
                 }
             }
