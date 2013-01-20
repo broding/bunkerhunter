@@ -53,6 +53,8 @@ namespace Flakcore.Display
         private List<string> CollisionGroup;
         private Matrix LocalTransform;
 
+        private List<Activity> Activities;
+
         private static Quaternion RotationQuaternoin;
         private static Vector3 position3, scale3;
 
@@ -66,6 +68,7 @@ namespace Flakcore.Display
             this.WasTouching = new Sides();
             this.CollidableSides = new Sides();
             this.CollidableSides.SetAllTrue();
+            this.Activities = new List<Activity>();
             
             if(Node.RotationQuaternoin == null)
                 Node.RotationQuaternoin = new Quaternion();
@@ -93,6 +96,15 @@ namespace Flakcore.Display
         {
             if (this.Parent != null)
                 this.Parent.RemoveChild(this);
+        }
+
+
+
+        public void RemoveActivity(Activity activity)
+        {
+            this.Activities.Remove(activity);
+
+            activity = null;
         }
 
         public virtual void Update(GameTime gameTime)
@@ -162,10 +174,6 @@ namespace Flakcore.Display
             int childrenCount = this.Children.Count;
             for (int i = 0; i < childrenCount; i++)
                 this.Children[i].Draw(spriteBatch, parentNode);
-        }
-
-        protected virtual void DrawCall(SpriteBatch spriteBatch, ParentNode parentNode)
-        {
         }
 
         public void RemoveAllChildren()

@@ -21,6 +21,7 @@ namespace Bunker_Hunter.UI
         public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch, ParentNode parentNode)
         {
             base.Draw(spriteBatch, parentNode);
+
         }
 
         protected override void DrawCall(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch, ParentNode parentNode)

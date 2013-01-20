@@ -16,7 +16,7 @@ namespace Bunker_Hunter.UI
         public static void Initialize(Layer uiLayer)
         {
             DamageIndicator.UILayer = uiLayer;
-            DamageIndicator.Pool = new Pool<DamageText>(100, false, DamageIndicator.IsTextActive, DamageIndicator.SetupText); 
+            DamageIndicator.Pool = new Pool<DamageText>(50, false, DamageIndicator.IsTextActive, DamageIndicator.SetupText); 
         }
 
         private static bool IsTextActive(DamageText text)
