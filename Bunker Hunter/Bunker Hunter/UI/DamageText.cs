@@ -29,9 +29,12 @@ namespace Bunker_Hunter.UI
 
             Activity scale = new ScaleTo(this, 200, new Vector2(0.9f, 0.9f));
             Activity alpha = new AlphaTo(this, 1000, 0);
+            Sequence sequence = new Sequence(this);
 
-            this.AddActivity(scale, true);
-            this.AddActivity(alpha, true);
+            sequence.AddActivity(scale);
+            sequence.AddActivity(alpha);
+
+            this.AddActivity(sequence, true);
         }
 
         protected override void DrawCall(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch, ParentNode parentNode)
