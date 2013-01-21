@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace Flakcore.Display
 {
-    abstract class Activity
+    public abstract class Activity
     {
         public Action Callback;
         public Node Node;

@@ -96,7 +96,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core.cs" />
+    <Compile Include="Display\Activities\AlphaTo.cs" />
     <Compile Include="Display\Activities\MoveTo.cs" />
+    <Compile Include="Display\Activities\ScaleTo.cs" />
     <Compile Include="Display\Activity.cs" />
     <Compile Include="Display\Animation.cs" />
     <Compile Include="Display\Camera.cs" />

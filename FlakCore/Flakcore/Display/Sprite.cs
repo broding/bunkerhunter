@@ -126,7 +126,7 @@ namespace Flakcore.Display
             base.Draw(spriteBatch, parentNode);   
         }
 
-        protected override void DrawCall(SpriteBatch spriteBatch, ParentNode parentNode)
+        protected virtual void DrawCall(SpriteBatch spriteBatch, ParentNode parentNode)
         {
             if (this.Texture == null)
                 return;

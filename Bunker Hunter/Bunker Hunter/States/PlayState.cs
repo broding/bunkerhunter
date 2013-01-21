@@ -38,6 +38,7 @@ namespace Bunker_Hunter.States
             GameManager.LevelBorderSize = new Vector2(250, 250);
             GameManager.BulletLayer = new Layer();
             GameManager.UILayer = new Layer();
+            GameManager.UILayer.Depth = 0.8f;
 
             DamageIndicator.Initialize(GameManager.UILayer);
 

@@ -6,10 +6,11 @@ using Flakcore.Utils;
 using Flakcore.Display;
 using Flakcore;
 using Microsoft.Xna.Framework;
+using Flakcore.Display.Activities;
 
 namespace Bunker_Hunter.UI
 {
-    internal class DamageText : Node, IPoolable
+    internal class DamageText : Sprite, IPoolable
     {
         public int PoolIndex { get; set; }
         public Action<int> ReportDeadToPool { get; set; }
@@ -18,15 +19,24 @@ namespace Bunker_Hunter.UI
         {
         }
 
-        public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch, ParentNode parentNode)
+        public override void Activate()
         {
-            base.Draw(spriteBatch, parentNode);
+            base.Activate();
 
+            this.Scale.X = 1.5f;
+            this.Scale.Y = 1.5f;
+            this.Alpha = 1f;
+
+            Activity scale = new ScaleTo(this, 200, new Vector2(0.9f, 0.9f));
+            Activity alpha = new AlphaTo(this, 1000, 0);
+
+            this.AddActivity(scale, true);
+            this.AddActivity(alpha, true);
         }
 
         protected override void DrawCall(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch, ParentNode parentNode)
         {
-            spriteBatch.DrawString(GameManager.fontDefault, "152", this.Position, Color.White);
+            spriteBatch.DrawString(GameManager.fontDefault, "152", this.Position, this.Color * this.Alpha, this.Rotation, this.Origin, this.Scale, this.SpriteEffects, this.GetParentDepth());
         }
     }
 }

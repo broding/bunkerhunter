@@ -98,7 +98,13 @@ namespace Flakcore.Display
                 this.Parent.RemoveChild(this);
         }
 
+        public void AddActivity(Activity activity, bool startImmediately)
+        {
+            this.Activities.Add(activity);
 
+            if (startImmediately)
+                activity.Start();
+        }
 
         public void RemoveActivity(Activity activity)
         {
@@ -123,6 +129,9 @@ namespace Flakcore.Display
                     this.Children[i].PreCollisionUpdate(gameTime);
                 }
             }
+
+            for (int i = 0; i < this.Activities.Count; i++)
+                this.Activities[i].Update(gameTime);
             
 
             this.Velocity.Y += this.Mass * GameManager.Gravity;
